@@ -6,34 +6,27 @@ on:
       - main
     paths:
       - "front-end/**"
+      - ".github"
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x]
 
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Yarn Install
-        run: |
-          cd front-end && yarn install
+          node-version: 14.x
       - name: Production Build
         run: |
-          cd front-end && yarn build
-      - name: Deploy to S3
-        uses: jakejarvis/s3-sync-action@master
+          cd front-end && yarn install && yarn build
+      - uses: aws-actions/configure-aws-credentials@v1
         with:
-          args: --acl public-read --delete
-        env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_PRODUCTION_BUCKET_NAME }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          SOURCE_DIR: "front-end/build"
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Deploy app build to S3 bucket
+        run:
+          aws s3 sync ./front-end/build/ s3://exercise-challenge-production
+          --delete
