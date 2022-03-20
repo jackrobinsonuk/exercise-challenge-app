@@ -1,0 +1,31 @@
+name: Front-End Production Build
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "front-end/**"
+      - ".github"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Production Build
+        run: |
+          cd front-end && yarn install && yarn build
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Deploy app build to S3 bucket
+        run:
+          aws s3 sync ./front-end/build/ s3://exercise-challenge-production
+          --delete
