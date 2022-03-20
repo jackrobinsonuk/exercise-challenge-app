@@ -1,8 +1,8 @@
-name: Front-End Production Build
+name: Front-End Staging Build
 on:
   push:
     branches:
-      - main
+      - develop
     paths:
       - "front-end/**"
       - ".github"
@@ -27,5 +27,5 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       - name: Deploy app build to S3 bucket
         run:
-          aws s3 sync ./front-end/build/ s3://exercise-challenge-production
+          aws s3 sync ./front-end/build/ s3://exercise-challenge-staging
           --delete
