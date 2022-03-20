@@ -1,7 +1,7 @@
 import { React } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import ResponsiveAppBar from "./Components/AppBar";
+import NavBar from "./Components/NavBar";
 import Team from "./Pages/Team";
 import YourExercise from "./Pages/YourExercise";
 import Profile from "./Pages/Profile";
@@ -9,17 +9,15 @@ import Profile from "./Pages/Profile";
 const App = () => {
   return (
     <div>
-      <ResponsiveAppBar />
+      <NavBar />
       <br />
       <div>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<YourExercise />} />
-            <Route path="/your-exercise" element={<YourExercise />} />
-            <Route path="/team" element={<Team />} />
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
-        </BrowserRouter>
+        <Routes>
+          <Route path="/" element={<YourExercise />} />
+          <Route path="/Exercise" element={<YourExercise />} />
+          <Route path="/Team" element={<Team />} />
+          <Route path="/Profile" element={<Profile />} />
+        </Routes>
       </div>
     </div>
   );
