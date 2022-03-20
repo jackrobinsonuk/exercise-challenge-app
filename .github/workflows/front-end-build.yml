@@ -2,10 +2,10 @@ name: Front-End Production Build
 on:
   pull_request:
   push:
-    paths:
-      - "front-end/**"
     branches:
       - master
+    paths:
+      - "front-end/**"
 
 jobs:
   build:
