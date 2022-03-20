@@ -1,0 +1,17 @@
+{
+  "providers": [
+    "awscloudformation"
+  ],
+  "projectName": "exercisechallenge",
+  "version": "3.1",
+  "frontend": "javascript",
+  "javascript": {
+    "framework": "react",
+    "config": {
+      "SourceDir": "front-end",
+      "DistributionDir": "build",
+      "BuildCommand": "yarn build",
+      "StartCommand": "yanr start"
+    }
+  }
+}
