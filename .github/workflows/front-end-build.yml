@@ -1,6 +1,5 @@
 name: Front-End Production Build
 on:
-  pull_request:
   push:
     branches:
       - main
