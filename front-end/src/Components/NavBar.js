@@ -79,6 +79,7 @@ const NavBar = () => {
             >
               {pages.map((page) => (
                 <Link
+                  key={page}
                   style={{ textDecoration: "none", color: "gray" }}
                   to={`${page}`}
                 >
@@ -100,6 +101,7 @@ const NavBar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Link
+                key={page}
                 style={{ textDecoration: "none", color: "white" }}
                 to={`${page}`}
               >

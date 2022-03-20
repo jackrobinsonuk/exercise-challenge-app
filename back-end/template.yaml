@@ -1,41 +1,109 @@
-AWSTemplateFormatVersion: '2010-09-09'
-Transform: AWS::Serverless-2016-10-31
-Description: >
-  exercise-challenge-back-end
+# This is the SAM template that represents the architecture of your serverless application
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-template-basics.html
 
-  Sample SAM Template for exercise-challenge-back-end
-  
-# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+# The AWSTemplateFormatVersion identifies the capabilities of the template
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  A SAM Application which forms part of the Exercise Challenge App
+
+# Transform section specifies one or more macros that AWS CloudFormation uses to process your template
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html
+Transform:
+  - AWS::Serverless-2016-10-31
+
 Globals:
-  Function:
-    Timeout: 3
-
+  Api:
+    Cors:
+      AllowMethods: "'GET,POST,OPTIONS'"
+      AllowHeaders: "'content-type'"
+      AllowOrigin: "'*'"
+      AllowCredentials: "'*'"
+# Resources declares the AWS resources that you want to include in the stack
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:
-  HelloWorldFunction:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+  # Each Lambda function is defined by properties:
+  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+
+  # ADMIN CLUSTER
+  # Lambda function to create an exercise in the exercises table
+  createExerciseFunction:
+    Type: AWS::Serverless::Function
     Properties:
-      CodeUri: hello-world/
-      Handler: app.lambdaHandler
+      Handler: src/AdminCluster/create-exercise.createExerciseHandler
       Runtime: nodejs14.x
       Architectures:
         - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description:
+        A simple example includes a HTTP get method to get all items from a
+        DynamoDB table.
+      Policies:
+        # Give Create/Read/Update/Delete Permissions to the OrderCountTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ExercisesTable
+      Environment:
+        Variables:
+          # Make table name accessible as environment variable from function code during execution
+          USER_EXERCISE_TABLE: !Ref ExercisesTable
       Events:
-        HelloWorld:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+        Api:
+          Type: Api
           Properties:
-            Path: /hello
-            Method: get
+            Path: /admin/create-exercise
+            Method: POST
+
+  #USER CLUSTER
+  # Lambda function to check the next order number
+  getAllExercisesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/UserCluster/get-all-exercises.getAllExercisesHandler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description:
+        A simple example includes a HTTP get method to get all items from a
+        DynamoDB table.
+      Policies:
+        # Give Create/Read/Update/Delete Permissions to the OrderCountTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UserExerciseTable
+      Environment:
+        Variables:
+          # Make table name accessible as environment variable from function code during execution
+          USER_EXERCISE_TABLE: !Ref UserExerciseTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /user/get-exercise/{userId}
+            Method: GET
+
+  UserExerciseTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+
+  ExercisesTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
 
 Outputs:
-  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
-  # Find out more about other implicit resources you can reference within SAM
-  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  HelloWorldApi:
-    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
-  HelloWorldFunction:
-    Description: "Hello World Lambda Function ARN"
-    Value: !GetAtt HelloWorldFunction.Arn
-  HelloWorldFunctionIamRole:
-    Description: "Implicit IAM Role created for Hello World function"
-    Value: !GetAtt HelloWorldFunctionRole.Arn
+  WebEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
