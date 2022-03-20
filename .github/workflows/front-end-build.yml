@@ -1,9 +1,11 @@
-name: Production Build
+name: Front-End Production Build
 on:
   pull_request:
   push:
     branches:
       - master
+      paths:
+      - 'front-end/**'
 jobs:
   build:
     runs-on: ubuntu-latest
