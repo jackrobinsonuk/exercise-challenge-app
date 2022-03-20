@@ -11,10 +11,12 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { Link } from "react-router-dom";
 
-const settings = ["Logout"];
+const pages = ["Exercise", "Team", "Profile"];
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-const ResponsiveAppBar = () => {
+const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -43,7 +45,7 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            Exercise Challenge
+            LOGO
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -75,21 +77,16 @@ const ResponsiveAppBar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              <MenuItem
-                key="Your-Exercise"
-                onClick={() => (window.location.pathname = "/your-exercise")}
-              >
-                <Typography textAlign="center">Your Exercise</Typography>
-              </MenuItem>
-              <MenuItem
-                key="Team"
-                onClick={() => (window.location.pathname = "/team")}
-              >
-                <Typography textAlign="center">Team</Typography>
-              </MenuItem>
-              <MenuItem key="Profile" onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">Profile</Typography>
-              </MenuItem>
+              {pages.map((page) => (
+                <Link
+                  style={{ textDecoration: "none", color: "gray" }}
+                  to={`${page}`}
+                >
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">{page}</Typography>
+                  </MenuItem>
+                </Link>
+              ))}
             </Menu>
           </Box>
           <Typography
@@ -98,30 +95,23 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            Exercise Challenge
+            LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Button
-              key="Your-Exercise"
-              onClick={() => (window.location.pathname = "/your-exercise")}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              Your Exercise
-            </Button>
-            <Button
-              key="Team"
-              onClick={() => (window.location.pathname = "/team")}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              Team
-            </Button>
-            <Button
-              key="Profile"
-              onClick={() => (window.location.pathname = "/profile")}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              Profile
-            </Button>
+            {pages.map((page) => (
+              <Link
+                style={{ textDecoration: "none", color: "white" }}
+                to={`${page}`}
+              >
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page}
+                </Button>
+              </Link>
+            ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -158,4 +148,4 @@ const ResponsiveAppBar = () => {
     </AppBar>
   );
 };
-export default ResponsiveAppBar;
+export default NavBar;
