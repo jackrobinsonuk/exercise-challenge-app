@@ -80,7 +80,7 @@ Resources:
         Api:
           Type: Api
           Properties:
-            Path: /user/get-exercise/{userId}
+            Path: /user/get-my-exercise/{userId}
             Method: GET
 
   UserExerciseTable:
