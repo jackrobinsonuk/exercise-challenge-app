@@ -56,10 +56,10 @@ Resources:
 
   #USER CLUSTER
   # Lambda function to check the next order number
-  getAllExercisesFunction:
+  getMyExercisesFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/UserCluster/get-all-exercises.getAllExercisesHandler
+      Handler: src/UserCluster/get-my-exercises.getMyExercisesHandler
       Runtime: nodejs14.x
       Architectures:
         - x86_64
