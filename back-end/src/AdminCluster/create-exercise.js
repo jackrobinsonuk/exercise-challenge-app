@@ -16,7 +16,7 @@ exports.createExerciseHandler = async (event) => {
       `getAllItems only accept GET method, you tried: ${event.httpMethod}`
     );
   }
-  // All log statements are written to CloudWatch
+  // All log statements are written to CloudWatch test
   console.info("received:", event);
 
   // get all items from the table (only first 1MB data, you can use `LastEvaluatedKey` to get the rest of data)
