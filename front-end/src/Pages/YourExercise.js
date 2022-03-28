@@ -21,11 +21,10 @@ setTotalPoints(totalPoints)
   function getMyExercises() {
     axios({
       method: "get",
-      url: "https://mmhbb4sn0k.execute-api.eu-west-1.amazonaws.com/Prod/user/get-exercise/Jack",
+      url: "https://mmhbb4sn0k.execute-api.eu-west-1.amazonaws.com/Prod/user/get-my-exercise/Jack",
       responseType: "json",
     }).then(function (response) {
       setExercises(response.data);
-      
     }).then(function () {
       setLoading(false);
     }).then(function () {
