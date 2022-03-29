@@ -2,7 +2,7 @@ name: Back-End Staging Build
 on:
   push:
     branches:
-      - develop
+      - master
     paths:
       - "back-end/**"
       - ".github"
@@ -31,6 +31,6 @@ jobs:
       - name: Deploy
         run:
           sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
-          --stack-name exercise-challenge-back-end-staging --s3-bucket
-          exercise-challenge-back-end-staging --capabilities CAPABILITY_IAM
+          --stack-name exercise-challenge-back-end --s3-bucket
+          exercise-challenge-back-end-production --capabilities CAPABILITY_IAM
           --region eu-west-1
