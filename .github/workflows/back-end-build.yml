@@ -1,4 +1,4 @@
-name: Back-End Staging Build
+name: Back-End Production Build
 on:
   push:
     branches:
