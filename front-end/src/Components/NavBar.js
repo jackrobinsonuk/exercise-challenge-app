@@ -39,15 +39,16 @@ const NavBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-          >
-            LOGO
-          </Typography>
-
+          <Link style={{ textDecoration: "none", color: "white" }} to="/">
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            >
+              Test
+            </Typography>
+          </Link>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -79,6 +80,7 @@ const NavBar = () => {
             >
               {pages.map((page) => (
                 <Link
+                  key={page}
                   style={{ textDecoration: "none", color: "gray" }}
                   to={`${page}`}
                 >
@@ -100,6 +102,7 @@ const NavBar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Link
+                key={page}
                 style={{ textDecoration: "none", color: "white" }}
                 to={`${page}`}
               >
