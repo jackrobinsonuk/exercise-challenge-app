@@ -1,7 +1,6 @@
 import { React, useState } from "react";
-import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
 import { CircularProgress } from "@mui/material";
+import { Divider } from "@mui/material";
 import axios from "axios";
 
 import ExerciseTable from "../Components/ExerciseTable";
@@ -55,22 +54,9 @@ export default function YourExercise() {
           <h4>Total Points: {totalPoints}</h4>
         </div>
       )}
-      <div align="right">
-        <h3>Add Exercise</h3>
-        {addExerciseDisplay === false && (
-          <Fab
-            color="primary"
-            aria-label="add"
-            onClick={() => setAddExerciseDisplay(true)}
-          >
-            <AddIcon />
-          </Fab>
-        )}
-      </div>
+      <Divider variant="full-width" />
       <div>
-        {addExerciseDisplay === true && (
-          <AddExercise setAddExerciseDisplay={setAddExerciseDisplay} />
-        )}
+        <AddExercise setAddExerciseDisplay={setAddExerciseDisplay} />
       </div>
     </main>
   );

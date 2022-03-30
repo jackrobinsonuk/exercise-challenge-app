@@ -1,41 +1,46 @@
 import { React, useState } from "react";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { Button } from "@mui/material";
-import TextField from "@mui/material/TextField";
-import { CircularProgress } from "@mui/material";
+import {
+  Box,
+  Button,
+  Select,
+  FormControl,
+  MenuItem,
+  TextField,
+  CircularProgress,
+  InputLabel,
+  InputAdornment,
+} from "@mui/material";
+import axios from "axios";
 
 export default function AddExerciseForm(props) {
   const [selectedExercise, setSelectedExercise] = useState("");
   const [minutesCompleted, setMinutesCompleted] = useState("");
-  const [submitEnabled, setSubmitEnabled] = useState("disabled");
+  const [submitDisabled, setSubmitDisabled] = useState(true);
   const [submitLoading, setSubmitLoading] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const handleSelectedExerciseChange = (event) => {
     setSelectedExercise(event.target.value);
     if (selectedExercise && minutesCompleted !== "") {
-      setSubmitEnabled("");
+      setSubmitDisabled(false);
     } else return;
   };
 
   const handleMinutesCompletedChange = (event) => {
     setMinutesCompleted(event.target.value);
     if (selectedExercise && minutesCompleted !== "") {
-      setSubmitEnabled("");
+      setSubmitDisabled(false);
     } else return;
   };
 
   const handleSubmit = () => {
     if (!submitLoading) {
-      setSubmitSuccess(false);
+      props.setShowSuccess(true);
+      props.setShowForm(false);
+      setSubmitDisabled(false);
       setSubmitLoading(true);
     }
     // TODO: This should submit the form data to the API and change if successful
-    //props.setAddExerciseDisplay(false);
   };
 
   return (
@@ -56,15 +61,19 @@ export default function AddExerciseForm(props) {
               <MenuItem value={"Rowing"}>Rowing</MenuItem>
               <MenuItem value={"Running"}>Running</MenuItem>
             </Select>
-            <div style={{ paddingTop: "20px" }}>
-              <TextField
-                id="outlined-basic"
-                label="Minutes Completed"
-                variant="outlined"
-                value={minutesCompleted}
-                onChange={handleMinutesCompletedChange}
-              />
-            </div>
+            <br />
+            <TextField
+              id="outlined-basic"
+              label="Time"
+              variant="outlined"
+              value={minutesCompleted}
+              onChange={handleMinutesCompletedChange}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">mins</InputAdornment>
+                ),
+              }}
+            />
           </FormControl>
         </Box>
       </div>
@@ -79,7 +88,7 @@ export default function AddExerciseForm(props) {
         >
           <Button
             variant="contained"
-            disabled={submitEnabled}
+            disabled={submitDisabled}
             onClick={handleSubmit}
           >
             Submit
