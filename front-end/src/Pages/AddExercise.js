@@ -4,10 +4,13 @@ import AddIcon from "@mui/icons-material/Add";
 
 import AddExerciseForm from "../Components/AddExerciseForm";
 import AddExerciseSuccess from "../Components/AddExerciseSuccess";
+import AddExerciseError from "../Components/AddExerciseError";
 
 export default function AddExercise(props) {
   const [showForm, setShowForm] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [submissionError, setSubmissionError] = useState("");
   const [showAddExerciseButton, setShowAddExerciseButton] = useState(true);
 
   return (
@@ -32,6 +35,8 @@ export default function AddExercise(props) {
           setShowSuccess={setShowSuccess}
           showForm={showForm}
           setShowForm={setShowForm}
+          setSubmissionError={setSubmissionError}
+          setShowError={setShowError}
         />
       )}
       {showSuccess && (
@@ -43,6 +48,7 @@ export default function AddExercise(props) {
           setShowAddExerciseButton={setShowAddExerciseButton}
         />
       )}
+      {showError && <AddExerciseError submissionError={submissionError} />}
     </div>
   );
 }

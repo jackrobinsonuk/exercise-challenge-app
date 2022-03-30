@@ -17,7 +17,11 @@ export default function AddExerciseForm(props) {
   const [minutesCompleted, setMinutesCompleted] = useState("");
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const [submitLoading, setSubmitLoading] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submissionError, setSubmissionError] = useState("");
+
+  const [submission, setSubmission] = useState({});
+
+  var userId = "Jack";
 
   const handleSelectedExerciseChange = (event) => {
     setSelectedExercise(event.target.value);
@@ -35,16 +39,28 @@ export default function AddExerciseForm(props) {
 
   const handleSubmit = () => {
     if (!submitLoading) {
-      props.setShowSuccess(true);
-      props.setShowForm(false);
-      setSubmitDisabled(false);
+      setSubmitDisabled(true);
       setSubmitLoading(true);
+
+      axios
+        .post(`/Prod/${userId}`, {
+          submission,
+        })
+        .then(function (response) {
+          console.log(response);
+          props.setShowSuccess(true);
+          // TODO: This should submit the form data to the API and change if successful
+        })
+        .catch(function (error) {
+          console.log(error);
+          props.setShowError(true);
+          setSubmitLoading(false);
+          props.setSubmissionError(error.toString());
+        });
     }
-    // TODO: This should submit the form data to the API and change if successful
   };
 
   return (
-    // If submitSuccess === false show the form, else if submitSuccess === true, show a success screen
     <div>
       <div style={{ paddingBottom: "20px" }}>
         <Box sx={{ minWidth: 120 }}>
