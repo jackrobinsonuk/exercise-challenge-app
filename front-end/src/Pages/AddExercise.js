@@ -35,6 +35,7 @@ export default function AddExercise(props) {
           setShowSuccess={setShowSuccess}
           showForm={showForm}
           setShowForm={setShowForm}
+          setShowAddExerciseButton={setShowAddExerciseButton}
           setSubmissionError={setSubmissionError}
           setShowError={setShowError}
         />

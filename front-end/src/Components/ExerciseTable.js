@@ -32,9 +32,9 @@ export default function ExerciseTable(props) {
                 {exercise.id}
               </TableCell>
               <TableCell>{exercise.Name}</TableCell>
-              <TableCell>{exercise.Minutes}</TableCell>
-              <TableCell>{exercise.Date}</TableCell>
-              <TableCell>{exercise.Points}</TableCell>
+              <TableCell>{exercise.minutesExercised}</TableCell>
+              <TableCell>{exercise.date}</TableCell>
+              <TableCell>{exercise.points}</TableCell>
             </TableRow>
           ))}
         </TableBody>

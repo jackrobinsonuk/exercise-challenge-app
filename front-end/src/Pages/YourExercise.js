@@ -11,10 +11,12 @@ export default function YourExercise() {
   const [loading, setLoading] = useState(true);
   const [totalPoints, setTotalPoints] = useState(null);
   const [addExerciseDisplay, setAddExerciseDisplay] = useState(false);
+  const userId = "robinson.jack97@gmail.com";
+  const [loadingError, setLoadingError] = useState(false);
 
   function calculateTotalPoints() {
     var totalPoints = exercises.reduce(function (prev, cur) {
-      return prev + cur.Points;
+      return prev + cur.points;
     }, 0);
     setTotalPoints(totalPoints);
   }
@@ -22,17 +24,20 @@ export default function YourExercise() {
   function getMyExercises() {
     axios({
       method: "get",
-      url: "https://mmhbb4sn0k.execute-api.eu-west-1.amazonaws.com/Prod/user/get-my-exercise/Jack",
+      url: `https://pu3iwm6kxc.execute-api.eu-west-1.amazonaws.com/Prod/user/get-my-exercise?userId=${userId}`,
       responseType: "json",
     })
       .then(function (response) {
         setExercises(response.data);
       })
       .then(function () {
-        setLoading(false);
+        calculateTotalPoints();
       })
       .then(function () {
-        calculateTotalPoints();
+        setLoading(false);
+      })
+      .catch(function () {
+        setLoadingError(true);
       });
   }
   if (loading === true) {

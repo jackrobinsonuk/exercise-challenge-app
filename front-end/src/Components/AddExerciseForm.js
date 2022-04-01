@@ -21,7 +21,19 @@ export default function AddExerciseForm(props) {
 
   const [submission, setSubmission] = useState({});
 
-  var userId = "Jack";
+  var userId = "robinson.jack97@gmail.com";
+
+  const generateDate = () => {
+    const d = new Date();
+
+    var date = d.getDate();
+    var month = d.getMonth() + 1;
+    var year = d.getFullYear();
+
+    var submissionDate = `${date}/${month}/${year}`;
+
+    return submissionDate;
+  };
 
   const handleSelectedExerciseChange = (event) => {
     setSelectedExercise(event.target.value);
@@ -37,22 +49,32 @@ export default function AddExerciseForm(props) {
     } else return;
   };
 
+  const handleClose = () => {
+    props.setShowForm(false);
+    props.setShowAddExerciseButton(true);
+  };
+
   const handleSubmit = () => {
     if (!submitLoading) {
       setSubmitDisabled(true);
       setSubmitLoading(true);
 
       axios
-        .post(`/Prod/${userId}`, {
-          submission,
-        })
+        .post(
+          "https://pu3iwm6kxc.execute-api.eu-west-1.amazonaws.com/Prod/user/add-exercise",
+          {
+            exerciseId: 21,
+            minutesExercised: 80,
+            userId: userId,
+            date: generateDate(),
+          }
+        )
         .then(function (response) {
-          console.log(response);
+          setSubmitLoading(false);
           props.setShowSuccess(true);
-          // TODO: This should submit the form data to the API and change if successful
+          props.setShowForm(false);
         })
         .catch(function (error) {
-          console.log(error);
           props.setShowError(true);
           setSubmitLoading(false);
           props.setSubmissionError(error.toString());
@@ -108,6 +130,9 @@ export default function AddExerciseForm(props) {
             onClick={handleSubmit}
           >
             Submit
+          </Button>
+          <Button variant="contained" onClick={handleClose}>
+            Close
           </Button>
 
           {submitLoading && (
