@@ -15,10 +15,9 @@ export default function ExerciseTable(props) {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Exercise ID</TableCell>
+            <TableCell>Date</TableCell>
             <TableCell>Exercise Name</TableCell>
             <TableCell>Minutes</TableCell>
-            <TableCell>Date</TableCell>
             <TableCell>Points</TableCell>
           </TableRow>
         </TableHead>
@@ -28,12 +27,11 @@ export default function ExerciseTable(props) {
               key={exercise.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
-                {exercise.id}
-              </TableCell>
-              <TableCell>{exercise.Name}</TableCell>
-              <TableCell>{exercise.minutesExercised}</TableCell>
               <TableCell>{exercise.date}</TableCell>
+              <TableCell component="th" scope="row">
+                {exercise.exerciseName}
+              </TableCell>
+              <TableCell>{exercise.minutesExercised}</TableCell>
               <TableCell>{exercise.points}</TableCell>
             </TableRow>
           ))}

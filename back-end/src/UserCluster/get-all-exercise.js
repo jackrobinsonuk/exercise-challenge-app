@@ -30,7 +30,9 @@ exports.getAllExerciseHandler = async (event) => {
 
   const response = {
     statusCode: 200,
-    body: JSON.stringify(items),
+    body: JSON.stringify(
+      items.sort((a, b) => (a.exerciseId > b.exerciseId ? 1 : -1))
+    ),
     headers: {
       "Access-Control-Allow-Headers": "Content-Type",
       "Access-Control-Allow-Origin": "*", // Allow from anywhere

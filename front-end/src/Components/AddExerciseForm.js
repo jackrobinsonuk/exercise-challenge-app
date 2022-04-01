@@ -18,7 +18,6 @@ export default function AddExerciseForm(props) {
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const [submitLoading, setSubmitLoading] = useState(false);
   const [submissionError, setSubmissionError] = useState("");
-
   const [submission, setSubmission] = useState({});
 
   var userId = "robinson.jack97@gmail.com";
@@ -63,8 +62,8 @@ export default function AddExerciseForm(props) {
         .post(
           "https://pu3iwm6kxc.execute-api.eu-west-1.amazonaws.com/Prod/user/add-exercise",
           {
-            exerciseId: 21,
-            minutesExercised: 80,
+            exerciseId: selectedExercise,
+            minutesExercised: minutesCompleted,
             userId: userId,
             date: generateDate(),
           }
@@ -82,37 +81,49 @@ export default function AddExerciseForm(props) {
     }
   };
 
+  var exerciseList = props.exerciseList;
+
   return (
     <div>
       <div style={{ paddingBottom: "20px" }}>
         <Box sx={{ minWidth: 120 }}>
-          <FormControl fullWidth>
-            <InputLabel id="exercise-select-label">Exercise</InputLabel>
-            <Select
-              labelId="exercise-select-label"
-              id="exercise-select"
-              value={selectedExercise}
-              label="Exercise"
-              onChange={handleSelectedExerciseChange}
-            >
-              <MenuItem value={"Swimming"}>Swimming</MenuItem>
-              <MenuItem value={"Rowing"}>Rowing</MenuItem>
-              <MenuItem value={"Running"}>Running</MenuItem>
-            </Select>
-            <br />
-            <TextField
-              id="outlined-basic"
-              label="Time"
-              variant="outlined"
-              value={minutesCompleted}
-              onChange={handleMinutesCompletedChange}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">mins</InputAdornment>
-                ),
-              }}
-            />
-          </FormControl>
+          {props.exerciseListLoading === true && <CircularProgress />}
+
+          {props.exerciseListLoading === false && (
+            <FormControl fullWidth>
+              <InputLabel id="exercise-select-label">Exercise</InputLabel>
+              <Select
+                labelId="exercise-select-label"
+                id="exercise-select"
+                value={selectedExercise}
+                label="Exercise"
+                onChange={handleSelectedExerciseChange}
+              >
+                {exerciseList.map(({ index, exerciseId, exerciseName }) => (
+                  <MenuItem
+                    key={index}
+                    value={exerciseId}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    {exerciseName}
+                  </MenuItem>
+                ))}
+              </Select>
+              <br />
+              <TextField
+                id="outlined-basic"
+                label="Time"
+                variant="outlined"
+                value={minutesCompleted}
+                onChange={handleMinutesCompletedChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">mins</InputAdornment>
+                  ),
+                }}
+              />
+            </FormControl>
+          )}
         </Box>
       </div>
 
