@@ -10,9 +10,9 @@ export default function YourExercise() {
   const [exercises, setExercises] = useState([]);
   const [loading, setLoading] = useState(true);
   const [totalPoints, setTotalPoints] = useState(null);
-  const [addExerciseDisplay, setAddExerciseDisplay] = useState(false);
+  const [setAddExerciseDisplay] = useState(false);
   const userId = "robinson.jack97@gmail.com";
-  const [loadingError, setLoadingError] = useState(false);
+  const [setLoadingError] = useState(false);
 
   function calculateTotalPoints() {
     var totalPoints = exercises.reduce(function (prev, cur) {

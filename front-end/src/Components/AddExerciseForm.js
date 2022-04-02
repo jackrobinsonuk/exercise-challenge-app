@@ -17,8 +17,6 @@ export default function AddExerciseForm(props) {
   const [minutesCompleted, setMinutesCompleted] = useState("");
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const [submitLoading, setSubmitLoading] = useState(false);
-  const [submissionError, setSubmissionError] = useState("");
-  const [submission, setSubmission] = useState({});
 
   var userId = "robinson.jack97@gmail.com";
 
