@@ -61,7 +61,10 @@ export default function YourExercise() {
       )}
       <Divider variant="full-width" />
       <div>
-        <AddExercise setAddExerciseDisplay={setAddExerciseDisplay} />
+        <AddExercise
+          setAddExerciseDisplay={setAddExerciseDisplay}
+          setLoading={setLoading}
+        />
       </div>
     </main>
   );

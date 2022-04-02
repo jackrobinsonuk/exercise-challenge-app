@@ -59,6 +59,7 @@ export default function AddExercise(props) {
           setShowError={setShowError}
           exerciseList={exerciseList}
           exerciseListLoading={exerciseListLoading}
+          refreshExerciseTable={props.setLoading}
         />
       )}
       {showSuccess && (

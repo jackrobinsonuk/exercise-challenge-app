@@ -72,6 +72,7 @@ export default function AddExerciseForm(props) {
           setSubmitLoading(false);
           props.setShowSuccess(true);
           props.setShowForm(false);
+          props.refreshExerciseTable(true);
         })
         .catch(function (error) {
           props.setShowError(true);
