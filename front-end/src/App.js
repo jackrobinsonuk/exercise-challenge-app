@@ -7,10 +7,21 @@ import YourExercise from "./Pages/YourExercise";
 import Profile from "./Pages/Profile";
 import UserLoginSignUp from "./Pages/UserLoginSignUp";
 import Welcome from "./Pages/Welcome";
+import { Auth } from "aws-amplify";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState("");
+  const [userId, setUserId] = useState("");
+  const [userInfo, setUserInfo] = useState({});
+
+  if (isLoggedIn === false && userId === "") {
+    Auth.currentAuthenticatedUser().then((result) => {
+      setIsLoggedIn(true);
+      console.log(result);
+      setUserId(result.attributes.sub);
+      setUserInfo(result.attributes);
+    });
+  }
 
   return (
     <div>
@@ -19,14 +30,14 @@ const App = () => {
       <div>
         {isLoggedIn === true && (
           <Routes>
-            <Route path="/" element={<YourExercise userName={userName} />} />
+            <Route path="/" element={<YourExercise userId={userId} />} />
             <Route
               path="/Exercise"
-              element={<YourExercise userName={userName} />}
+              element={<YourExercise userId={userId} />}
             />
-            <Route path="/Team" element={<Team userName={userName} />} />
-            <Route path="/Profile" element={<Profile userName={userName} />} />
-            <Route path="/*" element={<YourExercise userName={userName} />} />
+            <Route path="/Team" element={<Team userId={userId} />} />
+            <Route path="/Profile" element={<Profile userId={userId} />} />
+            <Route path="/*" element={<YourExercise userId={userId} />} />
           </Routes>
         )}
         {isLoggedIn === false && (
@@ -36,8 +47,10 @@ const App = () => {
               element={
                 <UserLoginSignUp
                   setIsLoggedIn={setIsLoggedIn}
-                  userName={userName}
-                  setUserName={setUserName}
+                  userId={userId}
+                  setUserId={setUserId}
+                  setUserInfo={setUserInfo}
+                  userInfo={userInfo}
                 />
               }
             />

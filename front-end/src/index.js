@@ -11,6 +11,13 @@ Amplify.configure({
     userPoolId: "eu-west-1_9JNiGMW1S", //UserPool ID
     region: "eu-west-1",
     userPoolWebClientId: "72mgu3i2q21m4ngheko7fptlf7", //WebClientId
+    mandatorySignIn: false,
+    cookieStorage: {
+      domain: "localhost",
+      path: "/",
+      expires: 365,
+      secure: false,
+    },
   },
 });
 

@@ -4,21 +4,31 @@ import { Auth } from "aws-amplify";
 import Login from "../Components/Login";
 import SignUp from "../Components/SignUp";
 import SignUpComplete from "../Components/SignUpComplete";
+import SetNewPasswordScreen from "../Components/SetNewPasswordScreen";
 
 export default function UserLoginSignUp(props) {
   const [loginScreen, setLoginScreen] = useState(true);
   const [signUpScreen, setSignUpScreen] = useState(false);
+  const [newPasswordScreen, setNewPasswordScreen] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [signUpComplete, setSignUpComplete] = useState(false);
+  const [currentUser, setCurrentUser] = useState();
 
   function handleLogin(username, password) {
     setLoading(true);
     Auth.signIn(username, password)
       .then((result) => {
-        props.setIsLoggedIn(true);
-        props.setUserName(username);
-        setLoading(false);
+        if (result.challengeName === "NEW_PASSWORD_REQUIRED") {
+          setNewPasswordScreen(true);
+          setLoginScreen(false);
+          setCurrentUser(result);
+        } else if (result.challengeName !== "NEW_PASSWORD_REQUIRED") {
+          props.setUserId(result.attributes.sub);
+          props.setUserInfo(result.attributes);
+          props.setIsLoggedIn(true);
+          setLoading(false);
+        }
       })
       .catch((err) => {
         if (
@@ -41,6 +51,7 @@ export default function UserLoginSignUp(props) {
       .then((result) => {
         setSignUpComplete(true);
         setSignUpScreen(false);
+        setCurrentUser(result);
         setLoading(false);
       })
       .catch((err) => {
@@ -69,6 +80,29 @@ export default function UserLoginSignUp(props) {
       });
   }
 
+  function handleSignUpVerification(username, code) {
+    console.log("attempt verification");
+
+    Auth.confirmSignUp(username, code)
+      .then(() => {
+        setLoading(false);
+        setSignUpComplete(false);
+        setLoginScreen(true);
+      })
+      .catch((err) => {
+        if (
+          err.message === "Invalid code provided, please request a code again."
+        ) {
+          setError("Your code has expired");
+        }
+        console.log("error confirming sign up", error);
+      });
+  }
+
+  function handleRequestNewCode(username) {
+    Auth.resendSignUp(username);
+  }
+
   return (
     <main style={{ padding: "20px" }}>
       {loginScreen && (
@@ -90,7 +124,16 @@ export default function UserLoginSignUp(props) {
           loading={loading}
         />
       )}
-      {signUpComplete && <SignUpComplete />}
+      {signUpComplete && (
+        <SignUpComplete
+          loading={loading}
+          error={error}
+          currentUser={currentUser}
+          handleSignUpVerification={handleSignUpVerification}
+          handleRequestNewCode={handleRequestNewCode}
+        />
+      )}
+      {newPasswordScreen && <SetNewPasswordScreen currentUser={currentUser} />}
     </main>
   );
 }
