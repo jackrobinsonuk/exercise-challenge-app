@@ -7,11 +7,21 @@ import YourExercise from "./Pages/YourExercise";
 import Profile from "./Pages/Profile";
 import UserLoginSignUp from "./Pages/UserLoginSignUp";
 import Welcome from "./Pages/Welcome";
+import { Auth } from "aws-amplify";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState("");
   const [userInfo, setUserInfo] = useState({});
+
+  if (isLoggedIn === false && userId === "") {
+    Auth.currentAuthenticatedUser().then((result) => {
+      setIsLoggedIn(true);
+      console.log(result);
+      setUserId(result.attributes.sub);
+      setUserInfo(result.attributes);
+    });
+  }
 
   return (
     <div>

@@ -85,9 +85,9 @@ export default function UserLoginSignUp(props) {
 
     Auth.confirmSignUp(username, code)
       .then(() => {
-        props.setIsLoggedIn(true);
         setLoading(false);
         setSignUpComplete(false);
+        setLoginScreen(true);
       })
       .catch((err) => {
         if (

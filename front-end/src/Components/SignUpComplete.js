@@ -25,16 +25,21 @@ export default function SignUpComplete(props) {
   };
 
   const handleSignUpVerification = (code) => {
-    const username = props.currentUser.user.username;
-    console.log(code);
-
-    props.handleSignUpVerification(username, code);
+    if (code) {
+      const username = props.currentUser.user.username;
+      props.handleSignUpVerification(username, code);
+    } else {
+      setError("Please enter a code.");
+    }
   };
 
   return (
     <main>
       <h2>Verify Your Sign Up</h2>
-      Please check your inbox for the verification code.
+      <div style={{ paddingBottom: "20px" }}>
+        Please check your inbox for the verification code.
+      </div>
+
       <Box
         component="form"
         autoComplete="off"
@@ -80,9 +85,11 @@ export default function SignUpComplete(props) {
             </Button>
           </div>
 
-          <div style={{ padding: "10px", color: "red" }}>
+          <div style={{ paddingTop: "10px", color: "red" }}>
             <b>{props.error}</b>
+            <b>{error}</b>
           </div>
+
           {props.error == "Your code has expired" && (
             <Button variant="outlined" onClick={handleRequestNewCode}>
               Request a new one?
