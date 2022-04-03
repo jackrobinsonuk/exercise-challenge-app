@@ -13,8 +13,6 @@ export default function SignUpComplete(props) {
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [error, setError] = useState("");
 
-  let username;
-
   const handleVerificationCodeChange = (event) => {
     setVerificationCode(event.target.value);
   };
@@ -26,10 +24,14 @@ export default function SignUpComplete(props) {
 
   const handleSignUpVerification = (code) => {
     if (code) {
+      setButtonDisabled(true);
       const username = props.currentUser.user.username;
-      props.handleSignUpVerification(username, code);
+      props.handleSignUpVerification(username, code).then(() => {
+        setButtonDisabled(false);
+      });
     } else {
       setError("Please enter a code.");
+      setTextFieldErrorState(true);
     }
   };
 
@@ -90,7 +92,7 @@ export default function SignUpComplete(props) {
             <b>{error}</b>
           </div>
 
-          {props.error == "Your code has expired" && (
+          {props.error === "Your code has expired" && (
             <Button variant="outlined" onClick={handleRequestNewCode}>
               Request a new one?
             </Button>
