@@ -5,7 +5,7 @@ on:
       - develop
     paths:
       - "front-end/**"
-      - ".github"
+      - ".github/**"
 
 jobs:
   build:
