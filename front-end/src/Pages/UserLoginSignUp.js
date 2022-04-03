@@ -19,6 +19,7 @@ export default function UserLoginSignUp(props) {
     setLoading(true);
     Auth.signIn(username, password)
       .then((result) => {
+        console.log(result);
         if (result.challengeName === "NEW_PASSWORD_REQUIRED") {
           setNewPasswordScreen(true);
           setLoginScreen(false);
