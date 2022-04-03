@@ -12,8 +12,8 @@ export default function YourExercise(props) {
   const [loading, setLoading] = useState(true);
   const [totalPoints, setTotalPoints] = useState(null);
   const [setAddExerciseDisplay] = useState(false);
-  const userId = props.userName;
   const [setLoadingError] = useState(false);
+  const userId = props.userId;
 
   function calculateTotalPoints(response) {
     var totalPoints = response.data.reduce(function (prev, cur) {
@@ -66,6 +66,7 @@ export default function YourExercise(props) {
         <AddExercise
           setAddExerciseDisplay={setAddExerciseDisplay}
           setLoading={setLoading}
+          userId={props.userId}
         />
       </div>
     </main>

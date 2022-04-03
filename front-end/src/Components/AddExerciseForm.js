@@ -18,7 +18,7 @@ export default function AddExerciseForm(props) {
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const [submitLoading, setSubmitLoading] = useState(false);
 
-  var userId = "robinson.jack97@gmail.com";
+  var userId = props.userId;
 
   const generateDate = () => {
     const d = new Date();

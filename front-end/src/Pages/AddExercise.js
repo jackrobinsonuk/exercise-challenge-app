@@ -59,6 +59,7 @@ export default function AddExercise(props) {
           exerciseList={exerciseList}
           exerciseListLoading={exerciseListLoading}
           refreshExerciseTable={props.setLoading}
+          userId={props.userId}
         />
       )}
       {showSuccess && (

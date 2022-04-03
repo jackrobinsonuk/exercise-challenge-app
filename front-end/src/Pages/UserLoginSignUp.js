@@ -4,21 +4,31 @@ import { Auth } from "aws-amplify";
 import Login from "../Components/Login";
 import SignUp from "../Components/SignUp";
 import SignUpComplete from "../Components/SignUpComplete";
+import SetNewPasswordScreen from "../Components/SetNewPasswordScreen";
 
 export default function UserLoginSignUp(props) {
   const [loginScreen, setLoginScreen] = useState(true);
   const [signUpScreen, setSignUpScreen] = useState(false);
+  const [newPasswordScreen, setNewPasswordScreen] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [signUpComplete, setSignUpComplete] = useState(false);
+  const [currentUser, setCurrentUser] = useState();
 
   function handleLogin(username, password) {
     setLoading(true);
     Auth.signIn(username, password)
       .then((result) => {
-        props.setIsLoggedIn(true);
-        props.setUserName(username);
-        setLoading(false);
+        if (result.challengeName === "NEW_PASSWORD_REQUIRED") {
+          setNewPasswordScreen(true);
+          setLoginScreen(false);
+          setCurrentUser(result);
+        } else if (result.challengeName !== "NEW_PASSWORD_REQUIRED") {
+          props.setUserId(result.attributes.sub);
+          props.setUserInfo(result.attributes);
+          props.setIsLoggedIn(true);
+          setLoading(false);
+        }
       })
       .catch((err) => {
         if (
@@ -91,6 +101,7 @@ export default function UserLoginSignUp(props) {
         />
       )}
       {signUpComplete && <SignUpComplete />}
+      {newPasswordScreen && <SetNewPasswordScreen currentUser={currentUser} />}
     </main>
   );
 }
