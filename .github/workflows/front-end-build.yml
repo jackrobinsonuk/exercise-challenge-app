@@ -19,7 +19,7 @@ jobs:
           node-version: 14.x
       - name: Production Build
         run: |
-          cd front-end && yarn install && yarn build
+          cd front-end && yarn install && yarn build:production
       - uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
