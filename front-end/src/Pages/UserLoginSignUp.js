@@ -9,17 +9,17 @@ import SetNewPasswordScreen from "../Components/SetNewPasswordScreen";
 export default function UserLoginSignUp(props) {
   const [loginScreen, setLoginScreen] = useState(true);
   const [signUpScreen, setSignUpScreen] = useState(false);
+  const [signUpComplete, setSignUpComplete] = useState(false);
   const [newPasswordScreen, setNewPasswordScreen] = useState(false);
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [signUpComplete, setSignUpComplete] = useState(false);
   const [currentUser, setCurrentUser] = useState();
 
   function handleLogin(username, password) {
     setLoading(true);
     Auth.signIn(username, password)
       .then((result) => {
-        console.log(result);
         if (result.challengeName === "NEW_PASSWORD_REQUIRED") {
           setNewPasswordScreen(true);
           setLoginScreen(false);
@@ -39,7 +39,7 @@ export default function UserLoginSignUp(props) {
           setError("Your password is not long enough.");
           setLoading(false);
         } else {
-          console.log(err.message);
+          console.log(err);
           setError("Your username or password is incorrect.");
           setLoading(false);
         }

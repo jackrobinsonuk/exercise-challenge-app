@@ -15,20 +15,15 @@ const App = () => {
   const [userInfo, setUserInfo] = useState({});
 
   if (isLoggedIn === false) {
-    if (userId) {
-      Auth.currentAuthenticatedUser()
-        .then((result) => {
-          setIsLoggedIn(true);
-          console.log(result);
-          setUserId(result.attributes.sub);
-          setUserInfo(result.attributes);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if (userId === "") {
-      console.log("There was no user");
-    }
+    Auth.currentAuthenticatedUser()
+      .then((result) => {
+        setIsLoggedIn(true);
+        setUserId(result.attributes.sub);
+        setUserInfo(result.attributes);
+      })
+      .catch((err) => {
+        return;
+      });
   }
 
   return (
