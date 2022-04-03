@@ -15,8 +15,8 @@ export default function YourExercise(props) {
   const userId = props.userName;
   const [setLoadingError] = useState(false);
 
-  function calculateTotalPoints() {
-    var totalPoints = exercises.reduce(function (prev, cur) {
+  function calculateTotalPoints(response) {
+    var totalPoints = response.data.reduce(function (prev, cur) {
       return prev + cur.points;
     }, 0);
     setTotalPoints(totalPoints);
@@ -30,9 +30,10 @@ export default function YourExercise(props) {
     })
       .then(function (response) {
         setExercises(response.data);
+        return response;
       })
-      .then(function () {
-        calculateTotalPoints();
+      .then(function (response) {
+        calculateTotalPoints(response);
       })
       .then(function () {
         setLoading(false);

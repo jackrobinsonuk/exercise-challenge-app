@@ -41,7 +41,7 @@ const NavBar = (props) => {
 
   async function handleLogout() {
     try {
-      await Auth.signOut().then(function () {
+      await Auth.signOut({ global: true }).then(function () {
         handleCloseUserMenu();
         props.setIsLoggedIn(false);
       });
