@@ -51,6 +51,7 @@ export default function UserLoginSignUp(props) {
       .then((result) => {
         setSignUpComplete(true);
         setSignUpScreen(false);
+        setCurrentUser(result);
         setLoading(false);
       })
       .catch((err) => {
@@ -79,6 +80,29 @@ export default function UserLoginSignUp(props) {
       });
   }
 
+  function handleSignUpVerification(username, code) {
+    console.log("attempt verification");
+
+    Auth.confirmSignUp(username, code)
+      .then(() => {
+        props.setIsLoggedIn(true);
+        setLoading(false);
+        setSignUpComplete(false);
+      })
+      .catch((err) => {
+        if (
+          err.message === "Invalid code provided, please request a code again."
+        ) {
+          setError("Your code has expired");
+        }
+        console.log("error confirming sign up", error);
+      });
+  }
+
+  function handleRequestNewCode(username) {
+    Auth.resendSignUp(username);
+  }
+
   return (
     <main style={{ padding: "20px" }}>
       {loginScreen && (
@@ -100,7 +124,15 @@ export default function UserLoginSignUp(props) {
           loading={loading}
         />
       )}
-      {signUpComplete && <SignUpComplete />}
+      {signUpComplete && (
+        <SignUpComplete
+          loading={loading}
+          error={error}
+          currentUser={currentUser}
+          handleSignUpVerification={handleSignUpVerification}
+          handleRequestNewCode={handleRequestNewCode}
+        />
+      )}
       {newPasswordScreen && <SetNewPasswordScreen currentUser={currentUser} />}
     </main>
   );
