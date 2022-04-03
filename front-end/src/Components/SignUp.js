@@ -138,6 +138,7 @@ export default function SignUp(props) {
           </div>
           <div style={{ color: "red" }}>
             <b>{props.error.toString()}</b>
+            <b>{error}</b>
           </div>
         </FormControl>
       </Box>
