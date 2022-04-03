@@ -15,12 +15,16 @@ const App = () => {
   const [userInfo, setUserInfo] = useState({});
 
   if (isLoggedIn === false && userId === "") {
-    Auth.currentAuthenticatedUser().then((result) => {
-      setIsLoggedIn(true);
-      console.log(result);
-      setUserId(result.attributes.sub);
-      setUserInfo(result.attributes);
-    });
+    Auth.currentAuthenticatedUser()
+      .then((result) => {
+        setIsLoggedIn(true);
+        console.log(result);
+        setUserId(result.attributes.sub);
+        setUserInfo(result.attributes);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
