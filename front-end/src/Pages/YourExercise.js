@@ -5,17 +5,18 @@ import axios from "axios";
 
 import ExerciseTable from "../Components/ExerciseTable";
 import AddExercise from "./AddExercise";
+import { apiRoot } from "../Globals/globals";
 
-export default function YourExercise() {
+export default function YourExercise(props) {
   const [exercises, setExercises] = useState([]);
   const [loading, setLoading] = useState(true);
   const [totalPoints, setTotalPoints] = useState(null);
   const [setAddExerciseDisplay] = useState(false);
-  const userId = "robinson.jack97@gmail.com";
+  const userId = props.userName;
   const [setLoadingError] = useState(false);
 
-  function calculateTotalPoints() {
-    var totalPoints = exercises.reduce(function (prev, cur) {
+  function calculateTotalPoints(response) {
+    var totalPoints = response.data.reduce(function (prev, cur) {
       return prev + cur.points;
     }, 0);
     setTotalPoints(totalPoints);
@@ -24,14 +25,15 @@ export default function YourExercise() {
   function getMyExercises() {
     axios({
       method: "get",
-      url: `https://pu3iwm6kxc.execute-api.eu-west-1.amazonaws.com/Prod/user/get-my-exercise?userId=${userId}`,
+      url: `${apiRoot}/user/get-my-exercise?userId=${userId}`,
       responseType: "json",
     })
       .then(function (response) {
         setExercises(response.data);
+        return response;
       })
-      .then(function () {
-        calculateTotalPoints();
+      .then(function (response) {
+        calculateTotalPoints(response);
       })
       .then(function () {
         setLoading(false);

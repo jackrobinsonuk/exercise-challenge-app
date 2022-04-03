@@ -6,6 +6,7 @@ import axios from "axios";
 import AddExerciseForm from "../Components/AddExerciseForm";
 import AddExerciseSuccess from "../Components/AddExerciseSuccess";
 import AddExerciseError from "../Components/AddExerciseError";
+import { apiRoot } from "../Globals/globals";
 
 export default function AddExercise(props) {
   const [showForm, setShowForm] = useState(false);
@@ -19,9 +20,7 @@ export default function AddExercise(props) {
   const getExerciseList = () => {
     setExerciseListLoading(true);
     axios
-      .get(
-        "https://pu3iwm6kxc.execute-api.eu-west-1.amazonaws.com/Prod/user/get-exercises-list"
-      )
+      .get(`${apiRoot}/user/get-exercises-list`)
       .then(function (response) {
         setExerciseList(response.data);
       })

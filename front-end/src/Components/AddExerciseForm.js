@@ -92,6 +92,7 @@ export default function AddExerciseForm(props) {
             <FormControl fullWidth>
               <InputLabel id="exercise-select-label">Exercise</InputLabel>
               <Select
+                required
                 labelId="exercise-select-label"
                 id="exercise-select"
                 value={selectedExercise}
@@ -110,6 +111,7 @@ export default function AddExerciseForm(props) {
               </Select>
               <br />
               <TextField
+                required
                 id="outlined-basic"
                 label="Time"
                 variant="outlined"
@@ -140,23 +142,22 @@ export default function AddExerciseForm(props) {
             onClick={handleSubmit}
           >
             Submit
+            {submitLoading && (
+              <CircularProgress
+                size={24}
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  marginTop: "-12px",
+                  marginLeft: "-12px",
+                }}
+              />
+            )}
           </Button>
-          <Button variant="contained" onClick={handleClose}>
+          <Button variant="outlined" onClick={handleClose}>
             Close
           </Button>
-
-          {submitLoading && (
-            <CircularProgress
-              size={24}
-              sx={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                marginTop: "-12px",
-                marginLeft: "-12px",
-              }}
-            />
-          )}
         </Box>
       </div>
     </div>
