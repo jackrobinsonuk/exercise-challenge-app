@@ -1,10 +1,17 @@
 import { React, useState } from "react";
-import { Box, Button, FormControl, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  TextField,
+  CircularProgress,
+} from "@mui/material";
 
 export default function Login(props) {
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [textFieldErrorState, setTextFieldErrorState] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const handleEmailAddressChange = (event) => {
     setEmailAddress(event.target.value);
@@ -14,9 +21,20 @@ export default function Login(props) {
     setPassword(event.target.value);
   };
 
+  const handleSignUpClick = () => {
+    props.setSignUpScreen(true);
+    props.setLoginScreen(false);
+  };
+
   if (props.error && textFieldErrorState === false) {
     setTextFieldErrorState(true);
     return;
+  }
+
+  if (props.loading && buttonDisabled === false) {
+    setButtonDisabled(true);
+  } else if (props.loading === false && buttonDisabled === true) {
+    setButtonDisabled(false);
   }
 
   return (
@@ -56,13 +74,40 @@ export default function Login(props) {
             onChange={handlePasswordChange}
             style={{ paddingBottom: "20px" }}
           />
+          <div style={{ paddingBottom: "10px" }}>
+            <Button
+              fullWidth
+              disabled={buttonDisabled}
+              sx={{
+                position: "relative",
+                display: "flex",
+                alignItems: "center",
+                maxWidth: "500px",
+              }}
+              variant="contained"
+              onClick={() => props.handleLogin(emailAddress, password)}
+            >
+              Login
+              {props.loading && (
+                <CircularProgress
+                  size={24}
+                  sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    marginTop: "-12px",
+                    marginLeft: "-12px",
+                  }}
+                />
+              )}
+            </Button>
+          </div>
+          <div>
+            <Button fullWidth variant="outlined" onClick={handleSignUpClick}>
+              Sign Up
+            </Button>
+          </div>
 
-          <Button
-            variant="contained"
-            onClick={() => props.handleLogin(emailAddress, password)}
-          >
-            Login
-          </Button>
           <div style={{ paddingTop: "20px" }}>{props.error}</div>
         </FormControl>
       </Box>

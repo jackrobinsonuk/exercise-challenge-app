@@ -64,6 +64,7 @@ const NavBar = (props) => {
               Exercise Challange
             </Typography>
           </Link>
+
           {props.isLoggedIn && (
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
@@ -109,15 +110,17 @@ const NavBar = (props) => {
               </Menu>
             </Box>
           )}
+          <Link style={{ textDecoration: "none", color: "white" }} to="/">
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+            >
+              Exercise Challenge
+            </Typography>
+          </Link>
 
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-          >
-            Exercise Challenge
-          </Typography>
           {props.isLoggedIn && (
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
@@ -138,18 +141,6 @@ const NavBar = (props) => {
             </Box>
           )}
 
-          {props.isLoggedIn === false && (
-            <Box sx={{ flexGrow: 1 }}>
-              <Link
-                style={{ textDecoration: "none", color: "white" }}
-                to={"/Login"}
-              >
-                <Button variant="contained" color="success">
-                  Login / Sign Up
-                </Button>
-              </Link>
-            </Box>
-          )}
           {props.isLoggedIn && (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">

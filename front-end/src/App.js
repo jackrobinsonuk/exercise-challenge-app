@@ -41,7 +41,7 @@ const App = () => {
                 />
               }
             />
-            <Route path="/*" element={<Welcome />} />
+            <Route path="/*" element={<Welcome isLoggedIn={isLoggedIn} />} />
           </Routes>
         )}
       </div>
