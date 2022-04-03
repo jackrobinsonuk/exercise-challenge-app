@@ -8,9 +8,10 @@ import "./index.css";
 
 Amplify.configure({
   Auth: {
-    userPoolId: "eu-west-1_9JNiGMW1S", //UserPool ID
+    userPoolId: process.env.REACT_APP_AMPLIFY_CONFIG_USER_POOL_ID, //UserPool ID
     region: "eu-west-1",
-    userPoolWebClientId: "72mgu3i2q21m4ngheko7fptlf7", //WebClientId
+    userPoolWebClientId:
+      process.env.REACT_APP_AMPLIFY_CONFIG_USER_POOL_WEB_CLIENT_ID, //WebClientId
     mandatorySignIn: false,
     cookieStorage: {
       domain: process.env.REACT_APP_AMPLIFY_CONFIG_COOKIE_STORAGE_DOMAIN,
