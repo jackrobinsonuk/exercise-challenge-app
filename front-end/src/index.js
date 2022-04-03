@@ -13,7 +13,7 @@ Amplify.configure({
     userPoolWebClientId: "72mgu3i2q21m4ngheko7fptlf7", //WebClientId
     mandatorySignIn: false,
     cookieStorage: {
-      domain: "localhost",
+      domain: process.env.REACT_APP_AMPLIFY_CONFIG_COOKIE_STORAGE_DOMAIN,
       path: "/",
       expires: 365,
       secure: false,
