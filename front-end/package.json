@@ -10,7 +10,9 @@
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
+    "aws-amplify": "^4.3.18",
     "axios": "^0.26.1",
+    "dotenv": "^16.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router": "^6.2.2",
@@ -20,7 +22,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "sh -ac '. ./.env.${REACT_APP_ENV}; react-scripts build'",
+    "build:staging": "REACT_APP_ENV=staging yarn build build",
+    "build:production": "REACT_APP_ENV=production yarn build build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
