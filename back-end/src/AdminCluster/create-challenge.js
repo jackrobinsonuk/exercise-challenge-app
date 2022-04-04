@@ -12,8 +12,13 @@ exports.createChallengeHandler = async (event, context, callback) => {
   const body = JSON.parse(event.body);
   const s3Bucket = bucketName; // replace with your bucket name
   const challengeName = body.challengeName; // File name which you want to put in s3 bucket
-  const challengeData = body.data; // file data you want to put
   const objectType = "application/json"; // type of file
+
+  var challengeData = {
+    challengeName: challengeName,
+    challengeId: AWS.util.uuid.v4(),
+    data: body.data,
+  };
 
   var buf = Buffer.from(JSON.stringify(challengeData));
 
