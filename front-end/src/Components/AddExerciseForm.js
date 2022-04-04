@@ -19,6 +19,7 @@ export default function AddExerciseForm(props) {
   const [submitLoading, setSubmitLoading] = useState(false);
 
   var userId = props.userId;
+  var team = props.team;
 
   const generateDate = () => {
     const d = new Date();
@@ -64,6 +65,7 @@ export default function AddExerciseForm(props) {
             minutesExercised: minutesCompleted,
             userId: userId,
             date: generateDate(),
+            team: team,
           }
         )
         .then(function (response) {
