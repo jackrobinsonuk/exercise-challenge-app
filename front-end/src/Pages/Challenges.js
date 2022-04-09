@@ -28,7 +28,7 @@ export default function Challenges(props) {
     }).then(function (response) {
       setAllChallenges(response.data);
       setLoading(false);
-      console.log(response.data);
+
       return response;
     });
   }
@@ -44,7 +44,7 @@ export default function Challenges(props) {
     }).then(function (response) {
       setChallengeDetails(response.data);
       setChallengeDetailsLoading(false);
-      console.log(response.data);
+
       return response;
     });
   }

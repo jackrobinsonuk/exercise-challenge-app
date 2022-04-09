@@ -1,7 +1,5 @@
 import { React, useState } from "react";
 import { CircularProgress } from "@mui/material";
-import axios from "axios";
-import { apiRoot } from "../Globals/globals";
 
 export default function CurrentChallengesDetails(props) {
   const [loading, setLoading] = useState(true);
