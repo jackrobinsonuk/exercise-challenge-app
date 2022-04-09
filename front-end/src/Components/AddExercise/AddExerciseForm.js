@@ -10,7 +10,6 @@ import AddExerciseMinutesCompleted from "./AddExerciseMinutesCompleted";
 export default function AddExerciseForm(props) {
   const [selectedExercise, setSelectedExercise] = useState("");
   const [minutesCompleted, setMinutesCompleted] = useState("");
-  const [setSubmitDisabled] = useState(true);
   const [submitLoading, setSubmitLoading] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState("");
   const [selectedChallenge, setSelectedChallenge] = useState(null);
@@ -35,9 +34,6 @@ export default function AddExerciseForm(props) {
 
   const handleSelectedExerciseChange = (event) => {
     setSelectedExercise(event.target.value);
-    if (selectedExercise && minutesCompleted !== "") {
-      setSubmitDisabled(false);
-    } else return;
   };
 
   const handleMinutesCompletedChange = (event) => {
@@ -64,7 +60,6 @@ export default function AddExerciseForm(props) {
 
   const handleSubmit = () => {
     if (!submitLoading) {
-      setSubmitDisabled(true);
       setSubmitLoading(true);
 
       axios
