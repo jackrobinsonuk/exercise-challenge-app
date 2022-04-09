@@ -17,7 +17,6 @@ export default function YourExercise(props) {
 
   function handleExerciseDelete(exerciseIdToDelete) {
     deleteExerciseFromDb(exerciseIdToDelete);
-    setLoading(true);
   }
 
   function deleteExerciseFromDb(exerciseIdToDelete) {
@@ -25,7 +24,7 @@ export default function YourExercise(props) {
       method: "post",
       url: `${apiRoot}/user/delete-exercise?id=${exerciseIdToDelete}`,
       responseType: "json",
-    });
+    }).then(setLoading(true));
   }
 
   function calculateTotalPoints(response) {

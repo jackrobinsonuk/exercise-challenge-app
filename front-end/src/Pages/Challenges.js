@@ -12,7 +12,6 @@ import CreateChallenge from "../Components/Challenge/CreateChallenge";
 export default function Challenges(props) {
   const [loading, setLoading] = useState(true);
   const [allChallenges, setAllChallenges] = useState([]);
-  const [setLoadingError] = useState(false);
   const [selectedChallenge, setSelectedChallenge] = useState("");
   const [challengeDetails, setChallengeDetails] = useState({});
   const [challengeDetailsLoading, setChallengeDetailsLoading] = useState(true);

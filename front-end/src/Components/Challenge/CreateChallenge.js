@@ -1,21 +1,8 @@
 import { Button, TextField, FormControl } from "@mui/material";
 import { React, useState } from "react";
-
-import axios from "axios";
-
-import { apiRoot } from "../../Globals/globals";
+import { v4 as uuidv4 } from "uuid";
 
 export default function CreateChallenge(props) {
-  const dayList = [
-    { day: "Monday" },
-    { day: "Tuesday" },
-    { day: "Wednesday" },
-    { day: "Thursday" },
-    { day: "Friday" },
-    { day: "Saturday" },
-    { day: "Sunday" },
-  ];
-
   const [challengeName, setChallengeName] = useState("");
 
   const [teamName1, setTeamName1] = useState("");
@@ -39,11 +26,11 @@ export default function CreateChallenge(props) {
       data: [
         {
           teamName: teamName1,
-          teamId: 1,
+          teamId: uuidv4(),
         },
         {
           teamName: teamName2,
-          teamId: 2,
+          teamId: uuidv4(),
         },
       ],
     };

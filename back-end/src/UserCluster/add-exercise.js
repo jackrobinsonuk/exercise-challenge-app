@@ -60,6 +60,7 @@ async function constructItem(event) {
   const minutesExercised = body.minutesExercised;
   const userId = body.userId;
   const date = body.date;
+  const team = body.team;
   const id = AWS.util.uuid.v4();
   const exerciseName = await addExerciseName(body);
   const points = await calculateTotalPoints(body);
@@ -74,6 +75,7 @@ async function constructItem(event) {
       userId: userId,
       date: date,
       id: id,
+      team: team,
       exerciseName: exerciseName,
       points: points,
     },

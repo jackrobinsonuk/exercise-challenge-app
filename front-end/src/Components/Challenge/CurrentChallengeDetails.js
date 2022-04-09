@@ -1,9 +1,7 @@
-import { React, useState } from "react";
+import { React } from "react";
 import { CircularProgress } from "@mui/material";
 
 export default function CurrentChallengesDetails(props) {
-  const [loading, setLoading] = useState(true);
-
   return (
     <div>
       {props.challengeDetailsLoading === true && (

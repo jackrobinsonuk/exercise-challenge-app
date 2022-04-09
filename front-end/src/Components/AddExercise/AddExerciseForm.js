@@ -1,25 +1,25 @@
 import { React, useState } from "react";
-import {
-  Box,
-  Button,
-  Select,
-  FormControl,
-  MenuItem,
-  TextField,
-  CircularProgress,
-  InputLabel,
-  InputAdornment,
-} from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import axios from "axios";
+import AddExerciseChallengeSelect from "./AddExerciseChallengeSelect";
+import AddExerciseTeamSelect from "./AddExerciseTeamSelect";
+
+import AddExerciseExerciseSelect from "./AddExerciseExerciseSelect";
+import AddExerciseMinutesCompleted from "./AddExerciseMinutesCompleted";
 
 export default function AddExerciseForm(props) {
   const [selectedExercise, setSelectedExercise] = useState("");
   const [minutesCompleted, setMinutesCompleted] = useState("");
-  const [submitDisabled, setSubmitDisabled] = useState(true);
+  const [setSubmitDisabled] = useState(true);
   const [submitLoading, setSubmitLoading] = useState(false);
+  const [selectedTeam, setSelectedTeam] = useState("");
+  const [selectedChallenge, setSelectedChallenge] = useState(null);
+  const [teamSelectLoading] = useState(true);
 
   var userId = props.userId;
-  var team = props.team;
+  var exerciseList = props.exerciseList;
+  var challengeList = props.challengeList;
+  var teamList = props.teamList;
 
   const generateDate = () => {
     const d = new Date();
@@ -41,10 +41,20 @@ export default function AddExerciseForm(props) {
   };
 
   const handleMinutesCompletedChange = (event) => {
-    setMinutesCompleted(event.target.value);
-    if (selectedExercise && minutesCompleted !== "") {
-      setSubmitDisabled(false);
-    } else return;
+    if (event.target.value < 0) {
+      props.setShowError(true);
+    } else {
+      setMinutesCompleted(event.target.value);
+      props.setShowError(false);
+    }
+  };
+
+  const handleSelectedChallenge = (event) => {
+    setSelectedChallenge(event.target.value);
+  };
+
+  const handleSelectedTeamChange = (event) => {
+    setSelectedTeam(event.target.value);
   };
 
   const handleClose = () => {
@@ -65,7 +75,7 @@ export default function AddExerciseForm(props) {
             minutesExercised: minutesCompleted,
             userId: userId,
             date: generateDate(),
-            team: team,
+            team: selectedTeam,
           }
         )
         .then(function (response) {
@@ -82,51 +92,53 @@ export default function AddExerciseForm(props) {
     }
   };
 
-  var exerciseList = props.exerciseList;
+  if (selectedChallenge && teamSelectLoading && !teamList) {
+    props.getTeamsInChallenge(selectedChallenge);
+  }
 
   return (
     <div>
       <div style={{ paddingBottom: "20px" }}>
         <Box sx={{ minWidth: 120 }}>
-          {props.exerciseListLoading === true && <CircularProgress />}
+          {props.challengeListLoading === true &&
+            props.exerciseListLoading === true && <CircularProgress />}
 
-          {props.exerciseListLoading === false && (
-            <FormControl fullWidth>
-              <InputLabel id="exercise-select-label">Exercise</InputLabel>
-              <Select
-                required
-                labelId="exercise-select-label"
-                id="exercise-select"
-                value={selectedExercise}
-                label="Exercise"
-                onChange={handleSelectedExerciseChange}
-              >
-                {exerciseList.map(({ index, exerciseId, exerciseName }) => (
-                  <MenuItem
-                    key={index}
-                    value={exerciseId}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    {exerciseName}
-                  </MenuItem>
-                ))}
-              </Select>
-              <br />
-              <TextField
-                required
-                id="outlined-basic"
-                label="Time"
-                variant="outlined"
-                value={minutesCompleted}
-                onChange={handleMinutesCompletedChange}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">mins</InputAdornment>
-                  ),
-                }}
-              />
-            </FormControl>
+          {props.challengeList && (
+            <AddExerciseChallengeSelect
+              selectedChallenge={selectedChallenge}
+              handleSelectedChallenge={handleSelectedChallenge}
+              challengeList={challengeList}
+            />
           )}
+
+          {props.teamList === null && selectedChallenge && <CircularProgress />}
+
+          {props.teamList && (
+            <AddExerciseTeamSelect
+              handleSelectedTeamChange={handleSelectedTeamChange}
+              teamList={props.teamList}
+              selectedTeam={selectedTeam}
+            />
+          )}
+
+          <div>
+            {selectedTeam && (
+              <AddExerciseExerciseSelect
+                fullWidth
+                selectedExercise={selectedExercise}
+                handleSelectedExerciseChange={handleSelectedExerciseChange}
+                exerciseList={exerciseList}
+              />
+            )}
+          </div>
+          <div>
+            {selectedTeam && (
+              <AddExerciseMinutesCompleted
+                minutesCompleted={minutesCompleted}
+                handleMinutesCompletedChange={handleMinutesCompletedChange}
+              />
+            )}
+          </div>
         </Box>
       </div>
 
@@ -138,11 +150,7 @@ export default function AddExerciseForm(props) {
             alignItems: "center",
           }}
         >
-          <Button
-            variant="contained"
-            disabled={submitDisabled}
-            onClick={handleSubmit}
-          >
+          <Button variant="contained" onClick={handleSubmit}>
             Submit
             {submitLoading && (
               <CircularProgress
