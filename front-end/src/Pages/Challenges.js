@@ -1,12 +1,12 @@
 import { React, useState } from "react";
 import { CircularProgress } from "@mui/material";
-import { Select, MenuItem } from "@mui/material";
+
 import axios from "axios";
 
 import { apiRoot } from "../Globals/globals";
 
-import CurrentChallengesSelector from "../Components/CurrentChallengesSelector";
-import CurrentChallengesDetails from "../Components/CurrentChallengeDetails";
+import CurrentChallengesSelector from "../Components/Challenge/CurrentChallengesSelector";
+import CurrentChallengesDetails from "../Components/Challenge/CurrentChallengeDetails";
 
 export default function Challenges(props) {
   const [loading, setLoading] = useState(true);

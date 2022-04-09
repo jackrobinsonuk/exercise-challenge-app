@@ -1,10 +1,10 @@
 import { React, useState } from "react";
 import { Auth } from "aws-amplify";
 
-import Login from "../Components/Login";
-import SignUp from "../Components/SignUp";
-import SignUpComplete from "../Components/SignUpComplete";
-import SetNewPasswordScreen from "../Components/SetNewPasswordScreen";
+import Login from "../Components/Login & Sign Up/Login";
+import SignUp from "../Components/Login & Sign Up/SignUp";
+import SignUpComplete from "../Components/Login & Sign Up/SignUpComplete";
+import SetNewPasswordScreen from "../Components/Login & Sign Up/SetNewPasswordScreen";
 
 export default function UserLoginSignUp(props) {
   const [loginScreen, setLoginScreen] = useState(true);

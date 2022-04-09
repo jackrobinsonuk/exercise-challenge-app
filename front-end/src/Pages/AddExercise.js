@@ -3,9 +3,9 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
 
-import AddExerciseForm from "../Components/AddExerciseForm";
-import AddExerciseSuccess from "../Components/AddExerciseSuccess";
-import AddExerciseError from "../Components/AddExerciseError";
+import AddExerciseForm from "../Components/AddExercise/AddExerciseForm";
+import AddExerciseSuccess from "../Components/AddExercise/AddExerciseSuccess";
+import AddExerciseError from "../Components/AddExercise/AddExerciseError";
 import { apiRoot } from "../Globals/globals";
 
 export default function AddExercise(props) {
