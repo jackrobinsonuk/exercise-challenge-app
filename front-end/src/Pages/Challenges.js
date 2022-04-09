@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { CircularProgress } from "@mui/material";
+import { Button, CircularProgress, Divider } from "@mui/material";
 
 import axios from "axios";
 
@@ -7,6 +7,7 @@ import { apiRoot } from "../Globals/globals";
 
 import CurrentChallengesSelector from "../Components/Challenge/CurrentChallengesSelector";
 import CurrentChallengesDetails from "../Components/Challenge/CurrentChallengeDetails";
+import CreateChallenge from "../Components/Challenge/CreateChallenge";
 
 export default function Challenges(props) {
   const [loading, setLoading] = useState(true);
@@ -15,9 +16,17 @@ export default function Challenges(props) {
   const [selectedChallenge, setSelectedChallenge] = useState("");
   const [challengeDetails, setChallengeDetails] = useState({});
   const [challengeDetailsLoading, setChallengeDetailsLoading] = useState(true);
+  const [showCreateChallengeButton, setShowCreateChallengeButton] =
+    useState(true);
+  const [showCreateChallenge, setShowCreateChallenge] = useState(false);
 
   const handleSelectedChallengeChange = (event) => {
     setSelectedChallenge(event.target.value);
+  };
+
+  const handleCreateChallengeClick = () => {
+    setShowCreateChallengeButton(false);
+    setShowCreateChallenge(true);
   };
 
   function getAllChallenges() {
@@ -71,7 +80,7 @@ export default function Challenges(props) {
           />
         )}
       </div>
-      <div>
+      <div style={{ paddingTop: "20px", paddingBottom: "20px" }}>
         {selectedChallenge && (
           <CurrentChallengesDetails
             challengeDetails={challengeDetails}
@@ -79,6 +88,17 @@ export default function Challenges(props) {
           />
         )}
       </div>
+      <div>
+        <Divider />
+      </div>
+      <div style={{ paddingTop: "20px" }}>
+        {showCreateChallengeButton && (
+          <Button variant="contained" onClick={handleCreateChallengeClick}>
+            Create Challenge
+          </Button>
+        )}
+      </div>
+      <div>{showCreateChallenge && <CreateChallenge />}</div>
     </main>
   );
 }

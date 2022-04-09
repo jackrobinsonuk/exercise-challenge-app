@@ -215,6 +215,33 @@ Resources:
             Path: /user/get-exercises-list
             Method: GET
 
+  deleteExerciseFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/UserCluster/delete-exercise.deleteExerciseHandler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description:
+        A simple example includes a HTTP get method to get all items from a
+        DynamoDB table.
+      Policies:
+        # Give Create/Read/Update/Delete Permissions to the OrderCountTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UserExerciseTable
+      Environment:
+        Variables:
+          # Make table name accessible as environment variable from function code during execution
+          USER_EXERCISE_TABLE: !Ref UserExerciseTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /user/delete-exercise
+            Method: POST
+
   addExerciseFunction:
     Type: AWS::Serverless::Function
     Properties:

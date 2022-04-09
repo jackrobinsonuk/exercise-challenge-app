@@ -1,13 +1,28 @@
-import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import { React, useState } from "react";
+import {
+  Button,
+  TableRow,
+  TableHead,
+  TableContainer,
+  TableCell,
+  TableBody,
+  Table,
+  Paper,
+  Tooltip,
+} from "@mui/material";
+
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
 
 export default function ExerciseTable(props) {
+  const [deleteIcon, setDeleteIcon] = useState(true);
+  const [confirmButton, setConfirmButton] = useState(false);
+
+  function confirmDelete() {
+    setConfirmButton(true);
+    setDeleteIcon(false);
+  }
+
   const exercises = props.exercises;
 
   return (
@@ -19,6 +34,7 @@ export default function ExerciseTable(props) {
             <TableCell>Exercise Name</TableCell>
             <TableCell>Minutes</TableCell>
             <TableCell>Points</TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -33,6 +49,22 @@ export default function ExerciseTable(props) {
               </TableCell>
               <TableCell>{exercise.minutesExercised}</TableCell>
               <TableCell>{exercise.points}</TableCell>
+              <TableCell>
+                {deleteIcon && (
+                  <Tooltip title="Delete" onClick={confirmDelete}>
+                    <IconButton>
+                      <DeleteIcon />
+                    </IconButton>
+                  </Tooltip>
+                )}
+                {confirmButton && (
+                  <Button
+                    onClick={() => props.handleExerciseDelete(exercise.id)}
+                  >
+                    Confirm Delete
+                  </Button>
+                )}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
