@@ -1,12 +1,9 @@
-import {
-  Button,
-  TextField,
-  FormControl,
-  Select,
-  MenuItem,
-  InputLabel,
-} from "@mui/material";
+import { Button, TextField, FormControl } from "@mui/material";
 import { React, useState } from "react";
+
+import axios from "axios";
+
+import { apiRoot } from "../../Globals/globals";
 
 export default function CreateChallenge(props) {
   const dayList = [
@@ -20,28 +17,37 @@ export default function CreateChallenge(props) {
   ];
 
   const [challengeName, setChallengeName] = useState("");
-  const [challengeStartDay, setChallengeStartDay] = useState("");
-  const [challengeStartDate, setChallengeStartDate] = useState("");
-  const [challengeTeams, setChallengeTeams] = useState([]);
+
+  const [teamName1, setTeamName1] = useState("");
+  const [teamName2, setTeamName2] = useState("");
 
   function handleChallengeNameInput(event) {
     setChallengeName(event.target.value);
   }
 
-  function handleChallengeStartDayInput(event) {
-    setChallengeStartDay(event.target.value);
+  function handleTeamName1Change(event) {
+    setTeamName1(event.target.value);
   }
 
-  function handleChallengeStartDateInput(event) {
-    setChallengeStartDate(event.target.value);
-  }
-
-  function handleChallengeTeamsInput(event) {
-    console.log("update team");
+  function handleTeamName2Change(event) {
+    setTeamName2(event.target.value);
   }
 
   function handleCreateChallengeSubmit() {
-    console.log("Submitted");
+    var body = {
+      challengeName: challengeName,
+      data: [
+        {
+          teamName: teamName1,
+          teamId: 1,
+        },
+        {
+          teamName: teamName2,
+          teamId: 2,
+        },
+      ],
+    };
+    props.handleCreateChallengeSubmit(body);
   }
 
   return (
@@ -49,6 +55,7 @@ export default function CreateChallenge(props) {
       <h3>Create Challenge</h3>
       <FormControl fullWidth>
         <TextField
+          margin="normal"
           required
           id="outlined-basic"
           label="Challenge Name"
@@ -57,7 +64,8 @@ export default function CreateChallenge(props) {
           onChange={handleChallengeNameInput}
         />
 
-        <Select
+        {/* <Select
+          margin="normal"
           required
           labelId="day-select-label"
           id="day-select"
@@ -73,12 +81,22 @@ export default function CreateChallenge(props) {
               {day}
             </MenuItem>
           ))}
-        </Select>
-        <div>Which date does this challenge start?</div>
-        <div>Which date does this challenge End?</div>
-        <div>Add Teams</div>
+        </Select> */}
+
+        <h3>Teams</h3>
+
+        <TextField onChange={handleTeamName1Change} label="Team Name 1">
+          {teamName1}
+        </TextField>
+        <br />
+        <TextField onChange={handleTeamName2Change} label="Team Name 2">
+          {teamName2}
+        </TextField>
+
         <div style={{ paddingTop: "20px" }}>
-          <Button variant="contained">Create</Button>
+          <Button onClick={handleCreateChallengeSubmit} variant="contained">
+            Create
+          </Button>
         </div>
       </FormControl>
     </div>

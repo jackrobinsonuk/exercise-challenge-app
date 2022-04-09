@@ -57,6 +57,19 @@ export default function Challenges(props) {
       return response;
     });
   }
+
+  function handleCreateChallengeSubmit(body) {
+    axios({
+      method: "post",
+      url: `${apiRoot}/admin/create-challenge`,
+      responseType: "json",
+      data: body,
+    });
+    setShowCreateChallenge(false);
+    setShowCreateChallengeButton(true);
+    setLoading(true);
+  }
+
   if (selectedChallenge && challengeDetailsLoading) {
     getSelectedChallengeDetails(selectedChallenge);
   }
@@ -98,7 +111,13 @@ export default function Challenges(props) {
           </Button>
         )}
       </div>
-      <div>{showCreateChallenge && <CreateChallenge />}</div>
+      <div>
+        {showCreateChallenge && (
+          <CreateChallenge
+            handleCreateChallengeSubmit={handleCreateChallengeSubmit}
+          />
+        )}
+      </div>
     </main>
   );
 }
