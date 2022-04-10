@@ -60,7 +60,7 @@ const NavBar = (props) => {
               component="div"
               sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
             >
-              Exercise Challange
+              Exercise Challenge
             </Typography>
           </Link>
 

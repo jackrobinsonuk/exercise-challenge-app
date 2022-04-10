@@ -30,7 +30,7 @@ const App = () => {
   return (
     <div>
       <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-      <br />
+
       <div>
         {isLoggedIn === true && (
           <Routes>
