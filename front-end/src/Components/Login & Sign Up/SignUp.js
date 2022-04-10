@@ -130,7 +130,6 @@ export default function SignUp(props) {
           position: "relative",
           display: "flex",
           alignItems: "center",
-          maxWidth: "500px",
         }}
       >
         <FormControl fullWidth>
