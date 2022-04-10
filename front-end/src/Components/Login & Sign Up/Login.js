@@ -41,16 +41,7 @@ export default function Login(props) {
     <main>
       <h2>Login</h2>
 
-      <Box
-        component="form"
-        autoComplete="off"
-        sx={{
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-          maxWidth: "500px",
-        }}
-      >
+      <Box component="form" autoComplete="off">
         <FormControl fullWidth>
           <TextField
             error={textFieldErrorState}
@@ -82,7 +73,6 @@ export default function Login(props) {
                 position: "relative",
                 display: "flex",
                 alignItems: "center",
-                maxWidth: "500px",
               }}
               variant="contained"
               onClick={() => props.handleLogin(emailAddress, password)}
