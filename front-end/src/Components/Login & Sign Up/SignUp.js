@@ -5,6 +5,7 @@ import {
   FormControl,
   TextField,
   CircularProgress,
+  Typography
 } from "@mui/material";
 
 export default function SignUp(props) {
@@ -194,6 +195,7 @@ export default function SignUp(props) {
               )}
             </Button>
           </div>
+          <Typography style={{marginLeft:"auto",marginRight:"auto",marginBottom:"10px"}}>or</Typography>
           <div style={{ paddingBottom: "10px" }}>
             <Button fullWidth variant="outlined" onClick={handleLoginClick}>
               Login

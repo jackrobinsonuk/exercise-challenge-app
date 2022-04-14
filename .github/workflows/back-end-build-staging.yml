@@ -48,6 +48,10 @@ jobs:
           aws-region: "eu-west-1"
       - name: Deploy exercise list to S3 bucket
         run:
+<<<<<<< HEAD
           aws s3 sync ./back-end/src/Static
+=======
+          aws s3 sync ./back-end/src/Static/exercise-list.json
+>>>>>>> acf5adaeb4a12ff51d50269ae09791269b7a27d5
           s3://exercise-challenge-back-end-st-exerciselistbucket-ex15og529gku
           --delete
