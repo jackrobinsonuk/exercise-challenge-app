@@ -33,7 +33,7 @@ const App = () => {
   if (isAdmin === false) {
     Auth.currentAuthenticatedUser()
       .then((result) => {
-        setIsAdmin(true);
+        setIsAdmin(false);
       })
       .catch((err) => {
         return;
