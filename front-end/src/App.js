@@ -30,6 +30,16 @@ const App = () => {
       });
   }
 
+  if (isAdmin === false) {
+    Auth.currentAuthenticatedUser()
+      .then((result) => {
+        setIsAdmin(true);
+      })
+      .catch((err) => {
+        return;
+      });
+  }
+
   return (
     <div>
       {isLoggedIn === false && <NavBarLoggedOut />}
