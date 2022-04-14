@@ -178,6 +178,7 @@ export default function SignUp(props) {
               variant="contained"
               disabled={buttonDisabled}
               onClick={() => handleSignUp(emailAddress, password)}
+              type="submit"
             >
               Sign Up
               {props.loading && (

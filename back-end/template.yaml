@@ -295,6 +295,9 @@ Resources:
   ChallengeBucket:
     Type: AWS::S3::Bucket
 
+  ExerciseListBucket:
+    Type: AWS::S3::Bucket
+
 Outputs:
   WebEndpoint:
     Description: "API Gateway endpoint URL for Prod stage"
