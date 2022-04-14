@@ -1,0 +1,1167 @@
+[
+  {
+    "exerciseId": 1,
+    "exerciseName": "Aerobics, general",
+    "points": 8
+  },
+  {
+    "exerciseId": 2,
+    "exerciseName": "Aerobics, high impact",
+    "points": 8
+  },
+  {
+    "exerciseId": 3,
+    "exerciseName": "Aerobics, low impact",
+    "points": 6
+  },
+  {
+    "exerciseId": 4,
+    "exerciseName": "Aerobics, step aerobics",
+    "points": 10
+  },
+  {
+    "exerciseId": 5,
+    "exerciseName": "Archery",
+    "points": 4
+  },
+  {
+    "exerciseId": 6,
+    "exerciseName": "Backpacking, hiking with pack",
+    "points": 8
+  },
+  {
+    "exerciseId": 7,
+    "exerciseName": "Badminton",
+    "points": 5
+  },
+  {
+    "exerciseId": 8,
+    "exerciseName": "Ballet, twist, jazz, tap",
+    "points": 5
+  },
+  {
+    "exerciseId": 9,
+    "exerciseName": "Ballroom dancing, fast",
+    "points": 6
+  },
+  {
+    "exerciseId": 10,
+    "exerciseName": "Ballroom dancing, slow",
+    "points": 4
+  },
+  {
+    "exerciseId": 11,
+    "exerciseName": "Basketball game, competitive",
+    "points": 9
+  },
+  {
+    "exerciseId": 12,
+    "exerciseName": "Basketball, shooting baskets",
+    "points": 5
+  },
+  {
+    "exerciseId": 13,
+    "exerciseName": "Billiards",
+    "points": 3
+  },
+  {
+    "exerciseId": 14,
+    "exerciseName": "Book restoration, vigorous",
+    "points": 0
+  },
+  {
+    "exerciseId": 15,
+    "exerciseName": "Bowling",
+    "points": 4
+  },
+  {
+    "exerciseId": 16,
+    "exerciseName": "Boxing, in ring",
+    "points": 14
+  },
+  {
+    "exerciseId": 17,
+    "exerciseName": "Boxing, punching bag",
+    "points": 7
+  },
+  {
+    "exerciseId": 18,
+    "exerciseName": "Boxing, sparring",
+    "points": 11
+  },
+  {
+    "exerciseId": 19,
+    "exerciseName": "Calisthenics, light",
+    "points": 4
+  },
+  {
+    "exerciseId": 20,
+    "exerciseName": "Calisthenics, vigorous, HIIT, pushups, situps…",
+    "points": 9
+  },
+  {
+    "exerciseId": 21,
+    "exerciseName": "Canoeing, rowing, <2.5mph",
+    "points": 4
+  },
+  {
+    "exerciseId": 22,
+    "exerciseName": "Canoeing, rowing, >5mph",
+    "points": 14
+  },
+  {
+    "exerciseId": 23,
+    "exerciseName": "Canoeing, rowing, 2.5 to 5mph",
+    "points": 8
+  },
+  {
+    "exerciseId": 24,
+    "exerciseName": "Canoeing, rowing, light",
+    "points": 4
+  },
+  {
+    "exerciseId": 25,
+    "exerciseName": "Canoeing, rowing, moderate",
+    "points": 8
+  },
+  {
+    "exerciseId": 26,
+    "exerciseName": "Canoeing, rowing, vigorous",
+    "points": 14
+  },
+  {
+    "exerciseId": 27,
+    "exerciseName": "Carrying 25 to 49 lbs, upstairs",
+    "points": 8
+  },
+  {
+    "exerciseId": 28,
+    "exerciseName": "Circuit training, minimal rest",
+    "points": 9
+  },
+  {
+    "exerciseId": 29,
+    "exerciseName": "Cricket (batting, bowling)",
+    "points": 6
+  },
+  {
+    "exerciseId": 30,
+    "exerciseName": "Crochet, extreme",
+    "points": 0
+  },
+  {
+    "exerciseId": 31,
+    "exerciseName": "Crochet, light",
+    "points": 0
+  },
+  {
+    "exerciseId": 32,
+    "exerciseName": "Croquet",
+    "points": 3
+  },
+  {
+    "exerciseId": 33,
+    "exerciseName": "Cross Country Running, 10 mph (6 min mile)",
+    "points": 23
+  },
+  {
+    "exerciseId": 34,
+    "exerciseName": "Cross Country Running, 10.9 mph (5.5 min mile)",
+    "points": 28
+  },
+  {
+    "exerciseId": 35,
+    "exerciseName": "Cross Country Running, 3 mph",
+    "points": 6
+  },
+  {
+    "exerciseId": 36,
+    "exerciseName": "Cross Country Running, 4 mph",
+    "points": 9
+  },
+  {
+    "exerciseId": 37,
+    "exerciseName": "Cross Country Running, 5 mph (12 minute mile)",
+    "points": 11
+  },
+  {
+    "exerciseId": 38,
+    "exerciseName": "Cross Country Running, 5.2 mph (11.5 minute mile)",
+    "points": 12
+  },
+  {
+    "exerciseId": 39,
+    "exerciseName": "Cross Country Running, 6 mph (10 min mile)",
+    "points": 13
+  },
+  {
+    "exerciseId": 40,
+    "exerciseName": "Cross Country Running, 6.7 mph (9 min mile)",
+    "points": 15
+  },
+  {
+    "exerciseId": 41,
+    "exerciseName": "Cross Country Running, 7 mph (8.5 min mile)",
+    "points": 16
+  },
+  {
+    "exerciseId": 42,
+    "exerciseName": "Cross Country Running, 7.5mph (8 min mile)",
+    "points": 17
+  },
+  {
+    "exerciseId": 43,
+    "exerciseName": "Cross Country Running, 8 mph (7.5 min mile)",
+    "points": 18
+  },
+  {
+    "exerciseId": 44,
+    "exerciseName": "Cross Country Running, 8.6 mph (7 min mile)",
+    "points": 19
+  },
+  {
+    "exerciseId": 45,
+    "exerciseName": "Cross Country Running, 9 mph (6.5 min mile)",
+    "points": 20
+  },
+  {
+    "exerciseId": 46,
+    "exerciseName": "Cross Trainer",
+    "points": 12
+  },
+  {
+    "exerciseId": 47,
+    "exerciseName": "Curling",
+    "points": 5
+  },
+  {
+    "exerciseId": 48,
+    "exerciseName": "Cycling, <10 mph / 16 kph, leisure bicycling",
+    "points": 5
+  },
+  {
+    "exerciseId": 49,
+    "exerciseName": "Cycling, >20 mph / 32 kph, racing",
+    "points": 14
+  },
+  {
+    "exerciseId": 50,
+    "exerciseName": "Cycling, 10-11.9 mph / 16-19 kph, light",
+    "points": 7
+  },
+  {
+    "exerciseId": 51,
+    "exerciseName": "Cycling, 12-13.9 mph / 19-22 kph, moderate",
+    "points": 9
+  },
+  {
+    "exerciseId": 52,
+    "exerciseName": "Cycling, 14-15.9 mph / 22-25 kph, vigorous",
+    "points": 12
+  },
+  {
+    "exerciseId": 53,
+    "exerciseName": "Cycling, 16-19 mph / 25-32 kph, very fast, racing",
+    "points": 13
+  },
+  {
+    "exerciseId": 54,
+    "exerciseName": "Cycling, mountain bike, bmx",
+    "points": 10
+  },
+  {
+    "exerciseId": 55,
+    "exerciseName": "Darts",
+    "points": 0
+  },
+  {
+    "exerciseId": 56,
+    "exerciseName": "Digging and Shovelling",
+    "points": 8
+  },
+  {
+    "exerciseId": 57,
+    "exerciseName": "Diving, springboard or platform",
+    "points": 4
+  },
+  {
+    "exerciseId": 58,
+    "exerciseName": "Downhill snow skiing",
+    "points": 9
+  },
+  {
+    "exerciseId": 59,
+    "exerciseName": "Drink Mixing",
+    "points": 0
+  },
+  {
+    "exerciseId": 60,
+    "exerciseName": "Fancy Dress",
+    "points": 8
+  },
+  {
+    "exerciseId": 61,
+    "exerciseName": "Fencing",
+    "points": 7
+  },
+  {
+    "exerciseId": 62,
+    "exerciseName": "Fishing from river bank, standing",
+    "points": 4
+  },
+  {
+    "exerciseId": 63,
+    "exerciseName": "Flower Arranging",
+    "points": 0
+  },
+  {
+    "exerciseId": 64,
+    "exerciseName": "Foam Rolling",
+    "points": 4
+  },
+  {
+    "exerciseId": 65,
+    "exerciseName": "Football",
+    "points": 11
+  },
+  {
+    "exerciseId": 66,
+    "exerciseName": "Frisbee, ultimate frisbee",
+    "points": 9
+  },
+  {
+    "exerciseId": 67,
+    "exerciseName": "Gardening",
+    "points": 0
+  },
+  {
+    "exerciseId": 68,
+    "exerciseName": "Golf, driving range",
+    "points": 4
+  },
+  {
+    "exerciseId": 69,
+    "exerciseName": "Golf, miniature golf",
+    "points": 4
+  },
+  {
+    "exerciseId": 70,
+    "exerciseName": "Golf, walking and carrying clubs",
+    "points": 5
+  },
+  {
+    "exerciseId": 71,
+    "exerciseName": "Golf, walking and pulling clubs",
+    "points": 5
+  },
+  {
+    "exerciseId": 72,
+    "exerciseName": "Grape Harvesting",
+    "points": 0
+  },
+  {
+    "exerciseId": 73,
+    "exerciseName": "Gymnastics",
+    "points": 5
+  },
+  {
+    "exerciseId": 74,
+    "exerciseName": "Hacky sack",
+    "points": 5
+  },
+  {
+    "exerciseId": 75,
+    "exerciseName": "Handball",
+    "points": 14
+  },
+  {
+    "exerciseId": 76,
+    "exerciseName": "Hiking ",
+    "points": 6
+  },
+  {
+    "exerciseId": 77,
+    "exerciseName": "Hockey, field hockey",
+    "points": 9
+  },
+  {
+    "exerciseId": 78,
+    "exerciseName": "Hockey, ice hockey",
+    "points": 9
+  },
+  {
+    "exerciseId": 79,
+    "exerciseName": "Horse racing, galloping",
+    "points": 9
+  },
+  {
+    "exerciseId": 80,
+    "exerciseName": "Horseback riding, trotting",
+    "points": 8
+  },
+  {
+    "exerciseId": 81,
+    "exerciseName": "Horseback riding, walking",
+    "points": 3
+  },
+  {
+    "exerciseId": 82,
+    "exerciseName": "Ice skating, < 9 mph",
+    "points": 6
+  },
+  {
+    "exerciseId": 83,
+    "exerciseName": "Ice skating, > 13mph",
+    "points": 11
+  },
+  {
+    "exerciseId": 84,
+    "exerciseName": "Ice skating, 10 to 13 mph",
+    "points": 8
+  },
+  {
+    "exerciseId": 85,
+    "exerciseName": "Injury",
+    "points": 0
+  },
+  {
+    "exerciseId": 86,
+    "exerciseName": "Jai alai",
+    "points": 14
+  },
+  {
+    "exerciseId": 87,
+    "exerciseName": "Jazzercise",
+    "points": 7
+  },
+  {
+    "exerciseId": 88,
+    "exerciseName": "Juggling",
+    "points": 5
+  },
+  {
+    "exerciseId": 89,
+    "exerciseName": "Jumping rope, fast",
+    "points": 14
+  },
+  {
+    "exerciseId": 90,
+    "exerciseName": "Jumping rope, moderate",
+    "points": 12
+  },
+  {
+    "exerciseId": 91,
+    "exerciseName": "Jumping rope, slow",
+    "points": 9
+  },
+  {
+    "exerciseId": 92,
+    "exerciseName": "Kayaking",
+    "points": 6
+  },
+  {
+    "exerciseId": 93,
+    "exerciseName": "Kickball",
+    "points": 8
+  },
+  {
+    "exerciseId": 94,
+    "exerciseName": "Lacrosse",
+    "points": 9
+  },
+  {
+    "exerciseId": 95,
+    "exerciseName": "Manual Labour",
+    "points": 4
+  },
+  {
+    "exerciseId": 96,
+    "exerciseName": "Martial arts, judo, karate, jujitsu",
+    "points": 12
+  },
+  {
+    "exerciseId": 97,
+    "exerciseName": "Martial arts, kick boxing",
+    "points": 12
+  },
+  {
+    "exerciseId": 98,
+    "exerciseName": "Martial arts, tae kwan do",
+    "points": 12
+  },
+  {
+    "exerciseId": 99,
+    "exerciseName": "Mild stretching",
+    "points": 3
+  },
+  {
+    "exerciseId": 100,
+    "exerciseName": "Mini Challenge Submission",
+    "points": 2
+  },
+  {
+    "exerciseId": 101,
+    "exerciseName": "Mini Challenge Winner",
+    "points": 8
+  },
+  {
+    "exerciseId": 102,
+    "exerciseName": "Netball",
+    "points": 8
+  },
+  {
+    "exerciseId": 103,
+    "exerciseName": "Paddle boat",
+    "points": 5
+  },
+  {
+    "exerciseId": 104,
+    "exerciseName": "Paddleball",
+    "points": 12
+  },
+  {
+    "exerciseId": 105,
+    "exerciseName": "Painting & Decorating",
+    "points": 0
+  },
+  {
+    "exerciseId": 106,
+    "exerciseName": "Pilates",
+    "points": 6
+  },
+  {
+    "exerciseId": 107,
+    "exerciseName": "Polo",
+    "points": 9
+  },
+  {
+    "exerciseId": 108,
+    "exerciseName": "Race walking",
+    "points": 8
+  },
+  {
+    "exerciseId": 109,
+    "exerciseName": "Racquetball",
+    "points": 12
+  },
+  {
+    "exerciseId": 110,
+    "exerciseName": "Real Tennis",
+    "points": 11
+  },
+  {
+    "exerciseId": 111,
+    "exerciseName": "Ringer Team 2",
+    "points": 0
+  },
+  {
+    "exerciseId": 112,
+    "exerciseName": "Rock climbing, ascending rock",
+    "points": 13
+  },
+  {
+    "exerciseId": 113,
+    "exerciseName": "Rock climbing, rappelling",
+    "points": 9
+  },
+  {
+    "exerciseId": 114,
+    "exerciseName": "Roller blading, in-line skating",
+    "points": 14
+  },
+  {
+    "exerciseId": 115,
+    "exerciseName": "Roller skating",
+    "points": 8
+  },
+  {
+    "exerciseId": 116,
+    "exerciseName": "Rowing machine, < 8mins per 2k",
+    "points": 14
+  },
+  {
+    "exerciseId": 117,
+    "exerciseName": "Rowing machine, >10 mins per 2k",
+    "points": 7
+  },
+  {
+    "exerciseId": 118,
+    "exerciseName": "Rowing machine, 8 to 9 mins per 2k",
+    "points": 10
+  },
+  {
+    "exerciseId": 119,
+    "exerciseName": "Rowing machine, 9 to 10 mins per 2k",
+    "points": 9
+  },
+  {
+    "exerciseId": 120,
+    "exerciseName": "Rowing on water, < 8mins per 2k",
+    "points": 18
+  },
+  {
+    "exerciseId": 121,
+    "exerciseName": "Rowing on water, >10 mins per 2k",
+    "points": 9
+  },
+  {
+    "exerciseId": 122,
+    "exerciseName": "Rowing on water, 8 to 9 mins per 2k",
+    "points": 13
+  },
+  {
+    "exerciseId": 123,
+    "exerciseName": "Rowing on water, 9 to 10 mins per 2k",
+    "points": 11
+  },
+  {
+    "exerciseId": 124,
+    "exerciseName": "Rugby",
+    "points": 12
+  },
+  {
+    "exerciseId": 125,
+    "exerciseName": "Running, 10 mph (6 min mile)",
+    "points": 20
+  },
+  {
+    "exerciseId": 126,
+    "exerciseName": "Running, 10 mph (6 min mile) with buggy",
+    "points": 23
+  },
+  {
+    "exerciseId": 127,
+    "exerciseName": "Running, 10.9 mph (5.5 min mile)",
+    "points": 24
+  },
+  {
+    "exerciseId": 128,
+    "exerciseName": "Running, 10.9 mph (5.5 min mile) with buggy",
+    "points": 28
+  },
+  {
+    "exerciseId": 129,
+    "exerciseName": "Running, 3 mph",
+    "points": 6
+  },
+  {
+    "exerciseId": 130,
+    "exerciseName": "Running, 3 mph with buggy",
+    "points": 6
+  },
+  {
+    "exerciseId": 131,
+    "exerciseName": "Running, 4 mph",
+    "points": 8
+  },
+  {
+    "exerciseId": 132,
+    "exerciseName": "Running, 4 mph with buggy",
+    "points": 9
+  },
+  {
+    "exerciseId": 133,
+    "exerciseName": "Running, 5 mph (12 minute mile)",
+    "points": 9
+  },
+  {
+    "exerciseId": 134,
+    "exerciseName": "Running, 5 mph (12 minute mile) with buggy",
+    "points": 11
+  },
+  {
+    "exerciseId": 135,
+    "exerciseName": "Running, 5.2 mph (11.5 minute mile)",
+    "points": 11
+  },
+  {
+    "exerciseId": 136,
+    "exerciseName": "Running, 5.2 mph (11.5 minute mile) with buggy",
+    "points": 12
+  },
+  {
+    "exerciseId": 137,
+    "exerciseName": "Running, 6 mph (10 min mile)",
+    "points": 12
+  },
+  {
+    "exerciseId": 138,
+    "exerciseName": "Running, 6 mph (10 min mile) with buggy",
+    "points": 14
+  },
+  {
+    "exerciseId": 139,
+    "exerciseName": "Running, 6.7 mph (9 min mile)",
+    "points": 13
+  },
+  {
+    "exerciseId": 140,
+    "exerciseName": "Running, 6.7 mph (9 min mile) with buggy",
+    "points": 15
+  },
+  {
+    "exerciseId": 141,
+    "exerciseName": "Running, 7 mph (8.5 min mile)",
+    "points": 13
+  },
+  {
+    "exerciseId": 142,
+    "exerciseName": "Running, 7 mph (8.5 min mile) with buggy",
+    "points": 16
+  },
+  {
+    "exerciseId": 143,
+    "exerciseName": "Running, 7.5mph (8 min mile)",
+    "points": 15
+  },
+  {
+    "exerciseId": 144,
+    "exerciseName": "Running, 7.5mph (8 min mile) with buggy",
+    "points": 17
+  },
+  {
+    "exerciseId": 145,
+    "exerciseName": "Running, 8 mph (7.5 min mile)",
+    "points": 16
+  },
+  {
+    "exerciseId": 146,
+    "exerciseName": "Running, 8 mph (7.5 min mile) with buggy",
+    "points": 18
+  },
+  {
+    "exerciseId": 147,
+    "exerciseName": "Running, 8.6 mph (7 min mile)",
+    "points": 16
+  },
+  {
+    "exerciseId": 148,
+    "exerciseName": "Running, 8.6 mph (7 min mile) with buggy",
+    "points": 19
+  },
+  {
+    "exerciseId": 149,
+    "exerciseName": "Running, 9 mph (6.5 min mile)",
+    "points": 18
+  },
+  {
+    "exerciseId": 150,
+    "exerciseName": "Running, 9 mph (6.5 min mile) with buggy",
+    "points": 20
+  },
+  {
+    "exerciseId": 151,
+    "exerciseName": "Sailing, competition",
+    "points": 6
+  },
+  {
+    "exerciseId": 152,
+    "exerciseName": "Sailing, yachting, ocean sailing",
+    "points": 4
+  },
+  {
+    "exerciseId": 153,
+    "exerciseName": "Skateboarding",
+    "points": 6
+  },
+  {
+    "exerciseId": 154,
+    "exerciseName": "Ski machine",
+    "points": 8
+  },
+  {
+    "exerciseId": 155,
+    "exerciseName": "Sky diving",
+    "points": 4
+  },
+  {
+    "exerciseId": 156,
+    "exerciseName": "Snowmobiling",
+    "points": 4
+  },
+  {
+    "exerciseId": 157,
+    "exerciseName": "Softball or baseball",
+    "points": 6
+  },
+  {
+    "exerciseId": 158,
+    "exerciseName": "Speed skating, ice",
+    "points": 18
+  },
+  {
+    "exerciseId": 159,
+    "exerciseName": "Squash",
+    "points": 14
+  },
+  {
+    "exerciseId": 160,
+    "exerciseName": "Stair machine",
+    "points": 11
+  },
+  {
+    "exerciseId": 161,
+    "exerciseName": "Stand-up paddleboarding",
+    "points": 6
+  },
+  {
+    "exerciseId": 162,
+    "exerciseName": "Stationary cycling, light",
+    "points": 6
+  },
+  {
+    "exerciseId": 163,
+    "exerciseName": "Stationary cycling, moderate",
+    "points": 8
+  },
+  {
+    "exerciseId": 164,
+    "exerciseName": "Stationary cycling, very light",
+    "points": 4
+  },
+  {
+    "exerciseId": 165,
+    "exerciseName": "Stationary cycling, very vigorous",
+    "points": 15
+  },
+  {
+    "exerciseId": 166,
+    "exerciseName": "Stationary cycling, vigorous",
+    "points": 12
+  },
+  {
+    "exerciseId": 167,
+    "exerciseName": "Storytelling, Ciaran (God Tier)",
+    "points": 0
+  },
+  {
+    "exerciseId": 168,
+    "exerciseName": "Storytelling, gentle",
+    "points": 0
+  },
+  {
+    "exerciseId": 169,
+    "exerciseName": "Storytelling, vigorous",
+    "points": 0
+  },
+  {
+    "exerciseId": 170,
+    "exerciseName": "Stretching, hatha yoga",
+    "points": 5
+  },
+  {
+    "exerciseId": 171,
+    "exerciseName": "Surfing, body surfing or board surfing",
+    "points": 4
+  },
+  {
+    "exerciseId": 172,
+    "exerciseName": "Swimming backstroke,  1 to 2 mph",
+    "points": 8
+  },
+  {
+    "exerciseId": 173,
+    "exerciseName": "Swimming backstroke, <1 mph",
+    "points": 7
+  },
+  {
+    "exerciseId": 174,
+    "exerciseName": "Swimming backstroke, <1 mph with weight",
+    "points": 8
+  },
+  {
+    "exerciseId": 175,
+    "exerciseName": "Swimming backstroke, >2 mph",
+    "points": 9
+  },
+  {
+    "exerciseId": 176,
+    "exerciseName": "Swimming backstroke, >2 mph with weight",
+    "points": 10
+  },
+  {
+    "exerciseId": 177,
+    "exerciseName": "Swimming backstroke, 1 to 2 mph with weight",
+    "points": 9
+  },
+  {
+    "exerciseId": 178,
+    "exerciseName": "Swimming breaststroke, <1 mph",
+    "points": 10
+  },
+  {
+    "exerciseId": 179,
+    "exerciseName": "Swimming breaststroke, <1 mph with weight",
+    "points": 12
+  },
+  {
+    "exerciseId": 180,
+    "exerciseName": "Swimming breaststroke, >2 mph",
+    "points": 12
+  },
+  {
+    "exerciseId": 181,
+    "exerciseName": "Swimming breaststroke, >2 mph with weight",
+    "points": 14
+  },
+  {
+    "exerciseId": 182,
+    "exerciseName": "Swimming breaststroke, 1 to 2 mph",
+    "points": 11
+  },
+  {
+    "exerciseId": 183,
+    "exerciseName": "Swimming breaststroke, 1 to 2 mph with weight",
+    "points": 13
+  },
+  {
+    "exerciseId": 184,
+    "exerciseName": "Swimming butterfly, <1 mph",
+    "points": 11
+  },
+  {
+    "exerciseId": 185,
+    "exerciseName": "Swimming butterfly, <1 mph with weight",
+    "points": 13
+  },
+  {
+    "exerciseId": 186,
+    "exerciseName": "Swimming butterfly, >2 mph",
+    "points": 13
+  },
+  {
+    "exerciseId": 187,
+    "exerciseName": "Swimming butterfly, >2 mph with weight",
+    "points": 15
+  },
+  {
+    "exerciseId": 188,
+    "exerciseName": "Swimming butterfly, 1 to 2 mph",
+    "points": 13
+  },
+  {
+    "exerciseId": 189,
+    "exerciseName": "Swimming butterfly, 1 to 2 mph with weight",
+    "points": 14
+  },
+  {
+    "exerciseId": 190,
+    "exerciseName": "Swimming laps, freestyle, <1 mph",
+    "points": 8
+  },
+  {
+    "exerciseId": 191,
+    "exerciseName": "Swimming laps, freestyle, <1 mph with weight",
+    "points": 10
+  },
+  {
+    "exerciseId": 192,
+    "exerciseName": "Swimming laps, freestyle, >2 mph",
+    "points": 12
+  },
+  {
+    "exerciseId": 193,
+    "exerciseName": "Swimming laps, freestyle, >2 mph with weight",
+    "points": 14
+  },
+  {
+    "exerciseId": 194,
+    "exerciseName": "Swimming laps, freestyle, 1 to 2 mph",
+    "points": 9
+  },
+  {
+    "exerciseId": 195,
+    "exerciseName": "Swimming laps, freestyle, 1 to 2 mph with weight",
+    "points": 11
+  },
+  {
+    "exerciseId": 196,
+    "exerciseName": "Swimming leisurely, not laps",
+    "points": 7
+  },
+  {
+    "exerciseId": 197,
+    "exerciseName": "Swimming leisurely, not laps with weight",
+    "points": 8
+  },
+  {
+    "exerciseId": 198,
+    "exerciseName": "Swimming synchronized",
+    "points": 9
+  },
+  {
+    "exerciseId": 199,
+    "exerciseName": "Swimming synchronized with weight",
+    "points": 11
+  },
+  {
+    "exerciseId": 200,
+    "exerciseName": "Table Football, Fussball, light or moderate",
+    "points": 4
+  },
+  {
+    "exerciseId": 201,
+    "exerciseName": "Table Football, Fussball, vigorous",
+    "points": 6
+  },
+  {
+    "exerciseId": 202,
+    "exerciseName": "Table tennis, ping pong",
+    "points": 5
+  },
+  {
+    "exerciseId": 203,
+    "exerciseName": "Tai chi",
+    "points": 5
+  },
+  {
+    "exerciseId": 204,
+    "exerciseName": "Tennis, doubles",
+    "points": 7
+  },
+  {
+    "exerciseId": 205,
+    "exerciseName": "Tennis, singles",
+    "points": 9
+  },
+  {
+    "exerciseId": 206,
+    "exerciseName": "Track and field (high jump, pole vault)",
+    "points": 7
+  },
+  {
+    "exerciseId": 207,
+    "exerciseName": "Track and field (hurdles)",
+    "points": 12
+  },
+  {
+    "exerciseId": 208,
+    "exerciseName": "Track and field (shot, discus)",
+    "points": 5
+  },
+  {
+    "exerciseId": 209,
+    "exerciseName": "Trampoline",
+    "points": 4
+  },
+  {
+    "exerciseId": 210,
+    "exerciseName": "Unicycling",
+    "points": 6
+  },
+  {
+    "exerciseId": 211,
+    "exerciseName": "Vinyasa Yoga",
+    "points": 10
+  },
+  {
+    "exerciseId": 212,
+    "exerciseName": "Volleyball",
+    "points": 9
+  },
+  {
+    "exerciseId": 213,
+    "exerciseName": "Walk/run, playing with children, moderate",
+    "points": 4
+  },
+  {
+    "exerciseId": 214,
+    "exerciseName": "Walking 2.0 mph",
+    "points": 3
+  },
+  {
+    "exerciseId": 215,
+    "exerciseName": "Walking 2.5 mph",
+    "points": 4
+  },
+  {
+    "exerciseId": 216,
+    "exerciseName": "Walking 3.0 mph",
+    "points": 4
+  },
+  {
+    "exerciseId": 217,
+    "exerciseName": "Walking 3.5 mph",
+    "points": 4
+  },
+  {
+    "exerciseId": 218,
+    "exerciseName": "Walking 4.0 mph",
+    "points": 6
+  },
+  {
+    "exerciseId": 219,
+    "exerciseName": "Walking 4.5 mph",
+    "points": 7
+  },
+  {
+    "exerciseId": 220,
+    "exerciseName": "Walking 5.0 mph",
+    "points": 9
+  },
+  {
+    "exerciseId": 221,
+    "exerciseName": "Walking, under 2.0 mph",
+    "points": 2
+  },
+  {
+    "exerciseId": 222,
+    "exerciseName": "Washing car",
+    "points": 0
+  },
+  {
+    "exerciseId": 223,
+    "exerciseName": "Water aerobics",
+    "points": 5
+  },
+  {
+    "exerciseId": 224,
+    "exerciseName": "Water polo",
+    "points": 12
+  },
+  {
+    "exerciseId": 225,
+    "exerciseName": "Water volleyball",
+    "points": 4
+  },
+  {
+    "exerciseId": 226,
+    "exerciseName": "Weight lifting, Arnie level",
+    "points": 11
+  },
+  {
+    "exerciseId": 227,
+    "exerciseName": "Weight lifting, intensive",
+    "points": 8
+  },
+  {
+    "exerciseId": 228,
+    "exerciseName": "Weight lifting, light",
+    "points": 4
+  },
+  {
+    "exerciseId": 229,
+    "exerciseName": "Whitewater rafting, kayaking, canoeing",
+    "points": 6
+  },
+  {
+    "exerciseId": 230,
+    "exerciseName": "Windsurfing, sailing",
+    "points": 4
+  },
+  {
+    "exerciseId": 231,
+    "exerciseName": "Wrestling",
+    "points": 7
+  },
+  {
+    "exerciseId": 232,
+    "exerciseName": "Yoga",
+    "points": 7
+  },
+  {
+    "exerciseId": 233,
+    "exerciseName": "Zumba",
+    "points": 10
+  }
+]

@@ -34,3 +34,19 @@ jobs:
           --stack-name exercise-challenge-back-end-staging --s3-bucket
           exercise-challenge-back-end-staging --capabilities CAPABILITY_IAM
           --region eu-west-1
+  copy-exercise-list:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: "eu-west-1"
+      - name: Deploy exercise list to S3 bucket
+        run:
+          aws s3 sync ./back-end/src/static
+          s3://exercise-challenge-back-end-st-exerciselistbucket-ex15og529gku
+          --delete
