@@ -19,39 +19,48 @@ exports.createExerciseHandler = async (event) => {
   console.info("received:", event);
 
   // Get id and name from the body of the request
-  const body = JSON.parse(event.body);
-  const exerciseId = body.exerciseId;
-  const points = body.points;
-  const exerciseName = body.exerciseName;
-  const id = AWS.util.uuid.v4();
 
-  // Creates a new item, or replaces an old item with a new item
-  // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#put-property
-  var params = {
-    TableName: tableName,
-    Item: {
-      exerciseId: exerciseId,
-      points: points,
-      exerciseName: exerciseName,
-      id: id,
-    },
-  };
+  let promises = [];
 
-  const result = await docClient.put(params).promise();
+  const item = JSON.parse(event.body);
 
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify(body),
-    headers: {
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Allow-Origin": "*", // Allow from anywhere
-      "Access-Control-Allow-Methods": "POST, OPTIONS", // Allow only POST & OPTIONS request
-    },
-  };
+  console.info("received body", item);
+  try {
+    item.forEach((item) => {
+      const id = AWS.util.uuid.v4();
+      const exerciseName = item.exerciseName;
+      const points = item.points;
+      const exerciseId = item.exerciseId;
 
-  // All log statements are written to CloudWatch
-  console.info(
-    `response from: ${event.path} statusCode: ${response.statusCode} body: ${response.body}`
-  );
+      const params = {
+        TableName: tableName,
+        Item: {
+          exerciseName: exerciseName,
+          points: points,
+          exerciseId: exerciseId,
+          id: id,
+        },
+      };
+      promises.push(docClient.put(params).promise());
+    });
+
+    await Promise.all(promises);
+    response = {
+      statusCode: 200,
+      body: JSON.stringify({
+        message: "File Imported",
+      }),
+    };
+  } catch (err) {
+    console.log(err);
+    response = {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: "Unsuccessful - the input was not an array",
+      }),
+    };
+    throw err;
+  }
+
   return response;
 };

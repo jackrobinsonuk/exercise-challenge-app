@@ -1,10 +1,23 @@
 import { React, useState } from "react";
 import { Auth } from "aws-amplify";
 
-import Login from "../Components/Login";
-import SignUp from "../Components/SignUp";
-import SignUpComplete from "../Components/SignUpComplete";
-import SetNewPasswordScreen from "../Components/SetNewPasswordScreen";
+import Avatar from "@mui/material/Avatar";
+import CssBaseline from "@mui/material/CssBaseline";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+import Login from "../Components/Login & Sign Up/Login";
+import SignUp from "../Components/Login & Sign Up/SignUp";
+import SignUpComplete from "../Components/Login & Sign Up/SignUpComplete";
+import SetNewPasswordScreen from "../Components/Login & Sign Up/SetNewPasswordScreen";
+
+const theme = createTheme();
 
 export default function UserLoginSignUp(props) {
   const [loginScreen, setLoginScreen] = useState(true);
@@ -104,37 +117,105 @@ export default function UserLoginSignUp(props) {
     Auth.resendSignUp(username);
   }
 
+  function Copyright(props) {
+    return (
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        align="center"
+        {...props}
+      >
+        {"Copyright © "}
+        <Link color="inherit" href="https://exercisechallengeapp.com/">
+          Exercise Challenge App
+        </Link>{" "}
+        {new Date().getFullYear()}
+        {"."}
+      </Typography>
+    );
+  }
+
   return (
-    <main style={{ padding: "20px" }}>
-      {loginScreen && (
-        <Login
-          handleLogin={handleLogin}
-          setSignUpScreen={setSignUpScreen}
-          setLoginScreen={setLoginScreen}
-          error={error}
-          loading={loading}
-        />
-      )}
-      {signUpScreen && (
-        <SignUp
-          handleSignUp={handleSignUp}
-          setLoginScreen={setLoginScreen}
-          setSignUpScreen={setSignUpScreen}
-          setSignUpComplete={setSignUpComplete}
-          error={error}
-          loading={loading}
-        />
-      )}
-      {signUpComplete && (
-        <SignUpComplete
-          loading={loading}
-          error={error}
-          currentUser={currentUser}
-          handleSignUpVerification={handleSignUpVerification}
-          handleRequestNewCode={handleRequestNewCode}
-        />
-      )}
-      {newPasswordScreen && <SetNewPasswordScreen currentUser={currentUser} />}
+    <main>
+      <ThemeProvider theme={theme}>
+        <Grid container component="main" sx={{ height: "100vh" }}>
+          <CssBaseline />
+
+          <Grid
+            item
+            xs={false}
+            sm={4}
+            md={7}
+            sx={{
+              backgroundImage:
+                "url(https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80)",
+              backgroundRepeat: "no-repeat",
+              backgroundColor: "rgba(0,0,0,.3)",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          />
+
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            md={5}
+            component={Paper}
+            elevation={6}
+            square
+          >
+            <Box
+              sx={{
+                my: 8,
+                mx: 4,
+                flexDirection: "column",
+              }}
+            >
+              <Avatar
+                sx={{ m: 1, bgcolor: "secondary.main", alignItems: "center" }}
+              >
+                <LockOutlinedIcon />
+              </Avatar>
+
+              {loginScreen && (
+                <Login
+                  handleLogin={handleLogin}
+                  setSignUpScreen={setSignUpScreen}
+                  setLoginScreen={setLoginScreen}
+                  error={error}
+                  loading={loading}
+                />
+              )}
+              {signUpScreen && (
+                <SignUp
+                  handleSignUp={handleSignUp}
+                  setLoginScreen={setLoginScreen}
+                  setSignUpScreen={setSignUpScreen}
+                  setSignUpComplete={setSignUpComplete}
+                  error={error}
+                  loading={loading}
+                />
+              )}
+              {signUpComplete && (
+                <SignUpComplete
+                  loading={loading}
+                  error={error}
+                  currentUser={currentUser}
+                  handleSignUpVerification={handleSignUpVerification}
+                  handleRequestNewCode={handleRequestNewCode}
+                />
+              )}
+              {newPasswordScreen && (
+                <SetNewPasswordScreen currentUser={currentUser} />
+              )}
+            </Box>
+          </Grid>
+          <Container maxWidth="md" component="footer">
+            <Copyright sx={{ mt: 5 }} />
+          </Container>
+        </Grid>
+      </ThemeProvider>
     </main>
   );
 }

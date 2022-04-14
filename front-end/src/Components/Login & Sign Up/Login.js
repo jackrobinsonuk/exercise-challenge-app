@@ -7,12 +7,10 @@ import {
   CircularProgress,
 } from "@mui/material";
 
-export default function SignUp(props) {
+export default function Login(props) {
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [textFieldErrorState, setTextFieldErrorState] = useState(false);
-  const [error, setError] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const handleEmailAddressChange = (event) => {
@@ -23,30 +21,9 @@ export default function SignUp(props) {
     setPassword(event.target.value);
   };
 
-  const handleConfirmPasswordChange = (event) => {
-    setConfirmPassword(event.target.value);
-  };
-
-  const handleLoginClick = () => {
-    props.setSignUpScreen(false);
-    props.setLoginScreen(true);
-  };
-
-  const handleSignUp = (username, password) => {
-    if (password !== confirmPassword) {
-      setTextFieldErrorState(true);
-      setError("Your passwords do not match, please try again.");
-    } else {
-      var signUpObject = {
-        username: username,
-        password: password,
-        attributes: { email: username },
-      };
-
-      props.handleSignUp(signUpObject);
-      setTextFieldErrorState(false);
-      setError("");
-    }
+  const handleSignUpClick = () => {
+    props.setSignUpScreen(true);
+    props.setLoginScreen(false);
   };
 
   if (props.error && textFieldErrorState === false) {
@@ -62,17 +39,9 @@ export default function SignUp(props) {
 
   return (
     <main>
-      <h2>Sign Up</h2>
-      <Box
-        component="form"
-        autoComplete="off"
-        sx={{
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-          maxWidth: "500px",
-        }}
-      >
+      <h2>Login</h2>
+
+      <Box component="form" autoComplete="off">
         <FormControl fullWidth>
           <TextField
             error={textFieldErrorState}
@@ -87,7 +56,6 @@ export default function SignUp(props) {
 
           <TextField
             error={textFieldErrorState}
-            fullWidth
             required
             id="outlined-password-input"
             label="Password"
@@ -97,26 +65,20 @@ export default function SignUp(props) {
             onChange={handlePasswordChange}
             style={{ paddingBottom: "20px" }}
           />
-          <TextField
-            error={textFieldErrorState}
-            fullWidth
-            required
-            id="outlined-password-input"
-            label="Confirm Password"
-            type="password"
-            autoComplete="current-password"
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
-            style={{ paddingBottom: "20px" }}
-          />
           <div style={{ paddingBottom: "10px" }}>
             <Button
               fullWidth
-              variant="contained"
               disabled={buttonDisabled}
-              onClick={() => handleSignUp(emailAddress, password)}
+              type="submit"
+              sx={{
+                position: "relative",
+                display: "flex",
+                alignItems: "center",
+              }}
+              variant="contained"
+              onClick={() => props.handleLogin(emailAddress, password)}
             >
-              Sign Up
+              Login
               {props.loading && (
                 <CircularProgress
                   size={24}
@@ -131,15 +93,13 @@ export default function SignUp(props) {
               )}
             </Button>
           </div>
-          <div style={{ paddingBottom: "10px" }}>
-            <Button fullWidth variant="outlined" onClick={handleLoginClick}>
-              Login
+          <div>
+            <Button fullWidth variant="outlined" onClick={handleSignUpClick}>
+              Sign Up
             </Button>
           </div>
-          <div style={{ color: "red" }}>
-            <b>{props.error.toString()}</b>
-            <b>{error}</b>
-          </div>
+
+          <div style={{ paddingTop: "20px" }}>{props.error}</div>
         </FormControl>
       </Box>
     </main>

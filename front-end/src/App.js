@@ -1,16 +1,20 @@
 import { React, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import NavBar from "./Components/NavBar";
+import NavBarAdmin from "./Components/NavBar/NavBarAdmin";
+import NavBarLoggedIn from "./Components/NavBar/NavBarLoggedIn";
+import NavBarLoggedOut from "./Components/NavBar/NavBarLoggedOut";
 import Team from "./Pages/Team";
 import YourExercise from "./Pages/YourExercise";
 import Profile from "./Pages/Profile";
 import UserLoginSignUp from "./Pages/UserLoginSignUp";
 import Welcome from "./Pages/Welcome";
 import { Auth } from "aws-amplify";
+import Challenges from "./Pages/Challenges";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [userId, setUserId] = useState("");
   const [userInfo, setUserInfo] = useState({});
 
@@ -28,8 +32,12 @@ const App = () => {
 
   return (
     <div>
-      <NavBar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-      <br />
+      {isLoggedIn === false && <NavBarLoggedOut />}
+
+      {isLoggedIn === true && <NavBarLoggedIn />}
+
+      {isLoggedIn === true && isAdmin && <NavBarAdmin />}
+
       <div>
         {isLoggedIn === true && (
           <Routes>
@@ -40,6 +48,7 @@ const App = () => {
             />
             <Route path="/Team" element={<Team userId={userId} />} />
             <Route path="/Profile" element={<Profile userId={userId} />} />
+            <Route path="/Challenges" element={<Challenges />} />
             <Route path="/*" element={<YourExercise userId={userId} />} />
           </Routes>
         )}

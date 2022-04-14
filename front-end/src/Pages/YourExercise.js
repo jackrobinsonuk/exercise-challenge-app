@@ -15,6 +15,18 @@ export default function YourExercise(props) {
   const [setLoadingError] = useState(false);
   const userId = props.userId;
 
+  function handleExerciseDelete(exerciseIdToDelete) {
+    deleteExerciseFromDb(exerciseIdToDelete);
+  }
+
+  function deleteExerciseFromDb(exerciseIdToDelete) {
+    axios({
+      method: "post",
+      url: `${apiRoot}/user/delete-exercise?id=${exerciseIdToDelete}`,
+      responseType: "json",
+    }).then(setLoading(true));
+  }
+
   function calculateTotalPoints(response) {
     var totalPoints = response.data.reduce(function (prev, cur) {
       return prev + cur.points;
@@ -57,7 +69,10 @@ export default function YourExercise(props) {
 
       {loading === false && (
         <div>
-          <ExerciseTable exercises={exercises} />
+          <ExerciseTable
+            exercises={exercises}
+            handleExerciseDelete={handleExerciseDelete}
+          />
           <h4>Total Points: {totalPoints}</h4>
         </div>
       )}
