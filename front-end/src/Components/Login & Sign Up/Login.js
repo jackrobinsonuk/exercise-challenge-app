@@ -69,6 +69,7 @@ export default function Login(props) {
             <Button
               fullWidth
               disabled={buttonDisabled}
+              type="submit"
               sx={{
                 position: "relative",
                 display: "flex",
