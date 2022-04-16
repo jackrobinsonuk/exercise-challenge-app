@@ -1,5 +1,6 @@
-import { React, useState } from "react";
-import { Grid, Box } from "@mui/material";
+import { useState } from "react";
+import * as React from "react";
+import { Grid, Box, Divider } from "@mui/material";
 
 import data from "../Globals/leagues.json";
 
@@ -15,10 +16,12 @@ const weeks = ["Week 1", "Week 2", "Week 3", "Week 4"];
 export default function Leagues() {
   const [leagues, setLeagues] = useState(data);
   const [weekDisplay, setWeekDisplay] = useState(weeks[0]);
+
   console.log(leagues);
   return (
     <main style={{ padding: "20px" }}>
       <h2>Leagues</h2>
+      <h2>Tabs will go here to change the week number</h2>
 
       {leagues.map((league) => (
         <Grid item xs={2} sm={3} md={3}>
@@ -34,6 +37,7 @@ export default function Leagues() {
               leagueName={league.leagueName}
             />
           </Box>
+          <Divider />
         </Grid>
       ))}
     </main>

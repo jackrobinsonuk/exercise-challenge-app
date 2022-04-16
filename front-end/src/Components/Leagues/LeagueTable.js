@@ -7,6 +7,7 @@ import {
   TableBody,
   Table,
   Paper,
+  Box,
 } from "@mui/material";
 
 export default function LeagueTable(props) {
@@ -15,7 +16,9 @@ export default function LeagueTable(props) {
 
   return (
     <TableContainer component={Paper}>
-      <h3>{leagueName}</h3>
+      <Box style={{ padding: "10px" }}>
+        <b>{leagueName}</b>
+      </Box>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>

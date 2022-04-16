@@ -16,6 +16,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { textAlign } from "@mui/system";
 
 const pages = ["Exercise", "Team", "Leagues"];
 
@@ -108,17 +109,6 @@ const NavBarLoggedIn = (props) => {
             </Menu>
           </Box>
 
-          <Link style={{ textDecoration: "none", color: "white" }} to="/">
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-            >
-              Exercise Challenge
-            </Typography>
-          </Link>
-
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Link
@@ -136,6 +126,18 @@ const NavBarLoggedIn = (props) => {
               </Link>
             ))}
           </Box>
+
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{
+              flexGrow: 1,
+              display: { xs: "flex", md: "none" },
+            }}
+          >
+            Exercise Challenge
+          </Typography>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
