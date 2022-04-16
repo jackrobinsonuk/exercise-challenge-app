@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
-const pages = ["Exercise", "Team"];
+const pages = ["Exercise", "Team", "Leagues"];
 
 const NavBarLoggedIn = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
