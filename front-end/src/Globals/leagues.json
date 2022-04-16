@@ -1,6 +1,7 @@
 [
   {
     "leagueName": "Premier League",
+    "leagueRank": 1,
     "results": [
       {
         "userId": "fleiwusbe",
@@ -34,6 +35,7 @@
   },
   {
     "leagueName": "Champ League",
+    "leagueRank": 2,
     "results": [
       {
         "userId": "fleiwusbe",
@@ -67,6 +69,7 @@
   },
   {
     "leagueName": "League 1",
+    "leagueRank": 3,
     "results": [
       {
         "userId": "fleiwusbe",
@@ -100,6 +103,7 @@
   },
   {
     "leagueName": "League 2",
+    "leagueRank": 4,
     "results": [
       {
         "userId": "fleiwusbe",
