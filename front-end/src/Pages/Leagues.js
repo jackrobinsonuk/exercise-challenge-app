@@ -6,14 +6,14 @@ import LeagueTable from "../Components/Leagues/LeagueTable";
 import { apiRoot } from "../Globals/globals";
 import axios from "axios";
 
-// TODO: Add a way to display multiple weeks
-
 export default function Leagues() {
   const [leagues, setLeagues] = useState(null);
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState(0);
   const [error, setError] = useState("");
   const [initialLoad, setInitialLoad] = useState(true);
+
+  // TODO: Query the challenge to find out how many weeks are in the challenge
 
   const weeks = ["Week 1", "Week 2", "Week 3", "Week 4"];
 
