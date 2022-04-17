@@ -15,7 +15,7 @@ exports.getLeagueHandler = async (event, context, callback) => {
   try {
     const params = {
       Bucket: s3Bucket,
-      Key: `${challengeName}-Week ${weekIndex}`,
+      Key: `${challengeName}-Week${weekIndex}`,
     };
     const result = await s3.getObject(params).promise();
 

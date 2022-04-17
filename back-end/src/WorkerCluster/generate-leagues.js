@@ -197,7 +197,7 @@ exports.generateLeagueHandler = async (event) => {
 
   const params = {
     Bucket: leagueBucket,
-    Key: `${challengeId}-Week%20${weekIndex}`,
+    Key: `${challengeId}-Week${weekIndex}`,
     Body: Buffer.from(JSON.stringify(league)),
     ContentEncoding: "base64",
     ContentType: objectType,
