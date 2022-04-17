@@ -26,5 +26,4 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
       - name: Deploy app build to S3 bucket
         run:
-          aws s3 sync ./front-end/build/ s3://exercise-challenge-app-production
-          --delete
+          aws s3 sync ./front-end/build/ s3://exercisechallengeapp.com --delete
