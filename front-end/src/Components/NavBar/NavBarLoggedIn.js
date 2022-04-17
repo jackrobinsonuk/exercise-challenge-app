@@ -45,6 +45,9 @@ const NavBarLoggedIn = (props) => {
         props.setIsLoggedIn(false);
       });
     } catch (error) {
+      await Auth.signOut();
+      props.setIsLoggedIn(false);
+      handleCloseUserMenu();
       console.log("error signing out: ", error);
     }
   }
