@@ -42,9 +42,11 @@ const App = () => {
 
   return (
     <div>
-      {isLoggedIn === false && <NavBarLoggedOut />}
+      {isLoggedIn === false && (
+        <NavBarLoggedOut setIsLoggedIn={setIsLoggedIn} />
+      )}
 
-      {isLoggedIn === true && <NavBarLoggedIn />}
+      {isLoggedIn === true && <NavBarLoggedIn setIsLoggedIn={setIsLoggedIn} />}
 
       {isLoggedIn === true && isAdmin && <NavBarAdmin />}
 
