@@ -53,7 +53,7 @@ export default function UserLoginSignUp(props) {
           setLoading(false);
         } else {
           console.log(err);
-          setError("Your username or password is incorrect.");
+          setError("Your username or password is incorrect. Please try again.");
           setLoading(false);
         }
       });
