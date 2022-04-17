@@ -5,16 +5,17 @@
 const AWS = require("aws-sdk");
 const s3 = new AWS.S3();
 
-const bucketName = process.env.LEAGUES_BUCKET;
+const bucketName = process.env.LEAGUE_BUCKET;
 
-exports.getLeaguesHandler = async (event, context, callback) => {
+exports.getLeagueHandler = async (event, context, callback) => {
   const s3Bucket = bucketName;
-  const weekNumber = event.queryStringParameters.weekNumber;
+  const weekIndex = event.queryStringParameters.weekIndex;
+  const challengeName = event.queryStringParameters.challengeName;
 
   try {
     const params = {
       Bucket: s3Bucket,
-      Key: weekNumber,
+      Key: `${challengeName}-Week ${weekIndex}`,
     };
     const result = await s3.getObject(params).promise();
 

@@ -1,45 +1,106 @@
 import { useState } from "react";
 import * as React from "react";
-import { Grid, Box, Divider } from "@mui/material";
-
-import data from "../Globals/leagues.json";
+import { Grid, Box, Divider, CircularProgress, Tab, Tabs } from "@mui/material";
 
 import LeagueTable from "../Components/Leagues/LeagueTable";
-
-// there will be a function here to get the league values
-// for now it is mocked in the Static back-end folder
+import { apiRoot } from "../Globals/globals";
+import axios from "axios";
 
 // TODO: Add a way to display multiple weeks
 
-const weeks = ["Week 1", "Week 2", "Week 3", "Week 4"];
-
 export default function Leagues() {
-  const [leagues, setLeagues] = useState(data);
-  const [weekDisplay, setWeekDisplay] = useState(weeks[0]);
+  const [leagues, setLeagues] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [value, setValue] = useState(0);
+  const [error, setError] = useState("");
 
-  console.log(leagues);
+  const weeks = ["Week 1", "Week 2", "Week 3", "Week 4"];
+
+  if (leagues === null) {
+    var weekIndex = 0;
+
+    getLeagueDetails(weekIndex);
+  }
+
+  function getLeagueDetails(weekIndex) {
+    const challengeName = "Challenge";
+
+    axios({
+      method: "get",
+      url: `${apiRoot}/user/get-league?challengeName=${challengeName}&weekIndex=${weekIndex}`,
+      responseType: "json",
+    })
+      .then(function (response) {
+        setLeagues(response.data);
+        setLoading(false);
+        setError(null);
+        return response;
+      })
+      .catch(function (error) {
+        setError(
+          "The data you wanted does not exist yet. Please wait for that week to finish."
+        );
+        setLoading(false);
+        setLeagues([]);
+        return error;
+      });
+  }
+
+  const handleTabChange = (event, newValue) => {
+    setValue(newValue);
+    setLoading(true);
+    getLeagueDetails(newValue);
+  };
+
   return (
     <main style={{ padding: "20px" }}>
       <h2>Leagues</h2>
-      <h2>Tabs will go here to change the week number</h2>
+      <Box
+        sx={{
+          maxWidth: { xs: 320, sm: 480 },
+          bgcolor: "background.paper",
+          paddingBottom: "10px",
+        }}
+      >
+        <Tabs
+          value={value}
+          onChange={handleTabChange}
+          variant="scrollable"
+          scrollButtons="auto"
+          aria-label="scrollable auto tabs example"
+        >
+          {weeks.map((week) => (
+            <Tab label={week} />
+          ))}
+        </Tabs>
+      </Box>
 
-      {leagues.map((league) => (
-        <Grid item xs={2} sm={3} md={3}>
-          <Box
-            sx={{
-              my: 1,
-              mx: 3,
-              flexDirection: "column",
-            }}
-          >
-            <LeagueTable
-              leagueResults={league.results}
-              leagueName={league.leagueName}
-            />
-          </Box>
-          <Divider />
-        </Grid>
-      ))}
+      {loading === true && <CircularProgress />}
+
+      {loading === false && (
+        <div>
+          {leagues.map((league) => (
+            <Grid item xs={2} sm={3} md={3}>
+              <Box
+                key={league.leagueName}
+                sx={{
+                  my: 1,
+                  mx: 3,
+                  flexDirection: "column",
+                }}
+              >
+                <LeagueTable
+                  leagueResults={league.results}
+                  leagueName={league.leagueName}
+                  key={league.leagueName}
+                />
+              </Box>
+              <Divider />
+            </Grid>
+          ))}
+        </div>
+      )}
+      {error && <div>{error}</div>}
     </main>
   );
 }
