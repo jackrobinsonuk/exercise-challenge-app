@@ -48,7 +48,7 @@ function Content() {
           color="text.primary"
           gutterBottom
         >
-          Exercise Challenge App
+          Exercise Challenge App Staging
         </Typography>
         <Typography
           variant="h5"
