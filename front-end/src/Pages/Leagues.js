@@ -53,8 +53,16 @@ export default function Leagues() {
   };
 
   return (
-    <main style={{ padding: "20px" }}>
-      <h2>Leagues</h2>
+    <main>
+      <h2
+        style={{
+          paddingLeft: "20px",
+          paddingBottom: "10px",
+          paddingTop: "10px",
+        }}
+      >
+        Leagues
+      </h2>
       <Box
         sx={{
           maxWidth: { xs: 320, sm: 480 },
@@ -75,7 +83,11 @@ export default function Leagues() {
         </Tabs>
       </Box>
 
-      {loading === true && <CircularProgress />}
+      {loading === true && (
+        <div align="center">
+          <CircularProgress center />
+        </div>
+      )}
 
       {loading === false && (
         <div>
@@ -100,7 +112,7 @@ export default function Leagues() {
           ))}
         </div>
       )}
-      {error && <div>{error}</div>}
+      {error && <div style={{ padding: "20px" }}>{error}</div>}
     </main>
   );
 }
