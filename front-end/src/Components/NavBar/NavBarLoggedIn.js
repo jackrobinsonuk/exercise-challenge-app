@@ -16,7 +16,6 @@ import {
   MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { textAlign } from "@mui/system";
 
 const pages = ["Exercise", "Team", "Leagues"];
 

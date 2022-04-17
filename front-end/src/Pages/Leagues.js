@@ -24,6 +24,7 @@ export default function Leagues() {
 
   function getLeagueDetails(weekIndex) {
     const challengeName = "Challenge";
+    setError(null);
 
     axios({
       method: "get",
@@ -33,7 +34,7 @@ export default function Leagues() {
       .then(function (response) {
         setLeagues(response.data);
         setLoading(false);
-        setError(null);
+
         return response;
       })
       .catch(function (error) {
