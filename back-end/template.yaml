@@ -292,6 +292,12 @@ Resources:
           # Make table name accessible as environment variable from function code during execution
           USER_EXERCISE_TABLE: !Ref UserExerciseTable
           EXERCISES_TABLE: !Ref ExercisesTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /user/add-exercise
+            Method: POST
 
   getLeaguesFunction:
     Type: AWS::Serverless::Function
@@ -349,12 +355,6 @@ Resources:
           EXERCISES_TABLE: !Ref ExercisesTable
           CHALLENGE_BUCKET: !Ref ChallengeBucket
           LEAGUE_BUCKET: !Ref LeagueBucket
-      Events:
-        Api:
-          Type: Api
-          Properties:
-            Path: /user/add-exercise
-            Method: POST
 
   # References
 

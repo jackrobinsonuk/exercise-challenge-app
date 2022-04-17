@@ -13,18 +13,20 @@ export default function Leagues() {
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState(0);
   const [error, setError] = useState("");
+  const [initialLoad, setInitialLoad] = useState(true);
 
   const weeks = ["Week 1", "Week 2", "Week 3", "Week 4"];
 
-  if (leagues === null) {
+  if (initialLoad && !leagues) {
     var weekIndex = 0;
 
     getLeagueDetails(weekIndex);
   }
 
-  function getLeagueDetails(weekIndex) {
+  async function getLeagueDetails(weekIndex) {
     const challengeName = "Challenge";
     setError(null);
+    setInitialLoad(false);
 
     axios({
       method: "get",
@@ -86,7 +88,7 @@ export default function Leagues() {
 
       {loading === true && (
         <div align="center">
-          <CircularProgress center />
+          <CircularProgress />
         </div>
       )}
 
