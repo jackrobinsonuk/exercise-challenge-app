@@ -1,0 +1,138 @@
+[
+  {
+    "leagueName": "Premier League",
+    "leagueRank": 1,
+    "results": [
+      {
+        "userId": "fleiwusbe",
+        "rank": 1,
+        "name": "Jack",
+        "points": 1223,
+        "tierPoints": 2
+      },
+      {
+        "userId": "souef",
+        "rank": 2,
+        "name": "Fred",
+        "points": 122,
+        "tierPoints": 0
+      },
+      {
+        "userId": "souef",
+        "rank": 3,
+        "name": "Fred",
+        "points": 122,
+        "tierPoints": 0
+      },
+      {
+        "userId": "souef",
+        "rank": 4,
+        "name": "Fred",
+        "points": 122,
+        "tierPoints": 0
+      }
+    ]
+  },
+  {
+    "leagueName": "Champ League",
+    "leagueRank": 2,
+    "results": [
+      {
+        "userId": "fleiwusbe",
+        "rank": 1,
+        "name": "Jack",
+        "points": 1223,
+        "tierPoints": 2
+      },
+      {
+        "userId": "souef",
+        "rank": 2,
+        "name": "Fred",
+        "points": 122,
+        "tierPoints": 0
+      },
+      {
+        "userId": "souef",
+        "rank": 3,
+        "name": "Fred",
+        "points": 122,
+        "tierPoints": 0
+      },
+      {
+        "userId": "souef",
+        "rank": 4,
+        "name": "Fred",
+        "points": 122,
+        "tierPoints": 0
+      }
+    ]
+  },
+  {
+    "leagueName": "League 1",
+    "leagueRank": 3,
+    "results": [
+      {
+        "userId": "fleiwusbe",
+        "rank": 1,
+        "name": "Jack",
+        "points": 1223,
+        "tierPoints": 2
+      },
+      {
+        "userId": "souef",
+        "rank": 2,
+        "name": "Fred",
+        "points": 122,
+        "tierPoints": 0
+      },
+      {
+        "userId": "souef",
+        "rank": 3,
+        "name": "Fred",
+        "points": 122,
+        "tierPoints": 0
+      },
+      {
+        "userId": "souef",
+        "rank": 4,
+        "name": "Fred",
+        "points": 122,
+        "tierPoints": 0
+      }
+    ]
+  },
+  {
+    "leagueName": "League 2",
+    "leagueRank": 4,
+    "results": [
+      {
+        "userId": "fleiwusbe",
+        "rank": 1,
+        "name": "Jack",
+        "points": 1223,
+        "tierPoints": 2
+      },
+      {
+        "userId": "souef",
+        "rank": 2,
+        "name": "Fred",
+        "points": 122,
+        "tierPoints": 0
+      },
+      {
+        "userId": "souef",
+        "rank": 3,
+        "name": "Fred",
+        "points": 122,
+        "tierPoints": 0
+      },
+      {
+        "userId": "souef",
+        "rank": 4,
+        "name": "Fred",
+        "points": 122,
+        "tierPoints": 0
+      }
+    ]
+  }
+]

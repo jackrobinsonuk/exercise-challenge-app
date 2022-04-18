@@ -1,5 +1,6 @@
 import { React, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { Auth } from "aws-amplify";
 
 import NavBarAdmin from "./Components/NavBar/NavBarAdmin";
 import NavBarLoggedIn from "./Components/NavBar/NavBarLoggedIn";
@@ -9,8 +10,8 @@ import YourExercise from "./Pages/YourExercise";
 import Profile from "./Pages/Profile";
 import UserLoginSignUp from "./Pages/UserLoginSignUp";
 import Welcome from "./Pages/Welcome";
-import { Auth } from "aws-amplify";
 import Challenges from "./Pages/Challenges";
+import Leagues from "./Pages/Leagues";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -61,6 +62,7 @@ const App = () => {
             <Route path="/Team" element={<Team userId={userId} />} />
             <Route path="/Profile" element={<Profile userId={userId} />} />
             <Route path="/Challenges" element={<Challenges />} />
+            <Route path="/Leagues" element={<Leagues />} />
             <Route path="/*" element={<YourExercise userId={userId} />} />
           </Routes>
         )}

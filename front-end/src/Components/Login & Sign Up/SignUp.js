@@ -1,14 +1,22 @@
-import { React, useState } from "react";
+import { React, useState, Fragment } from "react";
 import {
   Box,
   Button,
   FormControl,
   TextField,
   CircularProgress,
-  Typography
+  Typography,
+  StepLabel,
+  Step,
+  Stepper,
 } from "@mui/material";
 
+import SignUpYourDetails from "./SignUpYourDetails";
+import SignUpPassword from "./SignUpPassword";
+import SignUpVerify from "./SignUpVerify";
+
 export default function SignUp(props) {
+  const [name, setName] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -20,6 +28,46 @@ export default function SignUp(props) {
   const [confirmPasswordFieldWarning, setConfirmPasswordFieldWarning] =
     useState("");
   const [warning, setWarning] = useState("");
+  const [activeStep, setActiveStep] = useState(0);
+  const [skipped, setSkipped] = useState(new Set());
+  const [verificationCode, setVerificationCode] = useState("");
+
+  const handleVerificationCodeChange = (event) => {
+    setVerificationCode(event.target.value);
+  };
+
+  const handleRequestNewCode = () => {
+    const username = props.currentUser.user.username;
+    props.handleRequestNewCode(username);
+  };
+
+  const handleSignUpVerification = (code) => {
+    if (code) {
+      setButtonDisabled(true);
+      const username = props.currentUser.user.username;
+      props.handleSignUpVerification(username, code).then(() => {
+        setButtonDisabled(false);
+        setError("");
+        setTextFieldErrorState(false);
+      });
+    } else {
+      setError("Please enter a code.");
+      setTextFieldErrorState(true);
+    }
+  };
+
+  const steps = ["Your details", "Password", "Verify"];
+
+  const handleNext = () => {
+    let newSkipped = skipped;
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped(newSkipped);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
 
   const validateEmailAddress = (event) => {
     return String(event)
@@ -78,6 +126,10 @@ export default function SignUp(props) {
     analyzeEmailAddress(event);
   };
 
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
     analyzePassword(event);
@@ -101,7 +153,7 @@ export default function SignUp(props) {
       var signUpObject = {
         username: username,
         password: password,
-        attributes: { email: username },
+        attributes: { email: username, name: name },
       };
 
       props.handleSignUp(signUpObject);
@@ -124,83 +176,55 @@ export default function SignUp(props) {
   return (
     <main>
       <h2>Sign Up</h2>
-      <Box
-        component="form"
-        autoComplete="off"
-        sx={{
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <FormControl fullWidth>
-          <TextField
-            error={textFieldErrorState}
-            color={emailAddressFieldWarning}
-            required
-            id="outlined-basic"
-            label="Email Address"
-            variant="outlined"
-            value={emailAddress}
-            onChange={handleEmailAddressChange}
-            style={{ paddingBottom: "20px" }}
-          />
 
-          <TextField
-            error={textFieldErrorState}
-            color={passwordFieldWarning}
-            fullWidth
-            required
-            id="outlined-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={handlePasswordChange}
-            style={{ paddingBottom: "20px" }}
-          />
-          <TextField
-            error={textFieldErrorState}
-            color={confirmPasswordFieldWarning}
-            fullWidth
-            required
-            id="outlined-password-input"
-            label="Confirm Password"
-            type="password"
-            autoComplete="current-password"
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
-            style={{ paddingBottom: "20px" }}
-          />
-          <div style={{ paddingBottom: "10px" }}>
-            <Button
-              fullWidth
-              variant="contained"
-              disabled={buttonDisabled}
-              onClick={() => handleSignUp(emailAddress, password)}
-              type="submit"
-            >
-              Sign Up
-              {props.loading && (
-                <CircularProgress
-                  size={24}
-                  sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    marginTop: "-12px",
-                    marginLeft: "-12px",
-                  }}
-                />
-              )}
-            </Button>
-          </div>
-          <Typography style={{marginLeft:"auto",marginRight:"auto",marginBottom:"10px"}}>or</Typography>
-          <div style={{ paddingBottom: "10px" }}>
-            <Button fullWidth variant="outlined" onClick={handleLoginClick}>
-              Login
-            </Button>
-          </div>
+      <Box sx={{ width: "100%" }}>
+        <Stepper activeStep={activeStep}>
+          {steps.map((label, index) => {
+            const stepProps = {};
+            const labelProps = {};
+
+            return (
+              <Step key={label} {...stepProps}>
+                <StepLabel {...labelProps}>{label}</StepLabel>
+              </Step>
+            );
+          })}
+        </Stepper>
+
+        <Fragment>
+          {activeStep === 0 && (
+            <SignUpYourDetails
+              name={name}
+              handleNameChange={handleNameChange}
+              textFieldErrorState={textFieldErrorState}
+              emailAddressFieldWarning={emailAddressFieldWarning}
+              emailAddress={emailAddress}
+              handleEmailAddressChange={handleEmailAddressChange}
+            />
+          )}
+
+          {activeStep === 1 && (
+            <SignUpPassword
+              textFieldErrorState={textFieldErrorState}
+              passwordFieldWarning={passwordFieldWarning}
+              password={password}
+              handlePasswordChange={handlePasswordChange}
+              confirmPasswordFieldWarning={confirmPasswordFieldWarning}
+              confirmPassword={confirmPassword}
+              handleConfirmPasswordChange={handleConfirmPasswordChange}
+            />
+          )}
+
+          {activeStep === 2 && (
+            <SignUpVerify
+              error={error}
+              verificationCode={verificationCode}
+              textFieldErrorState={textFieldErrorState}
+              handleRequestNewCode={handleRequestNewCode}
+              handleVerificationCodeChange={handleVerificationCodeChange}
+            />
+          )}
+
           <div style={{ color: "red" }}>
             <b>{props.error.toString()}</b>
             <b>{error}</b>
@@ -211,7 +235,41 @@ export default function SignUp(props) {
               {warning}
             </div>
           )}
-        </FormControl>
+
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+            <Button
+              color="inherit"
+              disabled={activeStep === 0}
+              onClick={handleBack}
+              sx={{ mr: 1 }}
+            >
+              Back
+            </Button>
+            <Box sx={{ flex: "1 1 auto" }} />
+
+            {activeStep === 0 && <Button onClick={handleNext}>Next</Button>}
+
+            {activeStep === 1 && (
+              <Button onClick={() => handleSignUp(emailAddress, password)}>
+                Sign Up
+              </Button>
+            )}
+
+            {activeStep === 2 && (
+              <Button
+                onClick={() => handleSignUpVerification(verificationCode)}
+              >
+                Verify
+              </Button>
+            )}
+          </Box>
+
+          <div style={{ paddingTop: "10px" }}>
+            <Button fullWidth variant="outlined" onClick={handleLoginClick}>
+              Return to Login
+            </Button>
+          </div>
+        </Fragment>
       </Box>
     </main>
   );

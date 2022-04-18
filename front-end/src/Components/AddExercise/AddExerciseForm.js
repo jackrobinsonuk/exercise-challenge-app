@@ -21,13 +21,16 @@ export default function AddExerciseForm(props) {
   var teamList = props.teamList;
 
   const generateDate = () => {
-    const d = new Date();
+    const date = new Date();
 
-    var date = d.getDate();
-    var month = d.getMonth() + 1;
-    var year = d.getFullYear();
+    const result = date.toLocaleDateString("en-GB", {
+      // you can use undefined as first argument
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
 
-    var submissionDate = `${date}/${month}/${year}`;
+    var submissionDate = result;
 
     return submissionDate;
   };

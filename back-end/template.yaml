@@ -161,6 +161,33 @@ Resources:
             Path: /user/get-my-exercise
             Method: GET
 
+  getTeamExerciseFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/UserCluster/get-team-exercise.getTeamExerciseHandler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description:
+        A simple example includes a HTTP get method to get all items from a
+        DynamoDB table.
+      Policies:
+        # Give Create/Read/Update/Delete Permissions to the OrderCountTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UserExerciseTable
+      Environment:
+        Variables:
+          # Make table name accessible as environment variable from function code during execution
+          USER_EXERCISE_TABLE: !Ref UserExerciseTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /user/get-team-exercise
+            Method: GET
+
   getAllExerciseFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -272,6 +299,65 @@ Resources:
             Path: /user/add-exercise
             Method: POST
 
+  getLeaguesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/UserCluster/get-league.getLeagueHandler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description:
+        A simple example includes a HTTP get method to get all items from a
+        DynamoDB table.
+      Policies:
+        - S3ReadPolicy:
+            BucketName: !Ref LeagueBucket
+      Environment:
+        Variables:
+          # Make table name accessible as environment variable from function code during execution
+          LEAGUE_BUCKET: !Ref LeagueBucket
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /user/get-league
+            Method: GET
+
+  # WORKER CLUSTER
+  generateLeaguesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/WorkerCluster/generate-leagues.generateLeagueHandler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description:
+        A simple example includes a HTTP get method to get all items from a
+        DynamoDB table.
+      Policies:
+        # Give Create/Read/Update/Delete Permissions to the OrderCountTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UserExerciseTable
+        - DynamoDBReadPolicy:
+            TableName: !Ref ExercisesTable
+        - S3ReadPolicy:
+            BucketName: !Ref ChallengeBucket
+        - S3WritePolicy:
+            BucketName: !Ref LeagueBucket
+      Environment:
+        Variables:
+          # Make table name accessible as environment variable from function code during execution
+          USER_EXERCISE_TABLE: !Ref UserExerciseTable
+          EXERCISES_TABLE: !Ref ExercisesTable
+          CHALLENGE_BUCKET: !Ref ChallengeBucket
+          LEAGUE_BUCKET: !Ref LeagueBucket
+
+  # References
+
   UserExerciseTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
@@ -295,8 +381,13 @@ Resources:
   ChallengeBucket:
     Type: AWS::S3::Bucket
 
+  LeagueBucket:
+    Type: AWS::S3::Bucket
+
   ExerciseListBucket:
     Type: AWS::S3::Bucket
+
+# Outputs
 
 Outputs:
   WebEndpoint:
