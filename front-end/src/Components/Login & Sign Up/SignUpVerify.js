@@ -1,11 +1,5 @@
-import { React, useState } from "react";
-import {
-  Box,
-  Button,
-  FormControl,
-  TextField,
-  CircularProgress,
-} from "@mui/material";
+import { React } from "react";
+import { Box, Button, FormControl, TextField } from "@mui/material";
 
 export default function SignUpVerify(props) {
   return (

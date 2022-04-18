@@ -1,15 +1,5 @@
 import { React, useState, Fragment } from "react";
-import {
-  Box,
-  Button,
-  FormControl,
-  TextField,
-  CircularProgress,
-  Typography,
-  StepLabel,
-  Step,
-  Stepper,
-} from "@mui/material";
+import { Box, Button, StepLabel, Step, Stepper } from "@mui/material";
 
 import SignUpYourDetails from "./SignUpYourDetails";
 import SignUpPassword from "./SignUpPassword";
