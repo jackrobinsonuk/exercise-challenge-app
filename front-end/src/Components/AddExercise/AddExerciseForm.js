@@ -140,7 +140,7 @@ export default function AddExerciseForm(props) {
         >
           <Button
             variant="contained"
-            disable={buttonDisabled}
+            disabled={buttonDisabled}
             onClick={handleSubmit}
           >
             Submit
