@@ -52,7 +52,7 @@ export default function AddExercise(props) {
         `${apiRoot}/admin/get-challenge-details?challengeName=${selectedChallenge}`
       )
       .then(function (response) {
-        setTeamList(response.data.data);
+        setTeamList(response.data.teamData);
       });
   };
 
@@ -92,6 +92,7 @@ export default function AddExercise(props) {
           challengeList={challengeList}
           teamList={teamList}
           getTeamsInChallenge={getTeamsInChallenge}
+          userInfo={props.userInfo}
         />
       )}
       {showSuccess && (

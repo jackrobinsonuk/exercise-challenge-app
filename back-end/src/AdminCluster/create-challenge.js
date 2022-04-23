@@ -17,7 +17,9 @@ exports.createChallengeHandler = async (event, context, callback) => {
   var challengeData = {
     challengeName: challengeName,
     challengeId: AWS.util.uuid.v4(),
-    data: body.data,
+    startDay: body.startDay,
+    weeks: body.weeks,
+    teamData: body.teamData,
   };
 
   var buf = Buffer.from(JSON.stringify(challengeData));

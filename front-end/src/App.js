@@ -12,6 +12,7 @@ import UserLoginSignUp from "./Pages/UserLoginSignUp";
 import Welcome from "./Pages/Welcome";
 import Challenges from "./Pages/Challenges";
 import Leagues from "./Pages/Leagues";
+import Admin from "./Pages/Admin";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,7 +35,11 @@ const App = () => {
   if (isAdmin === false) {
     Auth.currentAuthenticatedUser()
       .then((result) => {
-        setIsAdmin(false);
+        if (result.attributes["custom:Admin"] === "1") {
+          setIsAdmin(true);
+        } else {
+          setIsAdmin(false);
+        }
       })
       .catch((err) => {
         return;
@@ -47,23 +52,34 @@ const App = () => {
         <NavBarLoggedOut setIsLoggedIn={setIsLoggedIn} />
       )}
 
-      {isLoggedIn === true && <NavBarLoggedIn setIsLoggedIn={setIsLoggedIn} />}
+      {isLoggedIn === true && isAdmin === false && (
+        <NavBarLoggedIn setIsLoggedIn={setIsLoggedIn} />
+      )}
 
-      {isLoggedIn === true && isAdmin && <NavBarAdmin />}
+      {isLoggedIn === true && isAdmin && (
+        <NavBarAdmin setIsLoggedIn={setIsLoggedIn} />
+      )}
 
       <div>
         {isLoggedIn === true && (
           <Routes>
             <Route path="/" element={<YourExercise userId={userId} />} />
+            <Route path="/Login" element={<YourExercise userId={userId} />} />
             <Route
               path="/Exercise"
-              element={<YourExercise userId={userId} />}
+              element={<YourExercise userId={userId} userInfo={userInfo} />}
             />
-            <Route path="/Team" element={<Team userId={userId} />} />
+            <Route path="/Team" element={<Team userInfo={userInfo} />} />
             <Route path="/Profile" element={<Profile userId={userId} />} />
-            <Route path="/Challenges" element={<Challenges />} />
+
             <Route path="/Leagues" element={<Leagues />} />
-            <Route path="/*" element={<YourExercise userId={userId} />} />
+          </Routes>
+        )}
+
+        {isAdmin === true && isLoggedIn === true && (
+          <Routes>
+            <Route path="/Challenges" element={<Challenges />} />
+            <Route path="/Admin" element={<Admin />} />
           </Routes>
         )}
         {isLoggedIn === false && (
