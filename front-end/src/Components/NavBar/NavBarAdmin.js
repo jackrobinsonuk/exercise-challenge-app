@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
-const pages = ["Exercise", "Team"];
+const pages = ["Exercise", "Team", "Challenges", "Admin"];
 
 const NavBarAdmin = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -108,16 +108,14 @@ const NavBarAdmin = (props) => {
             </Menu>
           </Box>
 
-          <Link style={{ textDecoration: "none", color: "white" }} to="/">
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-            >
-              Exercise Challenge - Admin
-            </Typography>
-          </Link>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+          >
+            Exercise Challenge - Admin
+          </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
