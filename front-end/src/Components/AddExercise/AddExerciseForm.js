@@ -2,7 +2,6 @@ import { React, useState } from "react";
 import { Box, Button, CircularProgress } from "@mui/material";
 import axios from "axios";
 import AddExerciseChallengeSelect from "./AddExerciseChallengeSelect";
-import AddExerciseTeamSelect from "./AddExerciseTeamSelect";
 
 import AddExerciseExerciseSelect from "./AddExerciseExerciseSelect";
 import AddExerciseMinutesCompleted from "./AddExerciseMinutesCompleted";
