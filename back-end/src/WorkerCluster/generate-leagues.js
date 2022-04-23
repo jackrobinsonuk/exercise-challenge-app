@@ -29,6 +29,10 @@ const exerciseListTable = process.env.EXERCISES_TABLE;
 const challengeBucket = process.env.CHALLENGE_BUCKET;
 const leagueBucket = process.env.LEAGUE_BUCKET;
 
+
+
+
+
 const league = [
   {
     leagueName: "Premier League",

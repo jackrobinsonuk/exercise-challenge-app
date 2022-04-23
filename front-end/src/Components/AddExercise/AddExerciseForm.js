@@ -6,16 +6,18 @@ import AddExerciseTeamSelect from "./AddExerciseTeamSelect";
 
 import AddExerciseExerciseSelect from "./AddExerciseExerciseSelect";
 import AddExerciseMinutesCompleted from "./AddExerciseMinutesCompleted";
+import { apiRoot } from "../../Globals/globals";
 
 export default function AddExerciseForm(props) {
   const [selectedExercise, setSelectedExercise] = useState("");
   const [minutesCompleted, setMinutesCompleted] = useState("");
   const [submitLoading, setSubmitLoading] = useState(false);
-  const [selectedTeam, setSelectedTeam] = useState("");
   const [selectedChallenge, setSelectedChallenge] = useState(null);
   const [teamSelectLoading] = useState(true);
+  const [buttonDisabled, setButtonDisabled] = useState("");
 
   var userId = props.userId;
+  var userInfo = props.userInfo;
   var exerciseList = props.exerciseList;
   var challengeList = props.challengeList;
   var teamList = props.teamList;
@@ -52,10 +54,6 @@ export default function AddExerciseForm(props) {
     setSelectedChallenge(event.target.value);
   };
 
-  const handleSelectedTeamChange = (event) => {
-    setSelectedTeam(event.target.value);
-  };
-
   const handleClose = () => {
     props.setShowForm(false);
     props.setShowAddExerciseButton(true);
@@ -64,18 +62,21 @@ export default function AddExerciseForm(props) {
   const handleSubmit = () => {
     if (!submitLoading) {
       setSubmitLoading(true);
+      setButtonDisabled("disabled");
+      console.log(userInfo);
+
+      var selectedTeam = userInfo["custom:Team"];
+      var name = userInfo.name;
 
       axios
-        .post(
-          "https://pu3iwm6kxc.execute-api.eu-west-1.amazonaws.com/Prod/user/add-exercise",
-          {
-            exerciseId: selectedExercise,
-            minutesExercised: minutesCompleted,
-            userId: userId,
-            date: generateDate(),
-            team: selectedTeam,
-          }
-        )
+        .post(`${apiRoot}/user/add-exercise`, {
+          exerciseId: selectedExercise,
+          minutesExercised: minutesCompleted,
+          userId: userId,
+          date: generateDate(),
+          team: selectedTeam,
+          name: name,
+        })
         .then(function (response) {
           setSubmitLoading(false);
           props.setShowSuccess(true);
@@ -109,18 +110,8 @@ export default function AddExerciseForm(props) {
             />
           )}
 
-          {props.teamList === null && selectedChallenge && <CircularProgress />}
-
-          {props.teamList && (
-            <AddExerciseTeamSelect
-              handleSelectedTeamChange={handleSelectedTeamChange}
-              teamList={props.teamList}
-              selectedTeam={selectedTeam}
-            />
-          )}
-
           <div>
-            {selectedTeam && (
+            {challengeList && (
               <AddExerciseExerciseSelect
                 fullWidth
                 selectedExercise={selectedExercise}
@@ -130,7 +121,7 @@ export default function AddExerciseForm(props) {
             )}
           </div>
           <div>
-            {selectedTeam && (
+            {challengeList && (
               <AddExerciseMinutesCompleted
                 minutesCompleted={minutesCompleted}
                 handleMinutesCompletedChange={handleMinutesCompletedChange}
@@ -148,7 +139,11 @@ export default function AddExerciseForm(props) {
             alignItems: "center",
           }}
         >
-          <Button variant="contained" onClick={handleSubmit}>
+          <Button
+            variant="contained"
+            disable={buttonDisabled}
+            onClick={handleSubmit}
+          >
             Submit
             {submitLoading && (
               <CircularProgress

@@ -82,6 +82,7 @@ export default function YourExercise(props) {
           setAddExerciseDisplay={setAddExerciseDisplay}
           setLoading={setLoading}
           userId={props.userId}
+          userInfo={props.userInfo}
         />
       </div>
     </main>

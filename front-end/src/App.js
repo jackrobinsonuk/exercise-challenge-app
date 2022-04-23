@@ -57,13 +57,16 @@ const App = () => {
             <Route path="/" element={<YourExercise userId={userId} />} />
             <Route
               path="/Exercise"
-              element={<YourExercise userId={userId} />}
+              element={<YourExercise userId={userId} userInfo={userInfo} />}
             />
-            <Route path="/Team" element={<Team userId={userId} />} />
+            <Route path="/Team" element={<Team userInfo={userInfo} />} />
             <Route path="/Profile" element={<Profile userId={userId} />} />
             <Route path="/Challenges" element={<Challenges />} />
             <Route path="/Leagues" element={<Leagues />} />
-            <Route path="/*" element={<YourExercise userId={userId} />} />
+            <Route
+              path="/*"
+              element={<YourExercise userId={userId} userInfo={userInfo} />}
+            />
           </Routes>
         )}
         {isLoggedIn === false && (
