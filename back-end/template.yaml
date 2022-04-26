@@ -339,7 +339,6 @@ Resources:
         A simple example includes a HTTP get method to get all items from a
         DynamoDB table.
       Policies:
-        # Give Create/Read/Update/Delete Permissions to the OrderCountTable
         - DynamoDBCrudPolicy:
             TableName: !Ref UserExerciseTable
         - DynamoDBReadPolicy:
@@ -347,6 +346,8 @@ Resources:
         - S3ReadPolicy:
             BucketName: !Ref ChallengeBucket
         - S3WritePolicy:
+            BucketName: !Ref LeagueBucket
+        - S3ReadPolicy:
             BucketName: !Ref LeagueBucket
       Environment:
         Variables:

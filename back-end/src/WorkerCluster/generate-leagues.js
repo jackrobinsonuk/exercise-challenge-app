@@ -29,150 +29,64 @@ const exerciseListTable = process.env.EXERCISES_TABLE;
 const challengeBucket = process.env.CHALLENGE_BUCKET;
 const leagueBucket = process.env.LEAGUE_BUCKET;
 
-
-
-
-
 const league = [
   {
     leagueName: "Premier League",
     leagueRank: 1,
-    results: [
-      {
-        userId: "fleiwusbe",
-        rank: 1,
-        name: "Jack",
-        points: 1223,
-        tierPoints: 2,
-      },
-      {
-        userId: "souef",
-        rank: 2,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-      {
-        userId: "souef",
-        rank: 3,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-      {
-        userId: "souef",
-        rank: 4,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-    ],
+    results: [],
   },
   {
-    leagueName: "Champ League",
+    leagueName: "Championship",
     leagueRank: 2,
-    results: [
-      {
-        userId: "fleiwusbe",
-        rank: 1,
-        name: "Jack",
-        points: 1223,
-        tierPoints: 2,
-      },
-      {
-        userId: "souef",
-        rank: 2,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-      {
-        userId: "souef",
-        rank: 3,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-      {
-        userId: "souef",
-        rank: 4,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-    ],
+    results: [],
   },
   {
     leagueName: "League 1",
     leagueRank: 3,
-    results: [
-      {
-        userId: "fleiwusbe",
-        rank: 1,
-        name: "Jack",
-        points: 1223,
-        tierPoints: 2,
-      },
-      {
-        userId: "souef",
-        rank: 2,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-      {
-        userId: "souef",
-        rank: 3,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-      {
-        userId: "souef",
-        rank: 4,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-    ],
+    results: [],
   },
   {
     leagueName: "League 2",
     leagueRank: 4,
-    results: [
-      {
-        userId: "fleiwusbe",
-        rank: 1,
-        name: "Jack",
-        points: 1223,
-        tierPoints: 2,
-      },
-      {
-        userId: "souef",
-        rank: 2,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-      {
-        userId: "souef",
-        rank: 3,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-      {
-        userId: "souef",
-        rank: 4,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-    ],
+    results: [],
+  },
+  {
+    leagueName: "Vanorama League",
+    leagueRank: 5,
+    results: [],
   },
 ];
 
-async function getWeekNumber() {}
+function getDateAWeekAgo() {
+  var today = new Date();
+  var lastWeek = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 7
+  ).toLocaleDateString("en-GB", {
+    // you can use undefined as first argument
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+
+  return lastWeek;
+}
+
+function getTodaysDate() {
+  const date = new Date();
+
+  const result = date.toLocaleDateString("en-GB", {
+    // you can use undefined as first argument
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+
+  var today = result;
+
+  return today;
+}
 
 async function constructLeague(event) {
   const body = event.body;
@@ -192,29 +106,131 @@ async function constructLeague(event) {
   }
 }
 
+async function getLastWeeksLeagueData(event) {
+  const previousWeekIndex = event.weekIndex - 1;
+  const challengeId = event.challengeId;
+  const s3Bucket = leagueBucket;
+  console.log("tried to get last weeks league data");
+  try {
+    const params = {
+      Bucket: s3Bucket,
+      Key: `${challengeId}-Week${previousWeekIndex}`,
+    };
+    const result = await s3.getObject(params).promise();
+
+    const response = {
+      statusCode: 200,
+      body: result.Body.toString("utf-8"),
+      headers: {
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Origin": "*", // Allow from anywhere
+        "Access-Control-Allow-Methods": "GET", // Allow only POST & OPTIONS request
+      },
+    };
+    console.log(response.body);
+    return response;
+  } catch (error) {
+    console.log(`Error in last week league data` + error);
+    const response = {
+      statusCode: 404,
+      body: JSON.stringify(error),
+      headers: {
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Origin": "*", // Allow from anywhere
+        "Access-Control-Allow-Methods": "GET", // Allow only POST & OPTIONS request
+      },
+    };
+    return response;
+  }
+}
+
+async function getUserExerciseForThePastWeek(params) {
+  const getLastWeeksLeagueData = params;
+  const tableName = userExerciseTable;
+
+  console.log("Tried to get user exercise");
+
+  var params = {
+    TableName: tableName,
+  };
+  const data = await docClient.scan(params).promise();
+
+  const items = data.Items;
+
+  const currentWeekExercises = items.filter(function (exercise) {
+    return getDateAWeekAgo() < exercise.date < getTodaysDate();
+  });
+
+  const dataToReturn = {
+    currentWeekExercises: currentWeekExercises,
+    lastWeekLeagueData: getLastWeeksLeagueData,
+  };
+
+  return dataToReturn;
+}
+
+async function updateTotalPointsPerUser(params) {
+  const data = params;
+
+  const currentWeekExercises = data.currentWeekExercises;
+  const lastWeekLeagueData = data.lastWeekLeagueData;
+
+  console.log(`CurrentWeekExercises` + currentWeekExercises);
+  console.log(`LastWeekLeagueData` + lastWeekLeagueData);
+}
+
+async function updateLeagueWithTierPoints(params) {
+  console.log("Update League with Tier Points");
+}
+
+async function addLeagueDataToCurrentWeek(params) {
+  console.log("Updated league bucket with current week data");
+}
+
 exports.generateLeagueHandler = async (event) => {
+  console.info("received:", event);
+
   const objectType = "application/json"; // type of file
   const challengeId = event.challengeId;
   const weekIndex = event.weekIndex;
 
-  console.info("received:", event);
+  if (weekIndex === 0) {
+    // This will construct the league and should be done when a challenge is created
+    const params = {
+      Bucket: leagueBucket,
+      Key: `${challengeId}-Week${weekIndex}`,
+      Body: Buffer.from(JSON.stringify(league)),
+      ContentEncoding: "base64",
+      ContentType: objectType,
+      ACL: "public-read",
+    };
 
-  const params = {
-    Bucket: leagueBucket,
-    Key: `${challengeId}-Week${weekIndex}`,
-    Body: Buffer.from(JSON.stringify(league)),
-    ContentEncoding: "base64",
-    ContentType: objectType,
-    ACL: "public-read",
-  };
+    console.log(params);
 
-  console.log(params);
+    const result = await s3.putObject(params).promise();
+    console.log(result);
 
-  const result = await s3.putObject(params).promise();
-  console.log(result);
+    const response = {
+      response: "Successfully Created League",
+    };
+    return response;
+  } else if (weekIndex !== 0) {
+    // This will fetch and update the league
+    // Get data from S3 for weekIndex - 1
 
-  const response = {
-    response: "Successfully Created / Updated League",
-  };
-  return response;
+    const result = await getLastWeeksLeagueData(event)
+      // Grab data from the DynamoDB for user exercise for the past week
+      .then((params) => getUserExerciseForThePastWeek(params))
+
+      // Update the total points per user based on their UUID
+      .then((params) => updateTotalPointsPerUser(params))
+
+      // Update the league data with Tier points
+      .then((params) => updateLeagueWithTierPoints(params))
+
+      // Put the new league data back with the current weekIndex
+      .then((params) => addLeagueDataToCurrentWeek(params));
+
+    return result;
+  }
 };
