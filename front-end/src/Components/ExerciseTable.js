@@ -15,13 +15,18 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 
 export default function ExerciseTable(props) {
-  const [deleteIcon, setDeleteIcon] = useState(true);
+  const [deleteIcon, setDeleteIcon] = useState("");
   const [confirmButton, setConfirmButton] = useState("");
 
   function confirmDelete(id) {
     setConfirmButton(id);
     console.log(id);
     setDeleteIcon(id);
+  }
+
+  function cancelDelete() {
+    setConfirmButton("");
+    setDeleteIcon("");
   }
 
   const exercises = props.exercises;
@@ -63,12 +68,18 @@ export default function ExerciseTable(props) {
                   </Tooltip>
                 )}
                 {confirmButton === exercise.id && (
-                  <Button
-                    key={exercise.id}
-                    onClick={() => props.handleExerciseDelete(exercise.id)}
-                  >
-                    Delete?
-                  </Button>
+                  <div>
+                    <Button
+                      key={exercise.id}
+                      onClick={() => props.handleExerciseDelete(exercise.id)}
+                    >
+                      Delete
+                    </Button>
+
+                    <Button key={exercise.id} onClick={cancelDelete}>
+                      Cancel
+                    </Button>
+                  </div>
                 )}
               </TableCell>
             </TableRow>
