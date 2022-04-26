@@ -14,14 +14,19 @@ import axios from "axios";
 import { apiRoot } from "../../Globals/globals";
 
 export default function CurrentChallengesDetails(props) {
-  const [teamPoints, setTeamPoints] = useState(null);
+  const [teamPoints, setTeamPoints] = useState([]);
 
   function getTeamPoints(teamId) {
     axios
       .get(`${apiRoot}/user/get-team-exercise?teamId=${teamId}`)
       .then(function (response) {
-        setTeamPoints();
+        setTeamPoints((teamPoints) => [...teamPoints, { teamId: 0 }]);
+        return response;
       });
+  }
+
+  if (teamPoints === [] && props.challengeDetails.teamData) {
+    getTeamPoints();
   }
 
   return (
@@ -54,13 +59,11 @@ export default function CurrentChallengesDetails(props) {
                       key={teamId}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
-                      <TableCell>{teamId}</TableCell>
-                      <TableCell component="th" scope="row">
+                      <TableCell key={index}>{teamId}</TableCell>
+                      <TableCell component="th" scope="row" key={index}>
                         {teamName}
                       </TableCell>
-                      <TableCell>
-                        {!teamPoints && getTeamPoints(teamId)({ teamPoints })}
-                      </TableCell>
+                      <TableCell key={index}>{teamPoints}</TableCell>
                     </TableRow>
                   )
                 )}

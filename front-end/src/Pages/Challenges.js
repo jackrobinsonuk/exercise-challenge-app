@@ -21,6 +21,8 @@ export default function Challenges(props) {
 
   const handleSelectedChallengeChange = (event) => {
     setSelectedChallenge(event.target.value);
+    getSelectedChallengeDetails(event.target.value);
+    setLoading(true);
   };
 
   const handleCreateChallengeClick = () => {
