@@ -226,6 +226,7 @@ export default function UserLoginSignUp(props) {
                   handleLogin={handleLogin}
                   setSignUpScreen={setSignUpScreen}
                   setLoginScreen={setLoginScreen}
+                  setForgotPasswordScreen={setForgotPasswordScreen}
                   error={error}
                   loading={loading}
                 />

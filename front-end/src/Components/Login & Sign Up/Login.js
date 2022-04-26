@@ -28,6 +28,7 @@ export default function Login(props) {
   };
 
   const handleForgotPasswordClick = () => {
+    console.log("IN THE FUNCTION");
     props.setForgotPasswordScreen(true);
     props.setLoginScreen(false);
   };
@@ -119,7 +120,7 @@ export default function Login(props) {
             <Button
               fullWidth
               variant="text"
-              onclick={handleForgotPasswordClick}
+              onClick={handleForgotPasswordClick}
               sx={{ marginTop: "20px" }}
             >
               Forgot Password
