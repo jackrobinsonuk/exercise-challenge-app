@@ -4,7 +4,9 @@ export default function Profile() {
   return (
     <main style={{ padding: "20px" }}>
       <h2>Profile</h2>
-      This will be where the person's profile is
+      <div>Name</div>
+      <div>Team</div>
+      <div>Current challenge</div>
     </main>
   );
 }

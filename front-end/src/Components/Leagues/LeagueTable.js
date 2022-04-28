@@ -34,12 +34,12 @@ export default function LeagueTable(props) {
               key={result.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell>{result.rank}</TableCell>
-              <TableCell component="th" scope="row">
+              <TableCell key={result.id}>{result.rank}</TableCell>
+              <TableCell key={result.id} component="th" scope="row">
                 {result.name}
               </TableCell>
-              <TableCell>{result.points}</TableCell>
-              <TableCell>{result.tierPoints}</TableCell>
+              <TableCell key={result.id}>{result.points}</TableCell>
+              <TableCell key={result.id}>{result.tierPoints}</TableCell>
             </TableRow>
           ))}
         </TableBody>

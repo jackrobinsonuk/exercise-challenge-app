@@ -39,7 +39,7 @@ export default function CurrentChallengesDetails(props) {
       )}
       {props.challengeDetailsLoading === false && (
         <div>
-          <b>Current Challenge Details</b>
+          <b>{props.challengeDetails.challengeName}</b>
           <div>Start Day: {props.challengeDetails.startDay}</div>
           <div>Number of Weeks: {props.challengeDetails.weeks}</div>
           <TableContainer component={Paper}>

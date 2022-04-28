@@ -10,9 +10,10 @@ import YourExercise from "./Pages/YourExercise";
 import Profile from "./Pages/Profile";
 import UserLoginSignUp from "./Pages/UserLoginSignUp";
 import Welcome from "./Pages/Welcome";
-import Challenges from "./Pages/Challenges";
+import ChallengeSetup from "./Pages/Challenge Setup";
 import Leagues from "./Pages/Leagues";
 import Admin from "./Pages/Admin";
+import Challenge from "./Pages/Challenge";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -64,21 +65,31 @@ const App = () => {
         {isLoggedIn === true && (
           <Routes>
             <Route path="/" element={<YourExercise userId={userId} />} />
-            <Route path="/Login" element={<YourExercise userId={userId} />} />
+            <Route
+              path="/Login"
+              element={<YourExercise userId={userId} userInfo={userInfo} />}
+            />
             <Route
               path="/Exercise"
               element={<YourExercise userId={userId} userInfo={userInfo} />}
             />
             <Route path="/Team" element={<Team userInfo={userInfo} />} />
-            <Route path="/Profile" element={<Profile userId={userId} />} />
+            <Route
+              path="/Profile"
+              element={<Profile userId={userId} userInfo={userInfo} />}
+            />
+            <Route
+              path="/Challenge"
+              element={<Challenge userId={userId} userInfo={userInfo} />}
+            />
 
-            <Route path="/Leagues" element={<Leagues />} />
+            <Route path="/Leagues" element={<Leagues userInfo={userInfo} />} />
           </Routes>
         )}
 
         {isAdmin === true && isLoggedIn === true && (
           <Routes>
-            <Route path="/Challenges" element={<Challenges />} />
+            <Route path="/Challenge-Setup" element={<ChallengeSetup />} />
             <Route path="/Admin" element={<Admin />} />
           </Routes>
         )}

@@ -31,6 +31,8 @@ export default function ExerciseTable(props) {
 
   const exercises = props.exercises;
 
+  const dateOptions = { year: "numeric", month: "2-digit", day: "2-digit" };
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -49,7 +51,12 @@ export default function ExerciseTable(props) {
               key={exercise.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell>{exercise.date}</TableCell>
+              <TableCell>
+                {new Date(exercise.date).toLocaleDateString(
+                  "en-GB",
+                  dateOptions
+                )}
+              </TableCell>
               <TableCell component="th" scope="row">
                 {exercise.exerciseName}
               </TableCell>

@@ -65,6 +65,7 @@ async function constructItem(event) {
   const exerciseName = await addExerciseName(body);
   const points = await calculateTotalPoints(body);
   const name = body.name;
+  const challengeId = body.challengeId;
 
   // Creates a new item, or replaces an old item with a new item
   // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#put-property
@@ -80,6 +81,7 @@ async function constructItem(event) {
       exerciseName: exerciseName,
       points: points,
       name: name,
+      challengeId: challengeId,
     },
   };
 

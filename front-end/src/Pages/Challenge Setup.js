@@ -77,7 +77,7 @@ export default function Challenges(props) {
 
   return (
     <main style={{ padding: "20px" }}>
-      <h2>Challenges</h2>
+      <h2>Challenge Setup</h2>
       {loading === true && (
         <div>
           <CircularProgress />

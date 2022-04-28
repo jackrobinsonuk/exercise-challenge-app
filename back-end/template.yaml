@@ -357,6 +357,37 @@ Resources:
           CHALLENGE_BUCKET: !Ref ChallengeBucket
           LEAGUE_BUCKET: !Ref LeagueBucket
 
+  updateLeaguesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/WorkerCluster/update-leagues.updateLeagueHandler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description:
+        A simple example includes a HTTP get method to get all items from a
+        DynamoDB table.
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UserExerciseTable
+        - DynamoDBReadPolicy:
+            TableName: !Ref ExercisesTable
+        - S3ReadPolicy:
+            BucketName: !Ref ChallengeBucket
+        - S3WritePolicy:
+            BucketName: !Ref LeagueBucket
+        - S3ReadPolicy:
+            BucketName: !Ref LeagueBucket
+      Environment:
+        Variables:
+          # Make table name accessible as environment variable from function code during execution
+          USER_EXERCISE_TABLE: !Ref UserExerciseTable
+          EXERCISES_TABLE: !Ref ExercisesTable
+          CHALLENGE_BUCKET: !Ref ChallengeBucket
+          LEAGUE_BUCKET: !Ref LeagueBucket
+
   # References
 
   UserExerciseTable:
