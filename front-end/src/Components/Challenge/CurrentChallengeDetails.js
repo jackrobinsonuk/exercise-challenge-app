@@ -15,17 +15,39 @@ import { apiRoot } from "../../Globals/globals";
 
 export default function CurrentChallengesDetails(props) {
   const [teamPoints, setTeamPoints] = useState([]);
+  const [teamPointsLoading, setTeamPointsLoading] = useState(true);
 
-  function getTeamPoints(teamId) {
-    axios
-      .get(`${apiRoot}/user/get-team-exercise?teamId=${teamId}`)
-      .then(function (response) {
-        setTeamPoints((teamPoints) => [...teamPoints, { teamId: 0 }]);
-        return response;
-      });
+  function getTeamPoints() {
+    const teamData = props.challengeDetails.teamData;
+
+    teamData.forEach((element) =>
+      axios
+        .get(`${apiRoot}/user/get-team-exercise?teamId=${element.teamId}`)
+        .then(function (response) {
+          // Sum points and team ID
+
+          var pointsPerId = Array.from(
+            response.data.reduce((a, { team, points }) => {
+              return a.set(team, (a.get(team) || 0) + points);
+            }, new Map())
+          ).map(([team, sum]) => ({
+            team,
+            sum,
+          }));
+
+          var stateTeamPoints = teamPoints;
+
+          var pointsToAdd = stateTeamPoints.concat(pointsPerId);
+
+          console.log(pointsToAdd);
+          setTeamPoints(pointsToAdd);
+
+          // setTeamPointsLoading(false);
+        })
+    );
   }
 
-  if (teamPoints === [] && props.challengeDetails.teamData) {
+  if (teamPoints.length === 0) {
     getTeamPoints();
   }
 
@@ -63,7 +85,16 @@ export default function CurrentChallengesDetails(props) {
                       <TableCell component="th" scope="row" key={index}>
                         {teamName}
                       </TableCell>
-                      <TableCell key={index}>{teamPoints}</TableCell>
+                      {teamPointsLoading === true && (
+                        <TableCell key={teamId}>Loading...</TableCell>
+                      )}
+                      {teamPointsLoading === false && teamPoints && (
+                        <div>
+                          {teamPoints.map((index, team, sum) => (
+                            <TableCell key={team}>{sum}</TableCell>
+                          ))}
+                        </div>
+                      )}
                     </TableRow>
                   )
                 )}

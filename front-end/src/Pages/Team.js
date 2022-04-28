@@ -16,7 +16,7 @@ import { apiRoot } from "../Globals/globals";
 import TouchRipple from "@mui/material/ButtonBase/TouchRipple";
 
 export default function Team(props) {
-  const [teamData, setTeamData] = useState();
+  const [teamData, setTeamData] = useState(null);
   const [dataLoading, setDataLoading] = useState(true);
   const [totalPoints, setTotalPoints] = useState();
   const [error, setError] = useState();
@@ -36,7 +36,7 @@ export default function Team(props) {
     axios
       .get(`${apiRoot}/user/get-team-exercise?teamId=${teamId}`)
       .then(function (response) {
-        if (response.data[0].length > 0) {
+        if (response.data.length !== []) {
           setTeamData(response.data);
 
           return response;
@@ -95,9 +95,9 @@ export default function Team(props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {teamData.map((entry, index) => (
+                {teamData.map((entry, id) => (
                   <TableRow
-                    key={index}
+                    key={id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell>
