@@ -1,13 +1,10 @@
 import { React, useState } from "react";
-import { Button, CircularProgress, Divider } from "@mui/material";
 
 import axios from "axios";
 
 import { apiRoot } from "../Globals/globals";
 
-import CurrentChallengesSelector from "../Components/Challenge/CurrentChallengesSelector";
 import CurrentChallengesDetails from "../Components/Challenge/CurrentChallengeDetails";
-import CreateChallenge from "../Components/Challenge/CreateChallenge";
 
 export default function Challenge(props) {
   const [challengeDetails, setChallengeDetails] = useState();

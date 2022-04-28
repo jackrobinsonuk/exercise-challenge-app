@@ -1,15 +1,6 @@
-import { React, useState } from "react";
+import { React } from "react";
 
 export default function Admin() {
-  const [userList, setUserList] = useState();
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState();
-
-  async function getUserList() {}
-
-  if (!userList) {
-    getUserList();
-  }
   return (
     <main style={{ padding: "20px" }}>
       <h2>Admin</h2>

@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 
 import { apiRoot } from "../Globals/globals";
-import TouchRipple from "@mui/material/ButtonBase/TouchRipple";
 
 export default function Team(props) {
   const [teamData, setTeamData] = useState(null);

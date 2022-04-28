@@ -1,7 +1,6 @@
 import { React, useState } from "react";
 import { Box, Button, CircularProgress } from "@mui/material";
 import axios from "axios";
-import AddExerciseChallengeSelect from "./AddExerciseChallengeSelect";
 
 import AddExerciseExerciseSelect from "./AddExerciseExerciseSelect";
 import AddExerciseMinutesCompleted from "./AddExerciseMinutesCompleted";
@@ -11,7 +10,7 @@ export default function AddExerciseForm(props) {
   const [selectedExercise, setSelectedExercise] = useState("");
   const [minutesCompleted, setMinutesCompleted] = useState("");
   const [submitLoading, setSubmitLoading] = useState(false);
-  const [selectedChallenge, setSelectedChallenge] = useState(null);
+  const [selectedChallenge] = useState(null);
   const [teamSelectLoading] = useState(true);
   const [buttonDisabled, setButtonDisabled] = useState("");
 
@@ -38,10 +37,6 @@ export default function AddExerciseForm(props) {
       setMinutesCompleted(event.target.value);
       props.setShowError(false);
     }
-  };
-
-  const handleSelectedChallenge = (event) => {
-    setSelectedChallenge(event.target.value);
   };
 
   const handleClose = () => {

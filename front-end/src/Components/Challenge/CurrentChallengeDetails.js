@@ -15,7 +15,9 @@ import { apiRoot } from "../../Globals/globals";
 
 export default function CurrentChallengesDetails(props) {
   const [teamPoints, setTeamPoints] = useState([]);
-  const [teamPointsLoading, setTeamPointsLoading] = useState(true);
+  const [teamPointsLoading] = useState(true);
+
+  // setTeamPointsLoading will need to be readded
 
   function getTeamPoints() {
     const teamData = props.challengeDetails.teamData;
