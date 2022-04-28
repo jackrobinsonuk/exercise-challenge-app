@@ -49,9 +49,9 @@ export default function CurrentChallengesDetails(props) {
     );
   }
 
-  if (teamPoints.length === 0) {
-    getTeamPoints();
-  }
+  // if (teamPoints.length === 0) {
+  //   getTeamPoints();
+  // }
 
   return (
     <div>
