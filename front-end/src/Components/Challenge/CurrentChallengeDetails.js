@@ -15,11 +15,16 @@ import { apiRoot } from "../../Globals/globals";
 
 export default function CurrentChallengesDetails(props) {
   const [teamPoints, setTeamPoints] = useState([]);
-  const [teamPointsLoading] = useState(true);
+  const [teamPointsLoading, setTeamPointsLoading] = useState(true);
 
   // setTeamPointsLoading will need to be readded
 
-  function getTeamPoints() {
+  var desiredTeamPoints = [
+    { team: "1d7eebb8-2071-4bfa-baa5-85f2fc6fa6e2", sum: 160 },
+    { team: "1319401c-de12-4a5d-99ff-e30f69d9e45f", sum: 300 },
+  ];
+
+  async function getTeamPoints() {
     const teamData = props.challengeDetails.teamData;
 
     teamData.forEach((element) =>
@@ -37,21 +42,24 @@ export default function CurrentChallengesDetails(props) {
             sum,
           }));
 
-          var stateTeamPoints = teamPoints;
-
-          var pointsToAdd = stateTeamPoints.concat(pointsPerId);
-
-          console.log(pointsToAdd);
-          setTeamPoints(pointsToAdd);
-
-          // setTeamPointsLoading(false);
+          return pointsPerId;
+        })
+        .then(function (pointsPerId) {
+          // Add the points per id as an object to the teamPoints array
+        })
+        .then(function (pointsToAdd) {
+          // set the new array
+          setTeamPoints(desiredTeamPoints);
+        })
+        .then(function () {
+          setTeamPointsLoading(false);
         })
     );
   }
 
-  // if (teamPoints.length === 0) {
-  //   getTeamPoints();
-  // }
+  if (teamPoints.length < 1) {
+    getTeamPoints();
+  }
 
   return (
     <div>
@@ -92,7 +100,7 @@ export default function CurrentChallengesDetails(props) {
                       )}
                       {teamPointsLoading === false && teamPoints && (
                         <div>
-                          {teamPoints.map((index, team, sum) => (
+                          {teamPoints.map(({ sum }, team) => (
                             <TableCell key={team}>{sum}</TableCell>
                           ))}
                         </div>
