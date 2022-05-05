@@ -16,6 +16,8 @@ import Login from "../Components/Login & Sign Up/Login";
 import SignUp from "../Components/Login & Sign Up/SignUp";
 import SignUpComplete from "../Components/Login & Sign Up/SignUpComplete";
 import SetNewPasswordScreen from "../Components/Login & Sign Up/SetNewPasswordScreen";
+import ForgotPassword from "../Components/Login & Sign Up/ForgotPassword";
+import ForgotPasswordVerify from "../Components/Login & Sign Up/ForgotPasswordVerify";
 
 const theme = createTheme();
 
@@ -24,6 +26,11 @@ export default function UserLoginSignUp(props) {
   const [signUpScreen, setSignUpScreen] = useState(false);
   const [signUpComplete, setSignUpComplete] = useState(false);
   const [newPasswordScreen, setNewPasswordScreen] = useState(false);
+  const [forgotPasswordScreen, setForgotPasswordScreen] = useState(false);
+  const [
+    forgotPasswordVerificationScreen,
+    setForgotPasswordVerificationScreen,
+  ] = useState(false);
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -117,6 +124,43 @@ export default function UserLoginSignUp(props) {
     Auth.resendSignUp(username);
   }
 
+  function handleForgotPassword(username) {
+    setLoading(true);
+
+    // Send confirmation code to user's email
+    Auth.forgotPassword(username)
+      .then((result) => {
+        console.log(result);
+        setForgotPasswordScreen(false);
+        setForgotPasswordVerificationScreen(true);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+    setCurrentUser(username);
+  }
+
+  function handleForgotPasswordVerification(code, new_password) {
+    setLoading(true);
+    console.log("attempt reset password verification");
+
+    // Collect confirmation code and new password, then
+    Auth.forgotPasswordSubmit(currentUser, code, new_password)
+      .then((result) => {
+        console.log(result);
+        setLoading(false);
+        setForgotPasswordVerificationScreen(false);
+        setLoginScreen(true);
+      })
+      .catch((err) => {
+        if (
+          err.message === "Invalid code provided, please request a code again."
+        ) {
+          setError("Your code has expired");
+        }
+        console.log("error confirming sign up", error);
+      });
+  }
+
   function Copyright(props) {
     return (
       <Typography
@@ -183,6 +227,7 @@ export default function UserLoginSignUp(props) {
                   handleLogin={handleLogin}
                   setSignUpScreen={setSignUpScreen}
                   setLoginScreen={setLoginScreen}
+                  setForgotPasswordScreen={setForgotPasswordScreen}
                   error={error}
                   loading={loading}
                 />
@@ -208,6 +253,33 @@ export default function UserLoginSignUp(props) {
               )}
               {newPasswordScreen && (
                 <SetNewPasswordScreen currentUser={currentUser} />
+              )}
+              {forgotPasswordScreen && (
+                <ForgotPassword
+                  handleForgotPassword={handleForgotPassword}
+                  setLoginScreen={setLoginScreen}
+                  setForgotPasswordScreen={setForgotPasswordScreen}
+                  setForgotPasswordVerificationScreen={
+                    setForgotPasswordVerificationScreen
+                  }
+                  error={error}
+                  loading={loading}
+                />
+              )}
+              {forgotPasswordVerificationScreen && (
+                <ForgotPasswordVerify
+                  currentUser={currentUser}
+                  handleForgotPasswordVerification={
+                    handleForgotPasswordVerification
+                  }
+                  setForgotPasswordScreen={setForgotPasswordScreen}
+                  setForgotPasswordVerificationScreen={
+                    setForgotPasswordVerificationScreen
+                  }
+                  setLoginScreen={setLoginScreen}
+                  error={error}
+                  loading={loading}
+                />
               )}
             </Box>
           </Grid>
