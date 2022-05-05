@@ -136,14 +136,15 @@ export default function UserLoginSignUp(props) {
         setLoading(false);
       })
       .catch((err) => console.log(err));
+    setCurrentUser(username);
   }
 
-  function handleForgotPasswordVerification(username, code, new_password) {
+  function handleForgotPasswordVerification(code, new_password) {
     setLoading(true);
     console.log("attempt reset password verification");
 
     // Collect confirmation code and new password, then
-    Auth.forgotPasswordSubmit(username, code, new_password)
+    Auth.forgotPasswordSubmit(currentUser, code, new_password)
       .then((result) => {
         console.log(result);
         setLoading(false);
@@ -267,6 +268,7 @@ export default function UserLoginSignUp(props) {
               )}
               {forgotPasswordVerificationScreen && (
                 <ForgotPasswordVerify
+                  currentUser={currentUser}
                   handleForgotPasswordVerification={
                     handleForgotPasswordVerification
                   }

@@ -9,6 +9,17 @@ import {
 
 export default function ForgotPasswordVerify(props) {
   const [textFieldErrorState, setTextFieldErrorState] = useState(false);
+  const [verificationCode, setVerificationCode] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleVerificationCodeChange = (event) => {
+    setVerificationCode(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
   return (
     <main>
       <div style={{ paddingTop: "10px", paddingBottom: "20px" }}>
@@ -32,12 +43,14 @@ export default function ForgotPasswordVerify(props) {
             id="outlined-basic"
             label="Password Reset Verification Code"
             variant="outlined"
-            value={props.resetPasswordVerificationCode}
-            onChange={props.handleVerificationCodeChange}
+            value={verificationCode}
+            onChange={handleVerificationCodeChange}
             style={{ paddingBottom: "20px" }}
           />
 
-          <div style={{ paddingTop: "10px", color: "red" }}>
+          <div
+            style={{ paddingTop: "10px", paddingBottom: "20px", color: "red" }}
+          >
             <b>{props.error}</b>
             <b>{props.error}</b>
           </div>
@@ -68,8 +81,8 @@ export default function ForgotPasswordVerify(props) {
             label="Confirm New Password"
             type="password"
             autoComplete="current-password"
-            value={props.confirmNewPassword}
-            onChange={props.handleConfirmNewPasswordChange}
+            value={password}
+            onChange={handlePasswordChange}
             style={{ paddingBottom: "20px" }}
           />
           <div style={{ paddingBottom: "10px" }}>
@@ -77,11 +90,12 @@ export default function ForgotPasswordVerify(props) {
               fullWidth
               variant="contained"
               disabled={props.buttonDisabled}
-              onClick={props.handleForgotPasswordVerification(
-                props.username,
-                props.resetPasswordVerificationCode,
-                props.confirmNewPassword
-              )}
+              onClick={() => {
+                props.handleForgotPasswordVerification(
+                  verificationCode,
+                  password
+                );
+              }}
             >
               Set New Password
               {props.loading && (

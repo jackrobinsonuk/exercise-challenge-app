@@ -28,7 +28,6 @@ export default function Login(props) {
   };
 
   const handleForgotPasswordClick = () => {
-    console.log("IN THE FUNCTION");
     props.setForgotPasswordScreen(true);
     props.setLoginScreen(false);
   };
