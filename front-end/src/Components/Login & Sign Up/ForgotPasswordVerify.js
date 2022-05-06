@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 
 export default function ForgotPasswordVerify(props) {
-  const [textFieldErrorState, setTextFieldErrorState] = useState(false);
+  const [textFieldErrorState] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
   const [password, setPassword] = useState("");
 
