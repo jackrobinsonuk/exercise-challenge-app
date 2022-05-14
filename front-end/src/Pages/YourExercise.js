@@ -59,7 +59,7 @@ export default function YourExercise(props) {
   }
   return (
     <main style={{ padding: "20px" }}>
-      <h2>Your Exercise</h2>
+      <h2>Your Activity</h2>
       {loading === true && (
         <div>
           <CircularProgress />

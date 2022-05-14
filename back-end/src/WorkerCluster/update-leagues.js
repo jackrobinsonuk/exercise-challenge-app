@@ -28,7 +28,6 @@ const s3 = new AWS.S3();
 const initialLeague = require("../Static/initial-league.json");
 
 const userExerciseTable = process.env.USER_EXERCISE_TABLE;
-const exerciseListTable = process.env.EXERCISES_TABLE;
 const challengeBucket = process.env.CHALLENGE_BUCKET;
 const leagueBucket = process.env.LEAGUE_BUCKET;
 

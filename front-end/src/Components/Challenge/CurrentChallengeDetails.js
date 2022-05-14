@@ -24,41 +24,23 @@ export default function CurrentChallengesDetails(props) {
     { team: "1319401c-de12-4a5d-99ff-e30f69d9e45f", sum: 300 },
   ];
 
-  async function getTeamPoints() {
+  async function getTeamPoints(teamId) {
     const teamData = props.challengeDetails.teamData;
 
-    teamData.forEach((element) =>
-      axios
-        .get(`${apiRoot}/user/get-team-exercise?teamId=${element.teamId}`)
-        .then(function (response) {
-          // Sum points and team ID
+    const points = await axios
+      .get(`${apiRoot}/user/get-team-exercise?teamId=${teamId}`)
+      .then(function (response) {
+        // Sum points and team ID
 
-          var pointsPerId = Array.from(
-            response.data.reduce((a, { team, points }) => {
-              return a.set(team, (a.get(team) || 0) + points);
-            }, new Map())
-          ).map(([team, sum]) => ({
-            team,
-            sum,
-          }));
+        const sum = response.data.reduce((accumulator, object) => {
+          return accumulator + object.points;
+        }, 0);
+        console.log(sum);
 
-          return pointsPerId;
-        })
-        .then(function (pointsPerId) {
-          // Add the points per id as an object to the teamPoints array
-        })
-        .then(function (pointsToAdd) {
-          // set the new array
-          setTeamPoints(desiredTeamPoints);
-        })
-        .then(function () {
-          setTeamPointsLoading(false);
-        })
-    );
-  }
+        return sum;
+      });
 
-  if (teamPoints.length < 1) {
-    getTeamPoints();
+    return await points;
   }
 
   return (
@@ -95,16 +77,9 @@ export default function CurrentChallengesDetails(props) {
                       <TableCell component="th" scope="row" key={index}>
                         {teamName}
                       </TableCell>
-                      {teamPointsLoading === true && (
-                        <TableCell key={teamId}>Loading...</TableCell>
-                      )}
-                      {teamPointsLoading === false && teamPoints && (
-                        <div>
-                          {teamPoints.map(({ sum }, team) => (
-                            <TableCell key={team}>{sum}</TableCell>
-                          ))}
-                        </div>
-                      )}
+                      <TableCell key={teamId} defaultValue={"Test"}>
+                        Need to fix this
+                      </TableCell>
                     </TableRow>
                   )
                 )}

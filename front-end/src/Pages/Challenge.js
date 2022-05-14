@@ -12,16 +12,20 @@ export default function Challenge(props) {
 
   function getSelectedChallengeDetails() {
     const challengeId = props.userInfo["custom:Challenge"];
-    axios({
-      method: "get",
-      url: `${apiRoot}/admin/get-challenge-details?challengeName=${challengeId}`,
-      responseType: "json",
-    }).then(function (response) {
-      setChallengeDetails(response.data);
-      setChallengeDetailsLoading(false);
-
-      return response;
-    });
+    if (challengeId === undefined) return;
+    else {
+      axios({
+        method: "get",
+        url: `${apiRoot}/admin/get-challenge-details?challengeName=${challengeId}`,
+        responseType: "json",
+      })
+        .then(function (response) {
+          setChallengeDetails(response.data);
+        })
+        .then(function () {
+          setChallengeDetailsLoading(false);
+        });
+    }
   }
 
   if (!challengeDetails) {
