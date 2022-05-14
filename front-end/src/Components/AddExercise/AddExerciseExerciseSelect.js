@@ -15,15 +15,17 @@ export default function AddExerciseExerciseSelect(props) {
         onChange={props.handleSelectedExerciseChange}
         variant="outlined"
       >
-        {props.exerciseList.map(({ index, exerciseId, exerciseName }) => (
-          <MenuItem
-            key={exerciseId}
-            value={exerciseId}
-            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-          >
-            {exerciseName}
-          </MenuItem>
-        ))}
+        {props.exerciseList.map(
+          ({ index, exerciseId, exerciseName, points }) => (
+            <MenuItem
+              key={exerciseId}
+              value={exerciseId}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              {`${exerciseName} | ${points} ppm`}
+            </MenuItem>
+          )
+        )}
       </Select>
     </FormControl>
   );
