@@ -14,6 +14,7 @@ import ChallengeSetup from "./Pages/Challenge Setup";
 import Leagues from "./Pages/Leagues";
 import Admin from "./Pages/Admin";
 import Challenge from "./Pages/Challenge";
+import Footer from "./Components/Footer/Footer";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -114,6 +115,7 @@ const App = () => {
           </Routes>
         )}
       </div>
+      <Footer />
     </div>
   );
 };
