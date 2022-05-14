@@ -64,7 +64,10 @@ const App = () => {
       <div>
         {isLoggedIn === true && (
           <Routes>
-            <Route path="/" element={<YourExercise userId={userId} />} />
+            <Route
+              path="/"
+              element={<YourExercise userId={userId} userInfo={userInfo} />}
+            />
             <Route
               path="/Login"
               element={<YourExercise userId={userId} userInfo={userInfo} />}
