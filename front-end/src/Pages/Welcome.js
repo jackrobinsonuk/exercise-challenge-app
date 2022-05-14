@@ -6,7 +6,6 @@ import GlobalStyles from "@mui/material/GlobalStyles";
 import Container from "@mui/material/Container";
 
 import { Link as ReactLink } from "react-router-dom";
-import Link from "@mui/material/Link";
 
 function Content() {
   return (
