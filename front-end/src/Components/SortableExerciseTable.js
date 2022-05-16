@@ -90,7 +90,7 @@ function EnhancedTableHead(props) {
           <TableCell
             key={headCell.id}
             align={"left"}
-            padding={headCell.disablePadding ? "none" : "normal"}
+            padding={"normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -180,7 +180,7 @@ export default function SortableExerciseTable(props) {
                 .map((row, index) => {
                   return (
                     <TableRow>
-                      <TableCell component="th" scope="row" padding="none">
+                      <TableCell component="th" scope="row" padding="normal">
                         {new Date(row.date).toLocaleDateString(
                           "en-GB",
                           dateOptions
