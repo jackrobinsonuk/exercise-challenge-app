@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { Avatar, Grid, CircularProgress } from "@mui/material";
+import { Grid, CircularProgress } from "@mui/material";
 
 import axios from "axios";
 
@@ -42,9 +42,9 @@ export default function Profile(props) {
     } else return;
   }
 
-  function handleUploadClick() {
-    console.log("Upload button clicked");
-  }
+  // function handleUploadClick() {
+  //   console.log("Upload button clicked");
+  // }
 
   if (!challengeName && !error) {
     getInfo();
