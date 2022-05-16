@@ -15,6 +15,7 @@ import Leagues from "./Pages/Leagues";
 import Admin from "./Pages/Admin";
 import Challenge from "./Pages/Challenge";
 import Footer from "./Components/Footer/Footer";
+import AllExercises from "./Pages/All-Exercises";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -88,6 +89,7 @@ const App = () => {
             />
 
             <Route path="/Leagues" element={<Leagues userInfo={userInfo} />} />
+            <Route path="/All-Exercises" element={<AllExercises />} />
           </Routes>
         )}
 
