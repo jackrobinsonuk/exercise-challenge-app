@@ -67,7 +67,6 @@ export default function CreateChallenge(props) {
 
   return (
     <div>
-      <h3>Create Challenge</h3>
       <FormControl fullWidth>
         <TextField
           margin="normal"

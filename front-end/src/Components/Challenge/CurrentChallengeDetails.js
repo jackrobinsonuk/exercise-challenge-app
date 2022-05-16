@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useCallback } from "react";
 import {
   CircularProgress,
   TableContainer,
@@ -17,7 +17,7 @@ export default function CurrentChallengesDetails(props) {
   const [teamPoints, setTeamPoints] = useState([]);
   const [pointsLoading, setPointsLoading] = useState(true);
 
-  function getTeamPoints(teamData) {
+  const getTeamPoints = useCallback((teamData) => {
     const teamId = teamData.teamId;
 
     axios
@@ -38,13 +38,13 @@ export default function CurrentChallengesDetails(props) {
 
         return sum;
       });
-  }
+  }, []);
 
   useEffect(() => {
     const teamData = props.challengeDetails.teamData;
-
     teamData.forEach((element) => getTeamPoints(element));
-  }, []);
+    // eslint-disable-next-line
+  }, [getTeamPoints]);
 
   return (
     <div>

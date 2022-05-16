@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import PropTypes from "prop-types";
 
 import {
+  Button,
   Box,
   Table,
   TableBody,
@@ -12,8 +13,11 @@ import {
   TableRow,
   TableSortLabel,
   Paper,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
 
+import DeleteIcon from "@mui/icons-material/Delete";
 import { visuallyHidden } from "@mui/utils";
 
 function descendingComparator(a, b, orderBy) {
@@ -48,16 +52,28 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: "exercise",
-    numeric: false,
+    id: "date",
+    numeric: true,
     disablePadding: true,
-    label: "Exercise",
+    label: "Date",
+  },
+  {
+    id: "exercise-name",
+    numeric: false,
+    disablePadding: false,
+    label: "Exercise Name",
+  },
+  {
+    id: "minutes",
+    numeric: true,
+    disablePadding: false,
+    label: "Minutes",
   },
   {
     id: "points",
-    numeric: false,
+    numeric: true,
     disablePadding: false,
-    label: "Points Per Minute",
+    label: "Points",
   },
 ];
 
@@ -109,6 +125,8 @@ export default function SortableActivityTable(props) {
   const [orderBy, setOrderBy] = useState("calories");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [deleteIcon, setDeleteIcon] = useState("");
+  const [confirmButton, setConfirmButton] = useState("");
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -125,11 +143,23 @@ export default function SortableActivityTable(props) {
     setPage(0);
   };
 
+  function confirmDelete(id) {
+    setConfirmButton(id);
+    console.log(id);
+    setDeleteIcon(id);
+  }
+
+  function cancelDelete() {
+    setConfirmButton("");
+    setDeleteIcon("");
+  }
   const rows = props.exercises;
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+  const dateOptions = { year: "numeric", month: "2-digit", day: "2-digit" };
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -150,9 +180,42 @@ export default function SortableActivityTable(props) {
                 .map((row, index) => {
                   return (
                     <TableRow>
+                      <TableCell component="th" scope="row" padding="normal">
+                        {new Date(row.date).toLocaleDateString(
+                          "en-GB",
+                          dateOptions
+                        )}
+                      </TableCell>
                       <TableCell align="left">{row.exerciseName}</TableCell>
-
+                      <TableCell align="left">{row.minutesExercised}</TableCell>
                       <TableCell align="left">{row.points}</TableCell>
+                      <TableCell key={row.id}>
+                        {deleteIcon !== row.id && (
+                          <Tooltip
+                            title="Delete"
+                            onClick={() => confirmDelete(row.id)}
+                            key={row.id}
+                          >
+                            <IconButton key={row.id}>
+                              <DeleteIcon key={row.id} />
+                            </IconButton>
+                          </Tooltip>
+                        )}
+                        {confirmButton === row.id && (
+                          <div>
+                            <Button
+                              key={row.id}
+                              onClick={() => props.handleExerciseDelete(row.id)}
+                            >
+                              Delete
+                            </Button>
+
+                            <Button key={row.id} onClick={cancelDelete}>
+                              Cancel
+                            </Button>
+                          </div>
+                        )}
+                      </TableCell>
                     </TableRow>
                   );
                 })}

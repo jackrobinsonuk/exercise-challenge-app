@@ -24,6 +24,7 @@ const pages = [
   "Admin",
   "Challenge-Setup",
   "Challenge",
+  "All-Exercises",
 ];
 
 const NavBarAdmin = (props) => {

@@ -3,7 +3,7 @@ import { CircularProgress } from "@mui/material";
 import { Divider } from "@mui/material";
 import axios from "axios";
 
-import SortableExerciseTable from "../Components/SortableExerciseTable";
+import SortableActivityTable from "../Components/SortableActivityTable";
 import AddExercise from "./AddExercise";
 import { apiRoot } from "../Globals/globals";
 
@@ -69,7 +69,7 @@ export default function YourExercise(props) {
 
       {loading === false && (
         <div>
-          <SortableExerciseTable
+          <SortableActivityTable
             exercises={exercises}
             handleExerciseDelete={handleExerciseDelete}
           />
