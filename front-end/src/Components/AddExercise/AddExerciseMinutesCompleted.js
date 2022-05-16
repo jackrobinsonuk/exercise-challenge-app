@@ -13,6 +13,7 @@ export default function AddExerciseMinutesCompleted(props) {
         variant="outlined"
         value={props.minutesCompleted}
         onChange={props.handleMinutesCompletedChange}
+        type="number"
         InputProps={{
           endAdornment: <InputAdornment position="end">mins</InputAdornment>,
         }}

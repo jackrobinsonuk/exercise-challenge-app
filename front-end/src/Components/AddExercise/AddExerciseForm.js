@@ -42,6 +42,7 @@ export default function AddExerciseForm(props) {
   const handleClose = () => {
     props.setShowForm(false);
     props.setShowAddExerciseButton(true);
+    props.setShowError(false);
   };
 
   const handleSubmit = () => {
@@ -100,7 +101,7 @@ export default function AddExerciseForm(props) {
               />
             )}
           </div>
-          <div>
+          <div style={{ paddingTop: "10px" }}>
             {challengeList && (
               <AddExerciseMinutesCompleted
                 minutesCompleted={minutesCompleted}
