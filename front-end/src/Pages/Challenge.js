@@ -37,12 +37,12 @@ export default function Challenge(props) {
       <h2>Challenge Details</h2>
 
       <div style={{ paddingTop: "20px", paddingBottom: "20px" }}>
-        {challengeDetails && (
+        {challengeDetails ? (
           <CurrentChallengesDetails
             challengeDetails={challengeDetails}
             challengeDetailsLoading={challengeDetailsLoading}
           />
-        )}
+        ) : (<div>You're not part of a challenge yet. Please contact your admin.</div>)}
       </div>
     </main>
   );

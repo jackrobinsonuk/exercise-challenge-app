@@ -78,12 +78,19 @@ export default function YourExercise(props) {
       )}
       <Divider variant="full-width" />
       <div>
-        <AddExercise
-          setAddExerciseDisplay={setAddExerciseDisplay}
-          setLoading={setLoading}
-          userId={props.userId}
-          userInfo={props.userInfo}
-        />
+        {props.userInfo["custom:Team"] ? (
+          <AddExercise
+            setAddExerciseDisplay={setAddExerciseDisplay}
+            setLoading={setLoading}
+            userId={props.userId}
+            userInfo={props.userInfo}
+          />
+        ) : (
+          <div>
+            You can't add exercise yet as you're not part of a team - please
+            contact your admin.
+          </div>
+        )}
       </div>
     </main>
   );
