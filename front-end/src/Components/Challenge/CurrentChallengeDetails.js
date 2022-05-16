@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useState, useEffect } from "react";
 import {
   CircularProgress,
   TableContainer,
@@ -9,39 +9,42 @@ import {
   TableBody,
   Paper,
 } from "@mui/material";
-// import axios from "axios";
+import axios from "axios";
 
-// import { apiRoot } from "../../Globals/globals";
+import { apiRoot } from "../../Globals/globals";
 
 export default function CurrentChallengesDetails(props) {
-  // const [teamPoints, setTeamPoints] = useState([]);
-  // const [teamPointsLoading, setTeamPointsLoading] = useState(true);
+  const [teamPoints, setTeamPoints] = useState([]);
+  const [pointsLoading, setPointsLoading] = useState(true);
 
-  // setTeamPointsLoading will need to be readded
+  function getTeamPoints(teamData) {
+    const teamId = teamData.teamId;
 
-  // var desiredTeamPoints = [
-  //   { team: "1d7eebb8-2071-4bfa-baa5-85f2fc6fa6e2", sum: 160 },
-  //   { team: "1319401c-de12-4a5d-99ff-e30f69d9e45f", sum: 300 },
-  // ];
+    axios
+      .get(`${apiRoot}/user/get-team-exercise?teamId=${teamId}`)
+      .then(function (response) {
+        // Sum points and team ID
 
-  // async function getTeamPoints(teamId) {
-  //   const teamData = props.challengeDetails.teamData;
+        const sum = response.data.reduce((accumulator, object) => {
+          return accumulator + object.points;
+        }, 0);
 
-  //   const points = await axios
-  //     .get(`${apiRoot}/user/get-team-exercise?teamId=${teamId}`)
-  //     .then(function (response) {
-  //       // Sum points and team ID
+        setTeamPoints((teamPoints) => [
+          ...teamPoints,
+          { id: teamId, points: sum },
+        ]);
 
-  //       const sum = response.data.reduce((accumulator, object) => {
-  //         return accumulator + object.points;
-  //       }, 0);
-  //       console.log(sum);
+        setPointsLoading(false);
 
-  //       return sum;
-  //     });
+        return sum;
+      });
+  }
 
-  //   return await points;
-  // }
+  useEffect(() => {
+    const teamData = props.challengeDetails.teamData;
+
+    teamData.forEach((element) => getTeamPoints(element));
+  }, []);
 
   return (
     <div>
@@ -77,9 +80,11 @@ export default function CurrentChallengesDetails(props) {
                       <TableCell component="th" scope="row" key={index}>
                         {teamName}
                       </TableCell>
-                      <TableCell key={teamId} defaultValue={"Test"}>
-                        Need to fix this
-                      </TableCell>
+                      {pointsLoading === false && (
+                        <TableCell key={teamId}>
+                          {teamPoints.find((x) => x.id === teamId)?.points}
+                        </TableCell>
+                      )}
                     </TableRow>
                   )
                 )}
