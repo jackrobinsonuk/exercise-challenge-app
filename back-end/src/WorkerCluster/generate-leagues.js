@@ -17,188 +17,47 @@
 // Sample League Data (this is what the FE expects) can be found in the FE portion of the repo
 // If the service contract cannot be achieved, then the FE UI will need to be redesigned
 
-const https = require("https");
-const dynamodb = require("aws-sdk/clients/dynamodb");
-const docClient = new dynamodb.DocumentClient();
 let AWS = require("aws-sdk");
-const lambda = new AWS.Lambda({ region: "eu-west-1" });
 const s3 = new AWS.S3();
 
-const userExerciseTable = process.env.USER_EXERCISE_TABLE;
-const exerciseListTable = process.env.EXERCISES_TABLE;
-const challengeBucket = process.env.CHALLENGE_BUCKET;
 const leagueBucket = process.env.LEAGUE_BUCKET;
-
-
-
-
 
 const league = [
   {
     leagueName: "Premier League",
     leagueRank: 1,
-    results: [
-      {
-        userId: "fleiwusbe",
-        rank: 1,
-        name: "Jack",
-        points: 1223,
-        tierPoints: 2,
-      },
-      {
-        userId: "souef",
-        rank: 2,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-      {
-        userId: "souef",
-        rank: 3,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-      {
-        userId: "souef",
-        rank: 4,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-    ],
+    results: [],
   },
   {
-    leagueName: "Champ League",
+    leagueName: "Championship",
     leagueRank: 2,
-    results: [
-      {
-        userId: "fleiwusbe",
-        rank: 1,
-        name: "Jack",
-        points: 1223,
-        tierPoints: 2,
-      },
-      {
-        userId: "souef",
-        rank: 2,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-      {
-        userId: "souef",
-        rank: 3,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-      {
-        userId: "souef",
-        rank: 4,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-    ],
+    results: [],
   },
   {
     leagueName: "League 1",
     leagueRank: 3,
-    results: [
-      {
-        userId: "fleiwusbe",
-        rank: 1,
-        name: "Jack",
-        points: 1223,
-        tierPoints: 2,
-      },
-      {
-        userId: "souef",
-        rank: 2,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-      {
-        userId: "souef",
-        rank: 3,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-      {
-        userId: "souef",
-        rank: 4,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-    ],
+    results: [],
   },
   {
     leagueName: "League 2",
     leagueRank: 4,
-    results: [
-      {
-        userId: "fleiwusbe",
-        rank: 1,
-        name: "Jack",
-        points: 1223,
-        tierPoints: 2,
-      },
-      {
-        userId: "souef",
-        rank: 2,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-      {
-        userId: "souef",
-        rank: 3,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-      {
-        userId: "souef",
-        rank: 4,
-        name: "Fred",
-        points: 122,
-        tierPoints: 0,
-      },
-    ],
+    results: [],
+  },
+  {
+    leagueName: "Vanorama League",
+    leagueRank: 5,
+    results: [],
   },
 ];
 
-async function getWeekNumber() {}
-
-async function constructLeague(event) {
-  const body = event.body;
-  const challengeId = body.challengeId;
-
-  try {
-    const params = {
-      Bucket: challengeBucket,
-      Key: challengeId,
-    };
-    const leagues = body.leagues;
-    const week = await s3.getObject(params).promise();
-
-    return week;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 exports.generateLeagueHandler = async (event) => {
+  console.info("received:", event);
+
   const objectType = "application/json"; // type of file
   const challengeId = event.challengeId;
   const weekIndex = event.weekIndex;
 
-  console.info("received:", event);
-
+  // This will construct the league and should be done when a challenge is created
   const params = {
     Bucket: leagueBucket,
     Key: `${challengeId}-Week${weekIndex}`,
@@ -214,7 +73,7 @@ exports.generateLeagueHandler = async (event) => {
   console.log(result);
 
   const response = {
-    response: "Successfully Created / Updated League",
+    response: "Successfully Created League",
   };
   return response;
 };

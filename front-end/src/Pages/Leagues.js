@@ -6,31 +6,44 @@ import LeagueTable from "../Components/Leagues/LeagueTable";
 import { apiRoot } from "../Globals/globals";
 import axios from "axios";
 
-export default function Leagues() {
+export default function Leagues(props) {
   const [leagues, setLeagues] = useState(null);
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState(0);
   const [error, setError] = useState("");
   const [initialLoad, setInitialLoad] = useState(true);
+  const [weeks, setWeeks] = useState();
 
-  // TODO: Query the challenge to find out how many weeks are in the challenge
-
-  const weeks = ["Week 1", "Week 2", "Week 3", "Week 4"];
+  // TODO: Update this to be the challenge the user is taking part in
+  const challengeId = props.userInfo["custom:Challenge"];
 
   if (initialLoad && !leagues) {
     var weekIndex = 0;
 
     getLeagueDetails(weekIndex);
+    getChallengeDetailsHandler();
+  }
+
+  async function getChallengeDetailsHandler() {
+    axios({
+      method: "get",
+      url: `https://staging.api.exercisechallengeapp.com/admin/get-challenge-details?challengeName=${challengeId}`,
+      responseType: "json",
+    }).then(function (response) {
+      setWeeks(Array.from({ length: response.data.weeks }, (_, i) => i + 1));
+    });
   }
 
   async function getLeagueDetails(weekIndex) {
-    const challengeName = "Challenge";
+    // This needs to be able to know which challenge the user is in
+    // This needs adding to a user on create
+
     setError(null);
     setInitialLoad(false);
 
     axios({
       method: "get",
-      url: `${apiRoot}/user/get-league?challengeName=${challengeName}&weekIndex=${weekIndex}`,
+      url: `${apiRoot}/user/get-league?challengeName=${challengeId}&weekIndex=${weekIndex}`,
       responseType: "json",
     })
       .then(function (response) {
@@ -68,22 +81,24 @@ export default function Leagues() {
       </h2>
       <Box
         sx={{
-          maxWidth: { xs: 320, sm: 480 },
+          maxWidth: { xs: 320, sm: 1000 },
           bgcolor: "background.paper",
           paddingBottom: "10px",
         }}
       >
-        <Tabs
-          value={value}
-          onChange={handleTabChange}
-          variant="scrollable"
-          scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
-        >
-          {weeks.map((week) => (
-            <Tab label={week} />
-          ))}
-        </Tabs>
+        {weeks && (
+          <Tabs
+            value={value}
+            onChange={handleTabChange}
+            variant="scrollable"
+            scrollButtons="auto"
+            aria-label="scrollable auto tabs"
+          >
+            {weeks.map((week) => (
+              <Tab key={week} label={"Week " + week} />
+            ))}
+          </Tabs>
+        )}
       </Box>
 
       {loading === true && (
@@ -92,7 +107,7 @@ export default function Leagues() {
         </div>
       )}
 
-      {loading === false && (
+      {loading === false && leagues && (
         <div>
           {leagues.map((league) => (
             <Grid item xs={2} sm={3} md={3}>

@@ -17,7 +17,14 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
-const pages = ["Exercise", "Team", "Leagues", "Admin", "Challenges"];
+const pages = [
+  "Exercise",
+  "Team",
+  "Leagues",
+  "Admin",
+  "Challenge-Setup",
+  "Challenge",
+];
 
 const NavBarAdmin = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

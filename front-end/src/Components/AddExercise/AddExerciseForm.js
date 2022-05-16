@@ -1,7 +1,6 @@
 import { React, useState } from "react";
 import { Box, Button, CircularProgress } from "@mui/material";
 import axios from "axios";
-import AddExerciseChallengeSelect from "./AddExerciseChallengeSelect";
 
 import AddExerciseExerciseSelect from "./AddExerciseExerciseSelect";
 import AddExerciseMinutesCompleted from "./AddExerciseMinutesCompleted";
@@ -11,7 +10,7 @@ export default function AddExerciseForm(props) {
   const [selectedExercise, setSelectedExercise] = useState("");
   const [minutesCompleted, setMinutesCompleted] = useState("");
   const [submitLoading, setSubmitLoading] = useState(false);
-  const [selectedChallenge, setSelectedChallenge] = useState(null);
+  const [selectedChallenge] = useState(null);
   const [teamSelectLoading] = useState(true);
   const [buttonDisabled, setButtonDisabled] = useState("");
 
@@ -24,16 +23,7 @@ export default function AddExerciseForm(props) {
   const generateDate = () => {
     const date = new Date();
 
-    const result = date.toLocaleDateString("en-GB", {
-      // you can use undefined as first argument
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    });
-
-    var submissionDate = result;
-
-    return submissionDate;
+    return date;
   };
 
   const handleSelectedExerciseChange = (event) => {
@@ -49,10 +39,6 @@ export default function AddExerciseForm(props) {
     }
   };
 
-  const handleSelectedChallenge = (event) => {
-    setSelectedChallenge(event.target.value);
-  };
-
   const handleClose = () => {
     props.setShowForm(false);
     props.setShowAddExerciseButton(true);
@@ -65,6 +51,8 @@ export default function AddExerciseForm(props) {
       console.log(userInfo);
 
       var selectedTeam = userInfo["custom:Team"];
+      var challengeId = userInfo["custom:Challenge"];
+
       var name = userInfo.name;
 
       axios
@@ -75,6 +63,7 @@ export default function AddExerciseForm(props) {
           date: generateDate(),
           team: selectedTeam,
           name: name,
+          challengeId: challengeId,
         })
         .then(function (response) {
           setSubmitLoading(false);
@@ -100,14 +89,6 @@ export default function AddExerciseForm(props) {
         <Box sx={{ minWidth: 120 }}>
           {props.challengeListLoading === true &&
             props.exerciseListLoading === true && <CircularProgress />}
-
-          {props.challengeList && (
-            <AddExerciseChallengeSelect
-              selectedChallenge={selectedChallenge}
-              handleSelectedChallenge={handleSelectedChallenge}
-              challengeList={challengeList}
-            />
-          )}
 
           <div>
             {challengeList && (
