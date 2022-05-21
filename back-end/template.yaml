@@ -54,6 +54,40 @@ Resources:
             Path: /admin/create-challenge
             Method: POST
 
+  getDataForLastWeekFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/AdminCluster/get-data-for-last-week.getDataForLastWeekHandler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description:
+        A simple example includes a HTTP get method to get all items from a
+        DynamoDB table.
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UserExerciseTable
+        - S3ReadPolicy:
+            BucketName: !Ref ChallengeBucket
+        - S3WritePolicy:
+            BucketName: !Ref LeagueBucket
+        - S3ReadPolicy:
+            BucketName: !Ref LeagueBucket
+      Environment:
+        Variables:
+          # Make table name accessible as environment variable from function code during execution
+          USER_EXERCISE_TABLE: !Ref UserExerciseTable
+          CHALLENGE_BUCKET: !Ref ChallengeBucket
+          LEAGUE_BUCKET: !Ref LeagueBucket
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /admin/get-data-for-last-week
+            Method: GET
+
   getUsersList:
     Type: AWS::Serverless::Function
     Properties:
@@ -271,6 +305,33 @@ Resources:
           Type: Api
           Properties:
             Path: /user/delete-exercise
+            Method: POST
+
+  fakeHandler:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/UserCluster/fake.fakeHandler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description:
+        A simple example includes a HTTP get method to get all items from a
+        DynamoDB table.
+      Policies:
+        # Give Create/Read/Update/Delete Permissions to the OrderCountTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UserExerciseTable
+      Environment:
+        Variables:
+          # Make table name accessible as environment variable from function code during execution
+          USER_EXERCISE_TABLE: !Ref UserExerciseTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /user/fake
             Method: POST
 
   addExerciseFunction:

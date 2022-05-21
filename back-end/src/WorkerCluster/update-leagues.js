@@ -179,6 +179,8 @@ async function constructNewLeague(params) {
         sortedArrayByPoints.splice(0, Math.ceil(sortedArrayByPoints.length / i))
       );
     }
+
+    console.log("Sorted array into league ranks", sortedArrayIntoLeagueRanks);
     return sortedArrayIntoLeagueRanks;
   }
 
