@@ -81,6 +81,9 @@ export default function Team(props) {
       )}
       {teamData && (
         <div>
+          <div style={{ paddingBottom: "10px" }}>
+            Total Team Points: <b>{totalPoints}</b>
+          </div>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
@@ -117,9 +120,6 @@ export default function Team(props) {
               </TableBody>
             </Table>
           </TableContainer>
-          <div style={{ paddingTop: "10px" }}>
-            Total Team Points: <b>{totalPoints}</b>
-          </div>
         </div>
       )}
     </main>
