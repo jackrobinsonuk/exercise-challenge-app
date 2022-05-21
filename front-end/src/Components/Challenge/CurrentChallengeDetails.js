@@ -65,7 +65,6 @@ export default function CurrentChallengesDetails(props) {
                 <TableRow>
                   <TableCell>Team Name</TableCell>
                   <TableCell>Points</TableCell>
-                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
