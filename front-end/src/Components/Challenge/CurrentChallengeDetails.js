@@ -63,7 +63,6 @@ export default function CurrentChallengesDetails(props) {
             <Table sx={{ minWidth: 650 }} aria-label="challenge details table">
               <TableHead>
                 <TableRow>
-                  <TableCell>Team ID</TableCell>
                   <TableCell>Team Name</TableCell>
                   <TableCell>Points</TableCell>
                   <TableCell></TableCell>
@@ -76,8 +75,7 @@ export default function CurrentChallengesDetails(props) {
                       key={teamId}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
-                      <TableCell key={index}>{teamId}</TableCell>
-                      <TableCell component="th" scope="row" key={index}>
+                      <TableCell component="th" scope="row" key={teamId}>
                         {teamName}
                       </TableCell>
                       {pointsLoading === false && (
