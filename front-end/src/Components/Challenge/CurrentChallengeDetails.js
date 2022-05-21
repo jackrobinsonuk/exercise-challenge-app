@@ -60,7 +60,7 @@ export default function CurrentChallengesDetails(props) {
           <div>Start Day: {props.challengeDetails.startDay}</div>
           <div>Number of Weeks: {props.challengeDetails.weeks}</div>
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="challenge details table">
+            <Table sx={{ minWidth: 400 }} aria-label="challenge details table">
               <TableHead>
                 <TableRow>
                   <TableCell>Team Name</TableCell>
