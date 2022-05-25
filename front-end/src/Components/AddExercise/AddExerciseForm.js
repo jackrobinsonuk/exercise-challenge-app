@@ -5,6 +5,7 @@ import AddExerciseChallengeSelect from "./AddExerciseChallengeSelect";
 
 import AddExerciseExerciseSelect from "./AddExerciseExerciseSelect";
 import AddExerciseMinutesCompleted from "./AddExerciseMinutesCompleted";
+import AddExerciseCalendar from "./AddExerciseCalendar";
 import { apiRoot } from "../../Globals/globals";
 
 export default function AddExerciseForm(props) {
@@ -127,6 +128,7 @@ export default function AddExerciseForm(props) {
               />
             )}
           </div>
+          <AddExerciseCalendar />
         </Box>
       </div>
 

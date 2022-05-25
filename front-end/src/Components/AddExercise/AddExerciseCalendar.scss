@@ -1,0 +1,27 @@
+.react-calendar {
+  width: 100%;
+  font-family: inherit;
+  font-size: 20px;
+
+  &__navigation button {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  &__tile {
+    font-size: 16px;
+
+    &--now {
+      background: none;
+      color: red !important;
+
+      &:enabled:hover {
+        background: #e6e6e6;
+      }
+    }
+  }
+
+  &__month-view__days__day--weekend {
+    color: #0275d8;
+  }
+}
