@@ -102,7 +102,7 @@ export default function AddExerciseForm(props) {
               />
             )}
           </div>
-          <div style={{ paddingTop: '10px' }}>
+          <div sx={{ paddingTop: '10px' }}>
             {challengeList && (
               <AddExerciseMinutesCompleted
                 minutesCompleted={minutesCompleted}
@@ -110,7 +110,7 @@ export default function AddExerciseForm(props) {
               />
             )}
           </div>
-          <div style={{ paddingTop: '10px' }}>
+          <div sx={{ paddingTop: '10px' }}>
             <AddExerciseCalendar
               selectedDate={selectedDate}
               handleSelectedDateChange={handleSelectedDateChange}

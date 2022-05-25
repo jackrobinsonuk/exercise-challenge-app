@@ -7,6 +7,7 @@ export default function AddExerciseCalendar(props) {
   const today = new Date();
   const today2 = new Date();
   const startOfChallengeWeek = new Date(today2.setDate(today2.getDate() - 4));
+  // Need to import challengeStartDay from state;
 
   return (
     <Calendar
