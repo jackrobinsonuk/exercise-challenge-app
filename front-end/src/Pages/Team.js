@@ -15,10 +15,12 @@ import {
 import { apiRoot } from "../Globals/globals";
 
 export default function Team(props) {
-  const [teamData, setTeamData] = useState();
+  const [teamData, setTeamData] = useState(null);
   const [dataLoading, setDataLoading] = useState(true);
   const [totalPoints, setTotalPoints] = useState();
   const [error, setError] = useState();
+
+  const dateOptions = { year: "numeric", month: "2-digit", day: "2-digit" };
 
   function calculateTotalPoints(response) {
     var totalPoints = response.data.reduce(function (prev, cur) {
@@ -33,9 +35,13 @@ export default function Team(props) {
     axios
       .get(`${apiRoot}/user/get-team-exercise?teamId=${teamId}`)
       .then(function (response) {
-        if (response.data[0]) {
+        if (response.data.length !== []) {
           setTeamData(response.data);
+
           return response;
+        } else {
+          setTeamData("No Team Data");
+          setError("error");
         }
       })
       .then(function (response) {
@@ -50,12 +56,8 @@ export default function Team(props) {
       });
   }
 
-  if (props.userInfo["custom:Team"] && !teamData) {
+  if (!teamData && !error && props.userInfo["custom:Team"]) {
     getTeamData(props.userInfo);
-  }
-
-  if (!props.userInfo["custom:Team"]) {
-    setDataLoading(false);
   }
 
   return (
@@ -77,8 +79,11 @@ export default function Team(props) {
           <CircularProgress />
         </div>
       )}
-      {teamData !== undefined && (
+      {teamData && (
         <div>
+          <div style={{ paddingBottom: "10px" }}>
+            Total Team Points: <b>{totalPoints}</b>
+          </div>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
@@ -92,12 +97,17 @@ export default function Team(props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {teamData.map((entry, index) => (
+                {teamData.map((entry, id) => (
                   <TableRow
-                    key={index}
+                    key={id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell>{entry.date}</TableCell>
+                    <TableCell>
+                      {new Date(entry.date).toLocaleDateString(
+                        "en-GB",
+                        dateOptions
+                      )}
+                    </TableCell>
                     <TableCell>{entry.name}</TableCell>
                     <TableCell component="th" scope="row">
                       {entry.exerciseName}
@@ -110,9 +120,6 @@ export default function Team(props) {
               </TableBody>
             </Table>
           </TableContainer>
-          <div>
-            Total Team Points: <b>{totalPoints}</b>
-          </div>
         </div>
       )}
     </main>

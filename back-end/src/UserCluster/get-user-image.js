@@ -1,7 +1,7 @@
 const AWS = require("aws-sdk");
 const s3 = new AWS.S3();
 
-const bucketName = process.env.EXERCISE_LIST_BUCKET;
+const bucketName = process.env.USER_IMAGES_BUCKET;
 
 /**
  * A simple example includes a HTTP get method to get all items from a DynamoDB table.

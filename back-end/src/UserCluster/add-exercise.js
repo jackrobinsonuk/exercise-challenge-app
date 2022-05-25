@@ -3,10 +3,12 @@ const dynamodb = require("aws-sdk/clients/dynamodb");
 const docClient = new dynamodb.DocumentClient();
 let AWS = require("aws-sdk");
 const lambda = new AWS.Lambda({ region: "eu-west-1" });
+const s3 = new AWS.S3();
+
+const exerciseListBucket = process.env.EXERCISE_LIST_BUCKET;
 
 // Get the DynamoDB table name from environment variables
 const userExerciseTable = process.env.USER_EXERCISE_TABLE;
-const exerciseListTable = process.env.EXERCISES_TABLE;
 
 async function calculateTotalPoints(body) {
   // Calculate how many points the user earned based on the exerciseId, the points that adds per minute and the number of minutes they exercised
@@ -16,16 +18,17 @@ async function calculateTotalPoints(body) {
   // Update the payload
   // Add the payload to the DB
 
-  var params = {
-    TableName: exerciseListTable,
+  const params = {
+    Bucket: exerciseListBucket,
+    Key: "exercise-list.json",
   };
-  const data = await docClient.scan(params).promise();
-  const items = data.Items;
+  const result = await s3.getObject(params).promise();
+  const object = result.Body.toString("utf-8");
 
-  var exercise = await items.find(
+  var exercise = JSON.parse(object).find(
     ({ exerciseId }) => exerciseId === body.exerciseId
   );
-  console.info(items);
+
   console.info(exercise.points);
 
   var totalPoints = exercise.points * body.minutesExercised;
@@ -41,14 +44,18 @@ async function addExerciseName(body) {
   // Update the payload
   // Add the payload to the DB
 
-  var params = {
-    TableName: exerciseListTable,
+  const params = {
+    Bucket: exerciseListBucket,
+    Key: "exercise-list.json",
   };
-  const data = await docClient.scan(params).promise();
-  const items = data.Items;
+  const result = await s3.getObject(params).promise();
+  const object = result.Body.toString("utf-8");
+  console.log(object);
 
-  var exercise = items.find(({ exerciseId }) => exerciseId === body.exerciseId);
-  console.info(items);
+  var exercise = JSON.parse(object).find(
+    ({ exerciseId }) => exerciseId === body.exerciseId
+  );
+
   console.info(exercise.exerciseName);
   return exercise.exerciseName;
 }
@@ -65,6 +72,7 @@ async function constructItem(event) {
   const exerciseName = await addExerciseName(body);
   const points = await calculateTotalPoints(body);
   const name = body.name;
+  const challengeId = body.challengeId;
 
   // Creates a new item, or replaces an old item with a new item
   // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#put-property
@@ -80,6 +88,7 @@ async function constructItem(event) {
       exerciseName: exerciseName,
       points: points,
       name: name,
+      challengeId: challengeId,
     },
   };
 

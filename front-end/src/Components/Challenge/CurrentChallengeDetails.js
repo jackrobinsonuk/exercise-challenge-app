@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect, useCallback } from "react";
 import {
   CircularProgress,
   TableContainer,
@@ -14,15 +14,37 @@ import axios from "axios";
 import { apiRoot } from "../../Globals/globals";
 
 export default function CurrentChallengesDetails(props) {
-  const [teamPoints, setTeamPoints] = useState(null);
+  const [teamPoints, setTeamPoints] = useState([]);
+  const [pointsLoading, setPointsLoading] = useState(true);
 
-  function getTeamPoints(teamId) {
+  const getTeamPoints = useCallback((teamData) => {
+    const teamId = teamData.teamId;
+
     axios
       .get(`${apiRoot}/user/get-team-exercise?teamId=${teamId}`)
       .then(function (response) {
-        setTeamPoints();
+        // Sum points and team ID
+
+        const sum = response.data.reduce((accumulator, object) => {
+          return accumulator + object.points;
+        }, 0);
+
+        setTeamPoints((teamPoints) => [
+          ...teamPoints,
+          { id: teamId, points: sum },
+        ]);
+
+        setPointsLoading(false);
+
+        return sum;
       });
-  }
+  }, []);
+
+  useEffect(() => {
+    const teamData = props.challengeDetails.teamData;
+    teamData.forEach((element) => getTeamPoints(element));
+    // eslint-disable-next-line
+  }, [getTeamPoints]);
 
   return (
     <div>
@@ -34,17 +56,15 @@ export default function CurrentChallengesDetails(props) {
       )}
       {props.challengeDetailsLoading === false && (
         <div>
-          <b>Current Challenge Details</b>
+          <b>{props.challengeDetails.challengeName}</b>
           <div>Start Day: {props.challengeDetails.startDay}</div>
           <div>Number of Weeks: {props.challengeDetails.weeks}</div>
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="challenge details table">
+            <Table sx={{ minWidth: 400 }} aria-label="challenge details table">
               <TableHead>
                 <TableRow>
-                  <TableCell>Team ID</TableCell>
                   <TableCell>Team Name</TableCell>
                   <TableCell>Points</TableCell>
-                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -54,13 +74,14 @@ export default function CurrentChallengesDetails(props) {
                       key={teamId}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
-                      <TableCell>{teamId}</TableCell>
-                      <TableCell component="th" scope="row">
+                      <TableCell component="th" scope="row" key={teamId}>
                         {teamName}
                       </TableCell>
-                      <TableCell>
-                        {!teamPoints && getTeamPoints(teamId)({ teamPoints })}
-                      </TableCell>
+                      {pointsLoading === false && (
+                        <TableCell key={teamId}>
+                          {teamPoints.find((x) => x.id === teamId)?.points}
+                        </TableCell>
+                      )}
                     </TableRow>
                   )
                 )}

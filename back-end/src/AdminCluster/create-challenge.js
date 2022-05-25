@@ -28,7 +28,7 @@ exports.createChallengeHandler = async (event, context, callback) => {
     // setup params for putObject
     const params = {
       Bucket: s3Bucket,
-      Key: challengeName,
+      Key: challengeData.challengeId,
       Body: buf,
       ContentEncoding: "base64",
       ContentType: objectType,

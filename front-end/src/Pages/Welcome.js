@@ -6,25 +6,6 @@ import GlobalStyles from "@mui/material/GlobalStyles";
 import Container from "@mui/material/Container";
 
 import { Link as ReactLink } from "react-router-dom";
-import Link from "@mui/material/Link";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://exercisechallengeapp.com/">
-        Exercise Challenge App
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 function Content() {
   return (
@@ -76,20 +57,6 @@ function Content() {
         </ReactLink>
       </Container>
       {/* End hero unit */}
-
-      {/* Footer */}
-      <Container
-        maxWidth="md"
-        component="footer"
-        sx={{
-          borderTop: (theme) => `1px solid ${theme.palette.divider}`,
-          mt: 8,
-          py: [3, 6],
-        }}
-      >
-        <Copyright sx={{ mt: 5 }} />
-      </Container>
-      {/* End footer */}
     </React.Fragment>
   );
 }

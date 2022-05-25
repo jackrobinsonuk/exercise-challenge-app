@@ -27,32 +27,6 @@ Resources:
 
   # ADMIN CLUSTER
   # Lambda function to create an exercise in the exercises table
-  createExerciseFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: src/AdminCluster/create-exercise.createExerciseHandler
-      Runtime: nodejs14.x
-      Architectures:
-        - x86_64
-      MemorySize: 128
-      Timeout: 100
-      Description:
-        A simple example includes a HTTP get method to get all items from a
-        DynamoDB table.
-      Policies:
-        # Give Create/Read/Update/Delete Permissions to the OrderCountTable
-        - DynamoDBCrudPolicy:
-            TableName: !Ref ExercisesTable
-      Environment:
-        Variables:
-          # Make table name accessible as environment variable from function code during execution
-          EXERCISES_TABLE: !Ref ExercisesTable
-      Events:
-        Api:
-          Type: Api
-          Properties:
-            Path: /admin/create-exercise
-            Method: POST
 
   createChallengeFunction:
     Type: AWS::Serverless::Function
@@ -79,6 +53,71 @@ Resources:
           Properties:
             Path: /admin/create-challenge
             Method: POST
+
+  getDataForLastWeekFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/AdminCluster/get-data-for-last-week.getDataForLastWeekHandler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description:
+        A simple example includes a HTTP get method to get all items from a
+        DynamoDB table.
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UserExerciseTable
+        - S3ReadPolicy:
+            BucketName: !Ref ChallengeBucket
+        - S3WritePolicy:
+            BucketName: !Ref LeagueBucket
+        - S3ReadPolicy:
+            BucketName: !Ref LeagueBucket
+      Environment:
+        Variables:
+          # Make table name accessible as environment variable from function code during execution
+          USER_EXERCISE_TABLE: !Ref UserExerciseTable
+          CHALLENGE_BUCKET: !Ref ChallengeBucket
+          LEAGUE_BUCKET: !Ref LeagueBucket
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /admin/get-data-for-last-week
+            Method: GET
+
+  getUsersList:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/AdminCluster/get-users.getUsersHandler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description:
+        A simple example includes a HTTP get method to get all items from a
+        DynamoDB table.
+      Policies:
+        - AWSLambdaExecute # Managed Policy
+        - Version: "2012-10-17" # Policy Document
+          Statement:
+            - Effect: Allow
+              Action:
+                - cognito-idp:ListUsers
+              Resource: "arn:aws:cognito-idp:eu-west-1:398469193293:userpool/eu-west-1_9JNiGMW1S"
+      Environment:
+        Variables:
+          # Make table name accessible as environment variable from function code during execution
+          USER_POOL_ID: eu-west-1_9JNiGMW1S
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /admin/get-users
+            Method: GET
 
   getChallengesFunction:
     Type: AWS::Serverless::Function
@@ -228,13 +267,12 @@ Resources:
         A simple example includes a HTTP get method to get all items from a
         DynamoDB table.
       Policies:
-        # Give Create/Read/Update/Delete Permissions to the OrderCountTable
-        - DynamoDBCrudPolicy:
-            TableName: !Ref ExercisesTable
+        - S3ReadPolicy:
+            BucketName: !Ref ExerciseListBucket
       Environment:
         Variables:
           # Make table name accessible as environment variable from function code during execution
-          EXERCISES_TABLE: !Ref ExercisesTable
+          EXERCISE_LIST_BUCKET: !Ref ExerciseListBucket
       Events:
         Api:
           Type: Api
@@ -269,6 +307,33 @@ Resources:
             Path: /user/delete-exercise
             Method: POST
 
+  fakeHandler:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/UserCluster/fake.fakeHandler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description:
+        A simple example includes a HTTP get method to get all items from a
+        DynamoDB table.
+      Policies:
+        # Give Create/Read/Update/Delete Permissions to the OrderCountTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UserExerciseTable
+      Environment:
+        Variables:
+          # Make table name accessible as environment variable from function code during execution
+          USER_EXERCISE_TABLE: !Ref UserExerciseTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /user/fake
+            Method: POST
+
   addExerciseFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -282,16 +347,15 @@ Resources:
         A simple example includes a HTTP get method to get all items from a
         DynamoDB table.
       Policies:
-        # Give Create/Read/Update/Delete Permissions to the OrderCountTable
         - DynamoDBCrudPolicy:
             TableName: !Ref UserExerciseTable
-        - DynamoDBReadPolicy:
-            TableName: !Ref ExercisesTable
+        - S3ReadPolicy:
+            BucketName: !Ref ExerciseListBucket
       Environment:
         Variables:
           # Make table name accessible as environment variable from function code during execution
           USER_EXERCISE_TABLE: !Ref UserExerciseTable
-          EXERCISES_TABLE: !Ref ExercisesTable
+          EXERCISE_LIST_BUCKET: !Ref ExerciseListBucket
       Events:
         Api:
           Type: Api
@@ -339,36 +403,54 @@ Resources:
         A simple example includes a HTTP get method to get all items from a
         DynamoDB table.
       Policies:
-        # Give Create/Read/Update/Delete Permissions to the OrderCountTable
         - DynamoDBCrudPolicy:
             TableName: !Ref UserExerciseTable
-        - DynamoDBReadPolicy:
-            TableName: !Ref ExercisesTable
         - S3ReadPolicy:
             BucketName: !Ref ChallengeBucket
         - S3WritePolicy:
+            BucketName: !Ref LeagueBucket
+        - S3ReadPolicy:
+            BucketName: !Ref LeagueBucket
+        - S3ReadPolicy:
+            BucketName: !Ref ExerciseListBucket
+      Environment:
+        Variables:
+          # Make table name accessible as environment variable from function code during execution
+          USER_EXERCISE_TABLE: !Ref UserExerciseTable
+          CHALLENGE_BUCKET: !Ref ChallengeBucket
+          LEAGUE_BUCKET: !Ref LeagueBucket
+
+  updateLeaguesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/WorkerCluster/update-leagues.updateLeagueHandler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description:
+        A simple example includes a HTTP get method to get all items from a
+        DynamoDB table.
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UserExerciseTable
+        - S3ReadPolicy:
+            BucketName: !Ref ChallengeBucket
+        - S3WritePolicy:
+            BucketName: !Ref LeagueBucket
+        - S3ReadPolicy:
             BucketName: !Ref LeagueBucket
       Environment:
         Variables:
           # Make table name accessible as environment variable from function code during execution
           USER_EXERCISE_TABLE: !Ref UserExerciseTable
-          EXERCISES_TABLE: !Ref ExercisesTable
           CHALLENGE_BUCKET: !Ref ChallengeBucket
           LEAGUE_BUCKET: !Ref LeagueBucket
 
   # References
 
   UserExerciseTable:
-    Type: AWS::Serverless::SimpleTable
-    Properties:
-      PrimaryKey:
-        Name: id
-        Type: String
-      ProvisionedThroughput:
-        ReadCapacityUnits: 2
-        WriteCapacityUnits: 2
-
-  ExercisesTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
       PrimaryKey:

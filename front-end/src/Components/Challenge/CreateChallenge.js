@@ -1,30 +1,32 @@
-import { Button, TextField, FormControl, Select, MenuItem, InputLabel } from "@mui/material";
+import {
+  Button,
+  TextField,
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel,
+} from "@mui/material";
 import { React, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 export default function CreateChallenge(props) {
   const [challengeName, setChallengeName] = useState("");
-  const [challengeStartDay, setChallengeStartDay] = useState([])
-  const [numberOfWeeks, setNumberOfWeeks] = useState()
+  const [challengeStartDay, setChallengeStartDay] = useState([]);
+  const [numberOfWeeks, setNumberOfWeeks] = useState();
   const [teamName1, setTeamName1] = useState("");
   const [teamName2, setTeamName2] = useState("");
 
   function handleChallengeNameInput(event) {
     setChallengeName(event.target.value);
-
   }
 
   function handleNumberOfWeeksChange(event) {
-
-    var numberOfWeeks = parseInt(event.target.value)
-    setNumberOfWeeks(numberOfWeeks)
-    
+    var numberOfWeeks = parseInt(event.target.value);
+    setNumberOfWeeks(numberOfWeeks);
   }
-
 
   function handleChallengeStartDayInput(event) {
     setChallengeStartDay(event.target.value);
-    
   }
   function handleTeamName1Change(event) {
     setTeamName1(event.target.value);
@@ -53,11 +55,18 @@ export default function CreateChallenge(props) {
     props.handleCreateChallengeSubmit(body);
   }
 
-  const dayList = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+  const dayList = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
 
   return (
     <div>
-      <h3>Create Challenge</h3>
       <FormControl fullWidth>
         <TextField
           margin="normal"
@@ -70,29 +79,33 @@ export default function CreateChallenge(props) {
         />
         <br />
         <FormControl fullWidth>
-        <InputLabel id="start-day-select-label">Start Day</InputLabel>
-        <Select
-          margin="normal"
-          required
-          label="Start Day"
-          labelId="start-day-select-label"
-          value={challengeStartDay}
-          onChange={handleChallengeStartDayInput}
-        >
-          {dayList.map(( day, index ) => (
-            <MenuItem
-              key={index}
-              value={index}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              {day}
-            </MenuItem>
-          ))}
-        </Select>
+          <InputLabel id="start-day-select-label">Start Day</InputLabel>
+          <Select
+            margin="normal"
+            required
+            label="Start Day"
+            labelId="start-day-select-label"
+            value={challengeStartDay}
+            onChange={handleChallengeStartDayInput}
+          >
+            {dayList.map((day, index) => (
+              <MenuItem
+                key={index}
+                value={index}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                {day}
+              </MenuItem>
+            ))}
+          </Select>
         </FormControl>
-        
+
         <br />
-        <TextField type="number" onChange={handleNumberOfWeeksChange} label="Number of Weeks">
+        <TextField
+          type="number"
+          onChange={handleNumberOfWeeksChange}
+          label="Number of Weeks"
+        >
           {numberOfWeeks}
         </TextField>
 
