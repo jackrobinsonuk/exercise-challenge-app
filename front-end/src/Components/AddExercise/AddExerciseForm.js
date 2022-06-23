@@ -101,7 +101,7 @@ export default function AddExerciseForm(props) {
               />
             )}
           </div>
-          <div sx={{ paddingTop: '10px' }}>
+          <div style={{ paddingTop: '10px' }}>
             {challengeList && (
               <AddExerciseMinutesCompleted
                 minutesCompleted={minutesCompleted}
@@ -109,7 +109,7 @@ export default function AddExerciseForm(props) {
               />
             )}
           </div>
-          <div sx={{ paddingTop: '10px' }}>
+          <div style={{ paddingTop: '10px' }}>
             <AddExerciseCalendar
               selectedDate={selectedDate}
               handleSelectedDateChange={handleSelectedDateChange}
@@ -125,12 +125,17 @@ export default function AddExerciseForm(props) {
             position: 'relative',
             display: 'flex',
             alignItems: 'center',
+            float: 'right',
           }}
         >
+          <Button variant='outlined' onClick={handleClose}>
+            Close
+          </Button>
           <Button
             variant='contained'
             disabled={buttonDisabled}
             onClick={handleSubmit}
+            sx={{ marginLeft: '12px' }}
           >
             Submit
             {submitLoading && (
@@ -145,13 +150,6 @@ export default function AddExerciseForm(props) {
                 }}
               />
             )}
-          </Button>
-          <Button
-            variant='outlined'
-            onClick={handleClose}
-            sx={{ marginLeft: '12px' }}
-          >
-            Close
           </Button>
         </Box>
       </div>
