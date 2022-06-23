@@ -55,7 +55,6 @@ export default function AddExerciseForm(props) {
       var challengeId = userInfo['custom:Challenge'];
 
       var name = userInfo.name;
-      console.log('/////////////////// selectedDate = ', selectedDate);
 
       axios
         .post(`${apiRoot}/user/add-exercise`, {
@@ -114,6 +113,7 @@ export default function AddExerciseForm(props) {
             <AddExerciseCalendar
               selectedDate={selectedDate}
               handleSelectedDateChange={handleSelectedDateChange}
+              userInfo={userInfo}
             />
           </div>
         </Box>
@@ -128,7 +128,7 @@ export default function AddExerciseForm(props) {
           }}
         >
           <Button
-            variant="contained"
+            variant='contained'
             disabled={buttonDisabled}
             onClick={handleSubmit}
           >
@@ -147,7 +147,7 @@ export default function AddExerciseForm(props) {
             )}
           </Button>
           <Button
-            variant="outlined"
+            variant='outlined'
             onClick={handleClose}
             sx={{ marginLeft: '12px' }}
           >
