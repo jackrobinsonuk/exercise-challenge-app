@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect, React } from 'react';
+import { apiRoot } from '../../Globals/globals';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './AddExerciseCalendar.scss';
@@ -33,7 +34,7 @@ export default function AddExerciseCalendar(props) {
   async function getChallengeDetailsHandler() {
     axios({
       method: 'get',
-      url: `https://staging.api.exercisechallengeapp.com/admin/get-challenge-details?challengeName=${challengeId}`,
+      url: `${apiRoot}/admin/get-challenge-details?challengeName=${challengeId}`,
       responseType: 'json',
     }).then(function (response) {
       if (challengeDetails === '') {

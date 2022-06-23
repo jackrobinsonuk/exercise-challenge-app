@@ -1,21 +1,21 @@
-import { useState } from "react";
-import * as React from "react";
-import { Grid, Box, Divider, CircularProgress, Tab, Tabs } from "@mui/material";
+import { useState } from 'react';
+import * as React from 'react';
+import { Grid, Box, Divider, CircularProgress, Tab, Tabs } from '@mui/material';
 
-import LeagueTable from "../Components/Leagues/LeagueTable";
-import { apiRoot } from "../Globals/globals";
-import axios from "axios";
+import LeagueTable from '../Components/Leagues/LeagueTable';
+import { apiRoot } from '../Globals/globals';
+import axios from 'axios';
 
 export default function Leagues(props) {
   const [leagues, setLeagues] = useState(null);
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState(0);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [initialLoad, setInitialLoad] = useState(true);
   const [weeks, setWeeks] = useState();
 
   // TODO: Update this to be the challenge the user is taking part in
-  const challengeId = props.userInfo["custom:Challenge"];
+  const challengeId = props.userInfo['custom:Challenge'];
 
   if (initialLoad && !leagues) {
     var weekIndex = 0;
@@ -26,9 +26,9 @@ export default function Leagues(props) {
 
   async function getChallengeDetailsHandler() {
     axios({
-      method: "get",
-      url: `https://staging.api.exercisechallengeapp.com/admin/get-challenge-details?challengeName=${challengeId}`,
-      responseType: "json",
+      method: 'get',
+      url: `${apiRoot}/admin/get-challenge-details?challengeName=${challengeId}`,
+      responseType: 'json',
     }).then(function (response) {
       setWeeks(Array.from({ length: response.data.weeks }, (_, i) => i + 1));
     });
@@ -42,9 +42,9 @@ export default function Leagues(props) {
     setInitialLoad(false);
 
     axios({
-      method: "get",
+      method: 'get',
       url: `${apiRoot}/user/get-league?challengeName=${challengeId}&weekIndex=${weekIndex}`,
-      responseType: "json",
+      responseType: 'json',
     })
       .then(function (response) {
         setLeagues(response.data);
@@ -54,7 +54,7 @@ export default function Leagues(props) {
       })
       .catch(function (error) {
         setError(
-          "The data you wanted does not exist yet. Please wait for that week to finish."
+          'The data you wanted does not exist yet. Please wait for that week to finish.'
         );
         setLoading(false);
         setLeagues([]);
@@ -72,9 +72,9 @@ export default function Leagues(props) {
     <main>
       <h2
         style={{
-          paddingLeft: "20px",
-          paddingBottom: "10px",
-          paddingTop: "10px",
+          paddingLeft: '20px',
+          paddingBottom: '10px',
+          paddingTop: '10px',
         }}
       >
         Leagues
@@ -82,27 +82,27 @@ export default function Leagues(props) {
       <Box
         sx={{
           maxWidth: { xs: 320, sm: 1000 },
-          bgcolor: "background.paper",
-          paddingBottom: "10px",
+          bgcolor: 'background.paper',
+          paddingBottom: '10px',
         }}
       >
         {weeks && (
           <Tabs
             value={value}
             onChange={handleTabChange}
-            variant="scrollable"
-            scrollButtons="auto"
-            aria-label="scrollable auto tabs"
+            variant='scrollable'
+            scrollButtons='auto'
+            aria-label='scrollable auto tabs'
           >
             {weeks.map((week) => (
-              <Tab key={week} label={"Week " + week} />
+              <Tab key={week} label={'Week ' + week} />
             ))}
           </Tabs>
         )}
       </Box>
 
       {loading === true && (
-        <div align="center">
+        <div align='center'>
           <CircularProgress />
         </div>
       )}
@@ -116,7 +116,7 @@ export default function Leagues(props) {
                 sx={{
                   my: 1,
                   mx: 3,
-                  flexDirection: "column",
+                  flexDirection: 'column',
                 }}
               >
                 <LeagueTable
@@ -130,7 +130,7 @@ export default function Leagues(props) {
           ))}
         </div>
       )}
-      {error && <div style={{ padding: "20px" }}>{error}</div>}
+      {error && <div style={{ padding: '20px' }}>{error}</div>}
     </main>
   );
 }
