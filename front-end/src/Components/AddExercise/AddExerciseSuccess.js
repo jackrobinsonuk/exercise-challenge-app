@@ -16,15 +16,15 @@ export default function AddExerciseSuccess(props) {
   return (
     <div>
       <h4>Exercise Added Successfully</h4>
-      <div>
+      <div style={{ float: 'right' }}>
         <Button
-          variant="contained"
+          variant='contained'
           onClick={handleAddAnotherExercise}
           sx={{ marginRight: '10px' }}
         >
           Add Another
         </Button>
-        <Button variant="outlined" onClick={handleClose}>
+        <Button variant='outlined' onClick={handleClose}>
           Close
         </Button>
       </div>
