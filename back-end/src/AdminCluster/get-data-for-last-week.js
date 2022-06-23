@@ -16,11 +16,11 @@
 
 // Sample League Data (this is what the FE expects) can be found in the FE portion of the repo
 // If the service contract cannot be achieved, then the FE UI will need to be redesigned
-const axios = require("axios");
-const dynamodb = require("aws-sdk/clients/dynamodb");
+const axios = require('axios');
+const dynamodb = require('aws-sdk/clients/dynamodb');
 const docClient = new dynamodb.DocumentClient();
-let AWS = require("aws-sdk");
-const lambda = new AWS.Lambda({ region: "eu-west-1" });
+let AWS = require('aws-sdk');
+const lambda = new AWS.Lambda({ region: 'eu-west-1' });
 const s3 = new AWS.S3();
 
 const userExerciseTable = process.env.USER_EXERCISE_TABLE;
@@ -47,7 +47,7 @@ function getTodaysDate() {
 async function getUserExerciseForThePastWeek() {
   const tableName = userExerciseTable;
 
-  console.log("Tried to get user exercise");
+  console.log('Tried to get user exercise');
 
   var params = {
     TableName: tableName,
@@ -92,7 +92,7 @@ async function lookupUserId(params) {
   const pointsPerId = params;
 
   const userList = axios
-    .get("https://staging.api.exercisechallengeapp.com/admin/get-users")
+    .get(`${apiRoot}/admin/get-users`)
     .then((response) => {
       console.log(response);
       return response;
@@ -110,7 +110,7 @@ async function lookupUserId(params) {
 }
 
 exports.getDataForLastWeekHandler = async (event) => {
-  console.info("received:", event);
+  console.info('received:', event);
 
   // This will fetch and update the league
   // Get data from S3 for weekIndex - 1
@@ -125,9 +125,9 @@ exports.getDataForLastWeekHandler = async (event) => {
     statusCode: 200,
     body: JSON.stringify(result),
     headers: {
-      "Access-Control-Allow-Headers": "application/json",
-      "Access-Control-Allow-Origin": "*", // Allow from anywhere
-      "Access-Control-Allow-Methods": "GET", // Allow only POST & OPTIONS request
+      'Access-Control-Allow-Headers': 'application/json',
+      'Access-Control-Allow-Origin': '*', // Allow from anywhere
+      'Access-Control-Allow-Methods': 'GET', // Allow only POST & OPTIONS request
     },
   };
 
