@@ -237,16 +237,34 @@ export default function SignUp(props) {
             </Button>
             <Box sx={{ flex: "1 1 auto" }} />
 
-            {activeStep === 0 && <Button onClick={handleNext}>Next</Button>}
+            {activeStep === 0 && (
+              <Button
+                onClick={handleNext}
+                disabled={
+                  emailAddressFieldWarning || emailAddress === "" || name === ""
+                }
+              >
+                Next
+              </Button>
+            )}
 
             {activeStep === 1 && (
-              <Button onClick={() => handleSignUp(emailAddress, password)}>
+              <Button
+                type="contained"
+                disabled={
+                  passwordFieldWarning ||
+                  confirmPassword === "" ||
+                  password === ""
+                }
+                onClick={() => handleSignUp(emailAddress, password)}
+              >
                 Sign Up
               </Button>
             )}
 
             {activeStep === 2 && (
               <Button
+                disabled={verificationCode === ""}
                 onClick={() => handleSignUpVerification(verificationCode)}
               >
                 Verify
