@@ -1,11 +1,37 @@
-import { React } from "react";
-import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import { React, useState } from "react";
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Autocomplete,
+  TextField,
+} from "@mui/material";
 
 export default function AddExerciseExerciseSelect(props) {
+  const [value, setValue] = useState("");
+  const [inputValue, setInputValue] = useState("");
+
+  var options = [];
+
+  props.exerciseList.map(({ exerciseName, exerciseId, points }, index) =>
+    options.push({
+      label: `${exerciseName} - ${points} ppm`,
+      id: exerciseId,
+      exerciseId: exerciseId,
+    })
+  );
+
   return (
     <FormControl fullWidth>
-      <InputLabel id="exercise-select-label">Exercise</InputLabel>
-      <Select
+      <Autocomplete
+        disablePortal
+        id="autocomplete-box"
+        options={options}
+        renderInput={(params) => <TextField {...params} label="Exercise" />}
+      />
+
+      {/* <Select
         fullWidth
         required
         id="outlined-basic"
@@ -26,7 +52,7 @@ export default function AddExerciseExerciseSelect(props) {
             </MenuItem>
           )
         )}
-      </Select>
+      </Select> */}
     </FormControl>
   );
 }
