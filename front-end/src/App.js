@@ -16,6 +16,7 @@ import Admin from "./Pages/Admin";
 import Challenge from "./Pages/Challenge";
 import Footer from "./Components/Footer/Footer";
 import AllExercises from "./Pages/All-Exercises";
+import Privacy from "./Pages/Privacy";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -90,6 +91,7 @@ const App = () => {
 
             <Route path="/Leagues" element={<Leagues userInfo={userInfo} />} />
             <Route path="/All-Exercises" element={<AllExercises />} />
+            <Route path="/Privacy" element={<Privacy />} />
           </Routes>
         )}
 
@@ -113,6 +115,7 @@ const App = () => {
                 />
               }
             />
+            <Route path="/Privacy" element={<Privacy />} />
             <Route path="/*" element={<Welcome isLoggedIn={isLoggedIn} />} />
           </Routes>
         )}
