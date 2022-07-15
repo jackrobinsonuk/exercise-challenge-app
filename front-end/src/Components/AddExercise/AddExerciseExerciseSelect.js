@@ -1,32 +1,37 @@
-import { React } from "react";
-import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import { React, useState } from "react";
+import { FormControl, Autocomplete, TextField } from "@mui/material";
 
 export default function AddExerciseExerciseSelect(props) {
+  const [value, setValue] = useState("");
+  const [inputValue, setInputValue] = useState("");
+
+  var options = [];
+
+  props.exerciseList.map(({ exerciseName, exerciseId, points }, index) =>
+    options.push({
+      label: `${exerciseName} - ${points} ppm`,
+      id: exerciseId,
+      exerciseId: exerciseId,
+    })
+  );
+
   return (
     <FormControl fullWidth>
-      <InputLabel id="exercise-select-label">Exercise</InputLabel>
-      <Select
-        fullWidth
-        required
-        id="outlined-basic"
-        value={props.selectedExercise}
-        label="Exercise"
-        labelId="exercise-select-label"
-        onChange={props.handleSelectedExerciseChange}
-        variant="outlined"
-      >
-        {props.exerciseList.map(
-          ({ index, exerciseId, exerciseName, points }) => (
-            <MenuItem
-              key={exerciseId}
-              value={exerciseId}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              {`${exerciseName} | ${points} ppm`}
-            </MenuItem>
-          )
-        )}
-      </Select>
+      <Autocomplete
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+          props.handleSelectedExerciseChange(value);
+        }}
+        inputValue={inputValue}
+        onInputChange={(event, newInputValue) => {
+          setInputValue(newInputValue);
+        }}
+        disablePortal
+        id="autocomplete-box"
+        options={options}
+        renderInput={(params) => <TextField {...params} label="Exercise" />}
+      />
     </FormControl>
   );
 }

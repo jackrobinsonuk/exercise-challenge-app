@@ -1,20 +1,20 @@
-import { React, useState } from 'react';
-import { Box, Button, CircularProgress } from '@mui/material';
-import axios from 'axios';
+import { React, useState } from "react";
+import { Box, Button, CircularProgress } from "@mui/material";
+import axios from "axios";
 
-import AddExerciseExerciseSelect from './AddExerciseExerciseSelect';
-import AddExerciseMinutesCompleted from './AddExerciseMinutesCompleted';
-import AddExerciseCalendar from './AddExerciseCalendar';
-import { apiRoot } from '../../Globals/globals';
+import AddExerciseExerciseSelect from "./AddExerciseExerciseSelect";
+import AddExerciseMinutesCompleted from "./AddExerciseMinutesCompleted";
+import AddExerciseCalendar from "./AddExerciseCalendar";
+import { apiRoot } from "../../Globals/globals";
 
 export default function AddExerciseForm(props) {
-  const [selectedExercise, setSelectedExercise] = useState('');
-  const [minutesCompleted, setMinutesCompleted] = useState('');
+  const [selectedExercise, setSelectedExercise] = useState("");
+  const [minutesCompleted, setMinutesCompleted] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [submitLoading, setSubmitLoading] = useState(false);
   const [selectedChallenge] = useState(null);
   const [teamSelectLoading] = useState(true);
-  const [buttonDisabled, setButtonDisabled] = useState('');
+  const [buttonDisabled, setButtonDisabled] = useState("");
 
   var userId = props.userId;
   var userInfo = props.userInfo;
@@ -27,7 +27,8 @@ export default function AddExerciseForm(props) {
   };
 
   const handleSelectedExerciseChange = (event) => {
-    setSelectedExercise(event.target.value);
+    setSelectedExercise(event.exerciseId);
+    console.log(event);
   };
 
   const handleMinutesCompletedChange = (event) => {
@@ -48,11 +49,11 @@ export default function AddExerciseForm(props) {
   const handleSubmit = () => {
     if (!submitLoading) {
       setSubmitLoading(true);
-      setButtonDisabled('disabled');
+      setButtonDisabled("disabled");
       console.log(userInfo);
 
-      var selectedTeam = userInfo['custom:Team'];
-      var challengeId = userInfo['custom:Challenge'];
+      var selectedTeam = userInfo["custom:Team"];
+      var challengeId = userInfo["custom:Challenge"];
 
       var name = userInfo.name;
 
@@ -86,7 +87,7 @@ export default function AddExerciseForm(props) {
 
   return (
     <div>
-      <div style={{ paddingBottom: '20px' }}>
+      <div style={{ paddingBottom: "20px" }}>
         <Box sx={{ minWidth: 120 }}>
           {props.challengeListLoading === true &&
             props.exerciseListLoading === true && <CircularProgress />}
@@ -101,7 +102,7 @@ export default function AddExerciseForm(props) {
               />
             )}
           </div>
-          <div style={{ paddingTop: '10px' }}>
+          <div style={{ paddingTop: "10px" }}>
             {challengeList && (
               <AddExerciseMinutesCompleted
                 minutesCompleted={minutesCompleted}
@@ -109,7 +110,7 @@ export default function AddExerciseForm(props) {
               />
             )}
           </div>
-          <div style={{ paddingTop: '10px' }}>
+          <div style={{ paddingTop: "10px" }}>
             <AddExerciseCalendar
               selectedDate={selectedDate}
               handleSelectedDateChange={handleSelectedDateChange}
@@ -122,31 +123,31 @@ export default function AddExerciseForm(props) {
       <div>
         <Box
           sx={{
-            position: 'relative',
-            display: 'flex',
-            alignItems: 'center',
-            float: 'right',
+            position: "relative",
+            display: "flex",
+            alignItems: "center",
+            float: "right",
           }}
         >
-          <Button variant='outlined' onClick={handleClose}>
+          <Button variant="outlined" onClick={handleClose}>
             Close
           </Button>
           <Button
-            variant='contained'
+            variant="contained"
             disabled={buttonDisabled}
             onClick={handleSubmit}
-            sx={{ marginLeft: '12px' }}
+            sx={{ marginLeft: "12px" }}
           >
             Submit
             {submitLoading && (
               <CircularProgress
                 size={24}
                 sx={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  marginTop: '-12px',
-                  marginLeft: '-12px',
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  marginTop: "-12px",
+                  marginLeft: "-12px",
                 }}
               />
             )}

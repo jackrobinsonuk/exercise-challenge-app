@@ -119,6 +119,37 @@ Resources:
             Path: /admin/get-users
             Method: GET
 
+  updateUser:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/AdminCluster/update-user.updateUserHandler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description:
+        A simple example includes a HTTP get method to get all items from a
+        DynamoDB table.
+      Policies:
+        - AWSLambdaExecute # Managed Policy
+        - Version: "2012-10-17" # Policy Document
+          Statement:
+            - Effect: Allow
+              Action:
+                - cognito-idp:AdminUpdateUserAttributes
+              Resource: "arn:aws:cognito-idp:eu-west-1:398469193293:userpool/eu-west-1_9JNiGMW1S"
+      Environment:
+        Variables:
+          # Make table name accessible as environment variable from function code during execution
+          USER_POOL_ID: eu-west-1_9JNiGMW1S
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /admin/update-user
+            Method: POST
+
   getChallengesFunction:
     Type: AWS::Serverless::Function
     Properties:
