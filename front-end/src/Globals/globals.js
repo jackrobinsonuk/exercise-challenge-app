@@ -1,2 +1,1 @@
-export const apiRoot =
-  "https://pu3iwm6kxc.execute-api.eu-west-1.amazonaws.com/Prod";
+export const apiRoot = process.env.REACT_APP_API_ROOT;

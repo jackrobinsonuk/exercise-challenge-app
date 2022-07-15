@@ -3,7 +3,7 @@ import { CircularProgress } from "@mui/material";
 import { Divider } from "@mui/material";
 import axios from "axios";
 
-import ExerciseTable from "../Components/ExerciseTable";
+import SortableActivityTable from "../Components/SortableActivityTable";
 import AddExercise from "./AddExercise";
 import { apiRoot } from "../Globals/globals";
 
@@ -14,6 +14,18 @@ export default function YourExercise(props) {
   const [setAddExerciseDisplay] = useState(false);
   const [setLoadingError] = useState(false);
   const userId = props.userId;
+
+  function handleExerciseDelete(exerciseIdToDelete) {
+    deleteExerciseFromDb(exerciseIdToDelete);
+  }
+
+  function deleteExerciseFromDb(exerciseIdToDelete) {
+    axios({
+      method: "post",
+      url: `${apiRoot}/user/delete-exercise?id=${exerciseIdToDelete}`,
+      responseType: "json",
+    }).then(setLoading(true));
+  }
 
   function calculateTotalPoints(response) {
     var totalPoints = response.data.reduce(function (prev, cur) {
@@ -47,7 +59,7 @@ export default function YourExercise(props) {
   }
   return (
     <main style={{ padding: "20px" }}>
-      <h2>Your Exercise</h2>
+      <h2>Your Activity</h2>
       {loading === true && (
         <div>
           <CircularProgress />
@@ -57,17 +69,28 @@ export default function YourExercise(props) {
 
       {loading === false && (
         <div>
-          <ExerciseTable exercises={exercises} />
+          <SortableActivityTable
+            exercises={exercises}
+            handleExerciseDelete={handleExerciseDelete}
+          />
           <h4>Total Points: {totalPoints}</h4>
         </div>
       )}
       <Divider variant="full-width" />
       <div>
-        <AddExercise
-          setAddExerciseDisplay={setAddExerciseDisplay}
-          setLoading={setLoading}
-          userId={props.userId}
-        />
+        {props.userInfo["custom:Team"] ? (
+          <AddExercise
+            setAddExerciseDisplay={setAddExerciseDisplay}
+            setLoading={setLoading}
+            userId={props.userId}
+            userInfo={props.userInfo}
+          />
+        ) : (
+          <div>
+            You can't add exercise yet as you're not part of a team - please
+            contact your admin.
+          </div>
+        )}
       </div>
     </main>
   );

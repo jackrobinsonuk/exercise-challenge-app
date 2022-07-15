@@ -1,0 +1,27 @@
+[
+  {
+    "leagueName": "Premier League",
+    "leagueRank": 1,
+    "results": []
+  },
+  {
+    "leagueName": "Championship",
+    "leagueRank": 2,
+    "results": []
+  },
+  {
+    "leagueName": "League 1",
+    "leagueRank": 3,
+    "results": []
+  },
+  {
+    "leagueName": "League 2",
+    "leagueRank": 4,
+    "results": []
+  },
+  {
+    "leagueName": "Vanorama League",
+    "leagueRank": 5,
+    "results": []
+  }
+]

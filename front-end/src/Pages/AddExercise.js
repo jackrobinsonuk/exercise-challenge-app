@@ -3,9 +3,9 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
 
-import AddExerciseForm from "../Components/AddExerciseForm";
-import AddExerciseSuccess from "../Components/AddExerciseSuccess";
-import AddExerciseError from "../Components/AddExerciseError";
+import AddExerciseForm from "../Components/AddExercise/AddExerciseForm";
+import AddExerciseSuccess from "../Components/AddExercise/AddExerciseSuccess";
+import AddExerciseError from "../Components/AddExercise/AddExerciseError";
 import { apiRoot } from "../Globals/globals";
 
 export default function AddExercise(props) {
@@ -16,6 +16,9 @@ export default function AddExercise(props) {
   const [showAddExerciseButton, setShowAddExerciseButton] = useState(true);
   const [exerciseList, setExerciseList] = useState([]);
   const [exerciseListLoading, setExerciseListLoading] = useState(true);
+  const [challengeListLoading, setChallengeListLoading] = useState(true);
+  const [challengeList, setChallengeList] = useState(null);
+  const [teamList, setTeamList] = useState(null);
 
   const getExerciseList = () => {
     setExerciseListLoading(true);
@@ -27,6 +30,29 @@ export default function AddExercise(props) {
 
       .then(function () {
         setExerciseListLoading(false);
+      });
+  };
+
+  const getChallengeList = () => {
+    setChallengeListLoading(true);
+    axios
+      .get(`${apiRoot}/admin/get-challenges`)
+      .then(function (response) {
+        setChallengeList(response.data);
+      })
+
+      .then(function () {
+        setChallengeListLoading(false);
+      });
+  };
+
+  const getTeamsInChallenge = (selectedChallenge) => {
+    axios
+      .get(
+        `${apiRoot}/admin/get-challenge-details?challengeName=${selectedChallenge}`
+      )
+      .then(function (response) {
+        setTeamList(response.data.teamData);
       });
   };
 
@@ -42,6 +68,8 @@ export default function AddExercise(props) {
             setShowForm(true);
             setShowAddExerciseButton(false);
             getExerciseList();
+            getChallengeList();
+            setTeamList(null);
           }}
         >
           <AddIcon />
@@ -60,6 +88,11 @@ export default function AddExercise(props) {
           exerciseListLoading={exerciseListLoading}
           refreshExerciseTable={props.setLoading}
           userId={props.userId}
+          challengeListLoading={challengeListLoading}
+          challengeList={challengeList}
+          teamList={teamList}
+          getTeamsInChallenge={getTeamsInChallenge}
+          userInfo={props.userInfo}
         />
       )}
       {showSuccess && (

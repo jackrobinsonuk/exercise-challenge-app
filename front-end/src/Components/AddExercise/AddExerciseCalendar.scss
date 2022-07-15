@@ -1,0 +1,76 @@
+.react-calendar {
+  width: 100%;
+  background-color: #fff;
+  color: black;
+  border-radius: 8px;
+  font-family: inherit;
+  line-height: 1.125em;
+
+  &__navigation button {
+    color: #1976d2;
+    min-width: 44px;
+    background: none;
+    font-size: 20px;
+    margin-top: 8px;
+
+    &[disabled] {
+      background-color: #fff;
+    }
+    &:enabled:hover,
+    &:enabled:focus {
+      background-color: #fff;
+    }
+  }
+
+  &__tile {
+    font-size: 16px;
+    &:enabled:hover,
+    &:enabled:focus {
+      background: #fff;
+      color: #1976d2;
+      border-radius: 6px;
+    }
+
+    &--now {
+      background: #fff;
+      border-radius: 6px;
+      font-weight: bold;
+      color: black;
+
+      &:enabled:hover,
+      &:enabled:focus {
+        background: #fff;
+        border-radius: 6px;
+        font-weight: bold;
+        color: #1976d2;
+      }
+    }
+
+    &--hasActive {
+      :hover,
+      :focus {
+        background: #fff;
+      }
+    }
+
+    &--active {
+      background: #1976d2;
+      border-radius: 6px;
+      font-weight: bold;
+      color: #fff;
+
+      &:enabled:hover,
+      &:enabled:focus {
+        background: #1976d2;
+        color: #fff;
+      }
+    }
+  }
+  &__month-view__days__day--weekend {
+    color: inherit;
+  }
+}
+
+abbr[title] {
+  text-decoration: none;
+}

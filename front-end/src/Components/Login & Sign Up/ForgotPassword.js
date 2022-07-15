@@ -7,23 +7,13 @@ import {
   CircularProgress,
 } from "@mui/material";
 
-export default function Login(props) {
+export default function ForgotPassword(props) {
   const [emailAddress, setEmailAddress] = useState("");
-  const [password, setPassword] = useState("");
   const [textFieldErrorState, setTextFieldErrorState] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const handleEmailAddressChange = (event) => {
     setEmailAddress(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleSignUpClick = () => {
-    props.setSignUpScreen(true);
-    props.setLoginScreen(false);
   };
 
   if (props.error && textFieldErrorState === false) {
@@ -39,18 +29,9 @@ export default function Login(props) {
 
   return (
     <main>
-      <h2>Login</h2>
+      <h2>Forgot Password</h2>
 
-      <Box
-        component="form"
-        autoComplete="off"
-        sx={{
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-          maxWidth: "500px",
-        }}
-      >
+      <Box component="form" autoComplete="off">
         <FormControl fullWidth>
           <TextField
             error={textFieldErrorState}
@@ -63,31 +44,20 @@ export default function Login(props) {
             style={{ paddingBottom: "20px" }}
           />
 
-          <TextField
-            error={textFieldErrorState}
-            required
-            id="outlined-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={handlePasswordChange}
-            style={{ paddingBottom: "20px" }}
-          />
           <div style={{ paddingBottom: "10px" }}>
             <Button
               fullWidth
               disabled={buttonDisabled}
+              type="submit"
               sx={{
                 position: "relative",
                 display: "flex",
                 alignItems: "center",
-                maxWidth: "500px",
               }}
               variant="contained"
-              onClick={() => props.handleLogin(emailAddress, password)}
+              onClick={() => props.handleForgotPassword(emailAddress)}
             >
-              Login
+              Send reset code
               {props.loading && (
                 <CircularProgress
                   size={24}
@@ -102,13 +72,8 @@ export default function Login(props) {
               )}
             </Button>
           </div>
-          <div>
-            <Button fullWidth variant="outlined" onClick={handleSignUpClick}>
-              Sign Up
-            </Button>
-          </div>
 
-          <div style={{ paddingTop: "20px" }}>{props.error}</div>
+          <div sx={{ paddingTop: "20px" }}>{props.error}</div>
         </FormControl>
       </Box>
     </main>

@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -19,12 +20,16 @@ jobs:
       - name: Production Build
         run: |
           cd front-end && yarn install && yarn build:production
-      - uses: aws-actions/configure-aws-credentials@v1
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
       - name: Deploy app build to S3 bucket
         run:
-          aws s3 sync ./front-end/build/ s3://exercise-challenge-app-production
-          --delete
+          aws s3 sync ./front-end/build/ s3://exercisechallengeapp.com --delete
+      - name: Clear CloudFront Cache
+        run:
+          aws cloudfront create-invalidation --distribution-id E2VPYG4XR7RD5V
+          --paths "/*"
