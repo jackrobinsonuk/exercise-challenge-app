@@ -16,7 +16,10 @@ function Copyright(props) {
         Exercise Challenge App
       </Link>{" "}
       {new Date().getFullYear()}
-      {"."}
+      {". "}
+      <Link color="inherit" href="https://exercisechallengeapp.com/privacy">
+        Privacy Policy
+      </Link>{" "}
     </Typography>
   );
 }
