@@ -21,7 +21,7 @@ export default function AddExerciseExerciseSelect(props) {
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
-          props.handleSelectedExerciseChange(value);
+          props.handleSelectedExerciseChange(newValue);
         }}
         inputValue={inputValue}
         onInputChange={(event, newInputValue) => {
