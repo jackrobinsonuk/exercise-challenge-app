@@ -1,5 +1,5 @@
 const AWS = require("aws-sdk");
-const docClient = new AWS.DynamoDB.DocumentClient({ region: "ap-southeast-1" });
+const docClient = new AWS.DynamoDB.DocumentClient();
 
 const params = {
   TableName: process.env.USER_EXERCISE_TABLE,
