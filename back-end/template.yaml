@@ -88,6 +88,34 @@ Resources:
             Path: /admin/get-data-for-last-week
             Method: GET
 
+  getAllExerciseDataFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/AdminCluster/get-all-data.getAllDataHandler
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description:
+        A simple example includes a HTTP get method to get all items from a
+        DynamoDB table.
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UserExerciseTable
+      Environment:
+        Variables:
+          # Make table name accessible as environment variable from function code during execution
+          USER_EXERCISE_TABLE: !Ref UserExerciseTable
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /admin/get-all-data
+            Method: GET
+            Auth:
+              ApiKeyRequired: true
+
   getUsersList:
     Type: AWS::Serverless::Function
     Properties:
